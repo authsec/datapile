@@ -1,0 +1,101 @@
+%%
+%% This is file `beispiel2.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% g-brief.dtx  (with options: `beispiel2')
+%% 
+%% =======================================================================
+%% 
+%% Copyright (C) 1991-2003 Michael Lenzen.
+%% 
+%% For additional copyright information see further down in this file.
+%% 
+%% This file is part of the G-BRIEF package.
+%% -----------------------------------------------------------------------
+%% 
+%% It may be distributed under the terms of the LaTeX Project Public
+%% License (LPPL), as described in lppl.txt in the base LaTeX distribution.
+%% Either version 1.1 or, at your option, any later version.
+%% 
+%% The latest version of this license is in
+%% 
+%%          http://www.latex-project.org/lppl.txt
+%% 
+%% LPPL Version 1.1 or later is part of all distributions of LaTeX
+%% version 1999/06/01 or later.
+%% 
+%% 
+%% Error reports in case of UNCHANGED versions to
+%% 
+%%                            <lenzen@lenzen.com>
+%%                            <m.lenzen@t-online.de>
+%% 
+%% 
+\def\filedate{2003/05/08}
+\def\fileversion{4.0.1}
+
+\documentclass[12pt,ngerman,latin9]{g-brief2}
+
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{charter}
+\usepackage{booktabs}
+\usepackage{calctab}
+\usepackage{hyperref}
+\usepackage{adjustbox}
+
+%% Before space
+\newcommand{\bs}[0]{\hspace*{1ex}}
+%%After space
+\newcommand{\as}[0]{\hspace{.2ex}}
+
+\lochermarke
+\faltmarken
+\fenstermarken
+%% \trennlinien
+%% \unserzeichen
+
+\RetourAdresse       {John Doe $\cdot$ Exemplaria 42
+                      $\cdot$ 12345 Doetown}
+\Datum               {\today}
+
+\Anrede              {Ladies and Gentlemen,}
+\Gruss               {Regards}{1cm}
+\Unterschrift        {John Doe}
+
+%\Anlagen             {}
+%\Verteiler           {}
+
+\Adresse             {Harry Doe\\
+                      \\
+                      Exemplaria-Exemplis
+                      \\
+                      54321 Towndoe\\
+                      }
+
+\Betreff             {Subject}
+
+\newcommand{\bgcolor}{.9 .9 .9}
+
+\begin{document}
+\begin{g-brief}
+
+bla bla
+
+\vspace*{\stretch{2}}
+\mbox{\hspace{5ex}\adjustbox{stack=cc,fbox,bgcolor={rgb}{\bgcolor}}{\makebox(6,6){}}\hspace{2ex}I want that.}\\
+\vspace{.5ex}\\
+\mbox{\hspace{5ex}\adjustbox{stack=cc,fbox,bgcolor={rgb}{\bgcolor}}{\makebox(6,6){}}\hspace{2ex}I don't want that.}\\
+\vspace{\stretch{2}}\\
+\hspace*{\stretch{5}}\mbox{\begin{minipage}[t]{22ex}Date/signature of certified checkbox checker:\end{minipage}\hspace{1ex}\rule[-6ex]{12cm}{.5pt}}
+
+\vspace*{\stretch{5}}
+
+\end{g-brief}
+\end{document}
+
+\endinput
+%%
+%% End of file `beispiel2.tex'.

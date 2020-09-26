@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Checklists in LaTeX - The Datapile</title>
+
+
+
+
+<meta name="description" content="Did you ever feel the need for a simple checkbox in a letter? So didI. After searching for a while I did not really come up with a simplecopy and pasteable solution to this problem. Most solutions seem toprefer the hyperref package which enables you to put interactive,clickable checkboxes inside your PDF document, but what if youactually need to physically send the document?">
+
+
+
+
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="The Datapile">
+<meta property="og:title" content="Checklists in LaTeX">
+
+
+  <link rel="canonical" href="https://datapile.coffeecrew.org/checklists-in-latex/">
+  <meta property="og:url" content="https://datapile.coffeecrew.org/checklists-in-latex/">
+
+
+
+  <meta property="og:description" content="Did you ever feel the need for a simple checkbox in a letter? So didI. After searching for a while I did not really come up with a simplecopy and pasteable solution to this problem. Most solutions seem toprefer the hyperref package which enables you to put interactive,clickable checkboxes inside your PDF document, but what if youactually need to physically send the document?">
+
+
+
+  <meta name="twitter:site" content="@authsec">
+  <meta name="twitter:title" content="Checklists in LaTeX">
+  <meta name="twitter:description" content="Did you ever feel the need for a simple checkbox in a letter? So didI. After searching for a while I did not really come up with a simplecopy and pasteable solution to this problem. Most solutions seem toprefer the hyperref package which enables you to put interactive,clickable checkboxes inside your PDF document, but what if youactually need to physically send the document?">
+  <meta name="twitter:url" content="https://datapile.coffeecrew.org/checklists-in-latex/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2015-09-24T23:40:27+02:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Jens Frey",
+      "url" : "https://datapile.coffeecrew.org",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="https://datapile.coffeecrew.org/feed.xml" type="application/atom+xml" rel="alternate" title="The Datapile Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="https://datapile.coffeecrew.org/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="https://datapile.coffeecrew.org/">The Datapile</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="https://datapile.coffeecrew.org/year-archive/">Archive</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="https://mmistakes.github.io/minimal-mistakes/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="https://datapile.coffeecrew.org/categories/">Categories archive</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="https://datapile.coffeecrew.org/tags/">Tags</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://datapile.coffeecrew.org/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Checklists in LaTeX</li>
+      
+    
+  </ol>
+</nav>
+  
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="https://datapile.coffeecrew.org/images/me.png" class="author__avatar" alt="" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name"></h3>
+    
+      <p class="author__bio" itemprop="description">
+        Developer. Musician.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Lörrach</span>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/authsec" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://plus.google.com/+JensFrey" itemprop="sameAs">
+            <i class="fa fa-fw fa-google-plus-square" aria-hidden="true"></i> Google+
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/authsec" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.youtube.com/user/../c/JensFrey" itemprop="sameAs">
+            <i class="fa fa-fw fa-youtube-square" aria-hidden="true"></i> YouTube
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://soundcloud.com/john-c-flow" itemprop="sameAs">
+            <i class="fa fa-fw fa-soundcloud" aria-hidden="true"></i> Soundcloud
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Checklists in LaTeX">
+    <meta itemprop="description" content="Did you ever feel the need for a simple checkbox in a letter? So didI. After searching for a while I did not really come up with a simplecopy and pasteable solution to this problem. Most solutions seem toprefer the hyperref package which enables you to put interactive,clickable checkboxes inside your PDF document, but what if youactually need to physically send the document?">
+    <meta itemprop="datePublished" content="September 24, 2015">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Checklists in LaTeX
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>Did you ever feel the need for a simple checkbox in a letter? So did
+I. After searching for a while I did not really come up with a simple
+copy and pasteable solution to this problem. Most solutions seem to
+prefer the <code class="highlighter-rouge">hyperref</code> package which enables you to put interactive,
+clickable checkboxes inside your PDF document, but what if you
+actually need to physically send the document?</p>
+
+<p>As it turns out the solution is actually not that hard, a few <code class="highlighter-rouge">mbox</code>es
+and <code class="highlighter-rouge">adjustbox</code>es later I had a solution that did the trick for me.</p>
+
+<p>At the very basic of the box is this block which actually creates the
+box <em>and</em> centers the text behind it in the middle of the box.</p>
+
+<p>``` latex title:”Basic checkbox in LaTeX” linenos:false
+\mbox{\adjustbox{stack=cc,fbox}{\makebox(6,6){}} Yes I will.}\</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>
+The parameters of the `makebox` command define how big the box to
+check will actually be.
+
+If you want to add a place where the future checkbox checker can put
+his signature to sign that he checked one of the checkboxes, you can
+additionally put something like this into your page, which will render
+the supplied text and a slightly subscript line.
+
+``` latex title:"Date and signature line" linenos:false
+\mbox{\begin{minipage}[t]{18ex}
+        Date and signature
+      \end{minipage}
+      \hspace{1ex}\rule[-3ex]{12cm}{.5pt}}
+</code></pre>
+</div>
+
+<p>Where the value <code class="highlighter-rouge">18ex</code> of the <code class="highlighter-rouge">minipage</code> environment controls the
+width of the box before the line. The parameters of the <code class="highlighter-rouge">rule</code> command
+are the position of the line (<code class="highlighter-rouge">-3ex</code>) (which makes it subscript, if
+you want that superscript make this value positive), the length of the
+rule (<code class="highlighter-rouge">12cm</code>) and the thickness of it (<code class="highlighter-rouge">.5pt</code>)</p>
+
+<p>So if you pimp this a little bit the code for a full letter with
+checkboxes looks like <a href="/downloads/code/2015/09/checkbox-letter/checkbox-letter.tex">this</a>.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-09-24T23:40:27+02:00">September 24, 2015</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=authsec&text=Checklists in LaTeX https://datapile.coffeecrew.org/checklists-in-latex/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https://datapile.coffeecrew.org/checklists-in-latex/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=https://datapile.coffeecrew.org/checklists-in-latex/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://datapile.coffeecrew.org/checklists-in-latex/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="https://datapile.coffeecrew.org/c0ding/java/reading-the-conversation-id-from-another-parameter/" class="pagination--pager" title="Reading the Conversation ID From Another Parameter
+">Previous</a>
+    
+    
+      <a href="https://datapile.coffeecrew.org/c0ding/maven/accessing-basic-auth-protected-maven-repositories/" class="pagination--pager" title="Accessing Basic Auth Protected Maven Repositories
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="https://twitter.com/authsec"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+    
+      <li><a href="http://github.com/authsec"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    <li><a href="https://datapile.coffeecrew.org/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 Jens Frey. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+      </footer>
+    </div>
+
+    <script src="https://datapile.coffeecrew.org/assets/js/main.min.js"></script>
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-19717065-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

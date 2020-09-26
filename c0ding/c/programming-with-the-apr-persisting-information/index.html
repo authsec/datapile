@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Programming with the APR - Persisting information - The Datapile</title>
+
+
+
+
+<meta name="description" content="This article will show you how to store information in the databasethat comes with the Apache Portable Runtime (APR). Basically a simplestruct data type is persisted into that database. You can download thecode here.">
+
+
+
+
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="The Datapile">
+<meta property="og:title" content="Programming with the APR - Persisting information">
+
+
+  <link rel="canonical" href="https://datapile.coffeecrew.org/c0ding/c/programming-with-the-apr-persisting-information/">
+  <meta property="og:url" content="https://datapile.coffeecrew.org/c0ding/c/programming-with-the-apr-persisting-information/">
+
+
+
+  <meta property="og:description" content="This article will show you how to store information in the databasethat comes with the Apache Portable Runtime (APR). Basically a simplestruct data type is persisted into that database. You can download thecode here.">
+
+
+
+  <meta name="twitter:site" content="@authsec">
+  <meta name="twitter:title" content="Programming with the APR - Persisting information">
+  <meta name="twitter:description" content="This article will show you how to store information in the databasethat comes with the Apache Portable Runtime (APR). Basically a simplestruct data type is persisted into that database. You can download thecode here.">
+  <meta name="twitter:url" content="https://datapile.coffeecrew.org/c0ding/c/programming-with-the-apr-persisting-information/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2010-11-01T11:00:34+01:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Jens Frey",
+      "url" : "https://datapile.coffeecrew.org",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="https://datapile.coffeecrew.org/feed.xml" type="application/atom+xml" rel="alternate" title="The Datapile Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="https://datapile.coffeecrew.org/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="https://datapile.coffeecrew.org/">The Datapile</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="https://datapile.coffeecrew.org/year-archive/">Archive</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="https://mmistakes.github.io/minimal-mistakes/">About</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="https://datapile.coffeecrew.org/categories/">Categories archive</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="https://datapile.coffeecrew.org/tags/">Tags</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="http://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://datapile.coffeecrew.org/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://datapile.coffeecrew.org/c0ding" itemprop="item"><span itemprop="name">C0ding</span></a>
+          <meta itemprop="position" content="2" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a href="https://datapile.coffeecrew.org/c" itemprop="item"><span itemprop="name">C</span></a>
+          <meta itemprop="position" content="3" />
+        </li>
+        <span class="sep">/</span>
+      
+    
+      
+      
+        <li class="current">Programming with the APR - Persisting information</li>
+      
+    
+  </ol>
+</nav>
+  
+
+
+<div id="main" role="main">
+  
+
+
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="https://datapile.coffeecrew.org/images/me.png" class="author__avatar" alt="" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name"></h3>
+    
+      <p class="author__bio" itemprop="description">
+        Developer. Musician.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Lörrach</span>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/authsec" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://plus.google.com/+JensFrey" itemprop="sameAs">
+            <i class="fa fa-fw fa-google-plus-square" aria-hidden="true"></i> Google+
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/authsec" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.youtube.com/user/../c/JensFrey" itemprop="sameAs">
+            <i class="fa fa-fw fa-youtube-square" aria-hidden="true"></i> YouTube
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="https://soundcloud.com/john-c-flow" itemprop="sameAs">
+            <i class="fa fa-fw fa-soundcloud" aria-hidden="true"></i> Soundcloud
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Programming with the APR - Persisting information">
+    <meta itemprop="description" content="This article will show you how to store information in the databasethat comes with the Apache Portable Runtime (APR). Basically a simplestruct data type is persisted into that database. You can download thecode here.">
+    <meta itemprop="datePublished" content="November 01, 2010">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">Programming with the APR - Persisting information
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>This article will show you how to store information in the database
+that comes with the Apache Portable Runtime (APR). Basically a simple
+struct data type is persisted into that database. You can download the
+code <a href="//2010/10/aprWithSdbm.c">here</a>.</p>
+
+<p><strong>NOTE:</strong> The program supplied should actually use
+  <code class="highlighter-rouge">apr_app_initialize(&amp;argc, &amp;argv, NULL);</code> since <code class="highlighter-rouge">apr_initialize()</code>
+  is intended for library use only.</p>
+
+<h2 id="function-description">Function description</h2>
+
+<p>In order to store the information in that database you probably might want to create some functions to better break down work into smaller parts. Since the database mechanism requires you to have information available as an <code class="highlighter-rouge">apr_datum_t</code> type, you probably want to introduce some helper functions which exactly deal with that issue. Converting your normal data types into a <code class="highlighter-rouge">apr_datum_t</code>.</p>
+
+<h3 id="helper-functions">Helper functions</h3>
+
+<p>My helper functions which convert a normal <code class="highlighter-rouge">char*</code> or an <code class="highlighter-rouge">apr_time_t</code> into the required <code class="highlighter-rouge">apr_datum_t</code> are called:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">string2datum(apr_pool_t *p, char *toDatum)</code></li>
+  <li><code class="highlighter-rouge">time2datum(apr_pool_t *p, apr_time_t *toDump)</code></li>
+  <li><code class="highlighter-rouge">checkError(apr_status_t rv)</code></li>
+</ul>
+
+<p>You eventually might ask what the pool is for. Since the <code class="highlighter-rouge">apr_datum_t</code> type holds a <code class="highlighter-rouge">char *</code> and the according size of that pointer, we have to allocate space somewhere. That space is allocated on the pool you give that function. So make sure your pools lifetime is big enough so you can retrieve the value the function built for you. The <code class="highlighter-rouge">checkError</code> function is used for checking the return value that the various database access functions might return. This is basically to avoid lots of typing.</p>
+
+<h3 id="worker-functions">Worker functions</h3>
+
+<p>Now you need a few functions that do the actual work for you. APRs abstraction is not bad, but cannot handle automatic key generation in this case. APR uses a key for every saved <code class="highlighter-rouge">apr_datum_t</code>. We want to store a more complex datatype to disc, so we need to have a key for every field of our structure when we do want to save it.</p>
+
+<p>The basic idea is to flatten the structure when storing it. So we are writing every field of the structure linearly to disc. When we read the data from disc we do that in the same order as we have written it. This mechanism should restore the original data structure we were working with. The following functions persist a single datum, a whole struct and the read function reads back the whole struct from the disc.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">apr_status_t persistDatum(unsigned int *key, apr_dbm_t *database, apr_datum_t *toDump)</code></li>
+  <li><code class="highlighter-rouge">apr_status_t persistUserRecord(unsigned int *key, apr_dbm_t *database, struct userRecord *user)</code></li>
+  <li><code class="highlighter-rouge">struct userRecord *readUserRecord(apr_pool_t *resultPool, apr_dbm_t *db, apr_datum_t *lastReadKey)</code></li>
+</ul>
+
+<p>These functions are not implemented, but might give you an idea of how the API can look like if you want to serialize a whole bunch of data.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">void persistUserRecords(apr_table_t *userRecords)</code></li>
+  <li><code class="highlighter-rouge">apr_table_t *readUserRecords(apr_pool_t *resultPool)</code></li>
+</ul>
+
+<p>You surely are interested in how the actual code looks by now. Now i will no longer deprive you from that.</p>
+
+<p>Hope you enjoyed it.</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2010-11-01T11:00:34+01:00">November 01, 2010</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=authsec&text=Programming with the APR - Persisting information https://datapile.coffeecrew.org/c0ding/c/programming-with-the-apr-persisting-information/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https://datapile.coffeecrew.org/c0ding/c/programming-with-the-apr-persisting-information/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=https://datapile.coffeecrew.org/c0ding/c/programming-with-the-apr-persisting-information/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://datapile.coffeecrew.org/c0ding/c/programming-with-the-apr-persisting-information/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="https://datapile.coffeecrew.org/c0ding/c/programming-with-the-apr/" class="pagination--pager" title="Programming with the APR
+">Previous</a>
+    
+    
+      <a href="https://datapile.coffeecrew.org/c0ding/c/programming-with-the-apr-using-apr_getopt/" class="pagination--pager" title="Programming with the APR - Using apr_getopt
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+      <li><a href="https://twitter.com/authsec"><i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+    
+    
+      <li><a href="http://github.com/authsec"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    <li><a href="https://datapile.coffeecrew.org/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 Jens Frey. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+      </footer>
+    </div>
+
+    <script src="https://datapile.coffeecrew.org/assets/js/main.min.js"></script>
+
+
+
+
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-19717065-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+
+
+
+
+
+  </body>
+</html>

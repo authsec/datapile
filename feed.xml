@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="https://datapile.coffeecrew.org/feed.xml" rel="self" type="application/atom+xml" /><link href="https://datapile.coffeecrew.org/" rel="alternate" type="text/html" /><updated>2018-11-10T13:22:53+01:00</updated><id>https://datapile.coffeecrew.org/</id><title type="html">The Datapile</title><subtitle>Against digital amnesia.</subtitle><author><name>{&quot;avatar&quot;=&gt;&quot;images/me.png&quot;, &quot;bio&quot;=&gt;&quot;Developer. Musician.&quot;, &quot;location&quot;=&gt;&quot;Lörrach&quot;, &quot;email&quot;=&gt;nil, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;authsec&quot;, &quot;google_plus&quot;=&gt;&quot;JensFrey&quot;, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;&quot;john-c-flow&quot;, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;&quot;authsec&quot;, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;&quot;../c/JensFrey&quot;}</name></author><entry><title type="html">CDI Passivation (Serialization) Uncovered</title><link href="https://datapile.coffeecrew.org/links/CDI-passivation/" rel="alternate" type="text/html" title="CDI Passivation (Serialization) Uncovered" /><published>2017-06-22T21:22:12+02:00</published><updated>2017-06-22T21:22:12+02:00</updated><id>https://datapile.coffeecrew.org/links/CDI-passivation</id><content type="html" xml:base="https://datapile.coffeecrew.org/links/CDI-passivation/"></content><author><name>{&quot;avatar&quot;=&gt;&quot;images/me.png&quot;, &quot;bio&quot;=&gt;&quot;Developer. Musician.&quot;, &quot;location&quot;=&gt;&quot;Lörrach&quot;, &quot;email&quot;=&gt;nil, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;authsec&quot;, &quot;google_plus&quot;=&gt;&quot;JensFrey&quot;, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;&quot;john-c-flow&quot;, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;&quot;authsec&quot;, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;&quot;../c/JensFrey&quot;}</name></author><summary type="html">If an ApplicationScoped bean is marked transient, the client proxy will not be serialized nor re-injected during deserialization and remains null.</summary></entry><entry><title type="html">Windows 10 - Manage device updates after restart</title><link href="https://datapile.coffeecrew.org/links/Manage-device-restart-after-update/" rel="alternate" type="text/html" title="Windows 10 - Manage device updates after restart" /><published>2016-11-13T12:18:34+01:00</published><updated>2016-11-13T12:18:34+01:00</updated><id>https://datapile.coffeecrew.org/links/Manage-device-restart-after-update</id><content type="html" xml:base="https://datapile.coffeecrew.org/links/Manage-device-restart-after-update/"></content><author><name>{&quot;avatar&quot;=&gt;&quot;images/me.png&quot;, &quot;bio&quot;=&gt;&quot;Developer. Musician.&quot;, &quot;location&quot;=&gt;&quot;Lörrach&quot;, &quot;email&quot;=&gt;nil, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;authsec&quot;, &quot;google_plus&quot;=&gt;&quot;JensFrey&quot;, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;&quot;john-c-flow&quot;, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;&quot;authsec&quot;, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;&quot;../c/JensFrey&quot;}</name></author><summary type="html">How to delay Windows 10 updates.</summary></entry><entry><title type="html">How To Start A Consul Docker Image</title><link href="https://datapile.coffeecrew.org/services/consul/start-consul-docker-image/" rel="alternate" type="text/html" title="How To Start A Consul Docker Image" /><published>2016-09-20T22:48:12+02:00</published><updated>2016-09-20T22:48:12+02:00</updated><id>https://datapile.coffeecrew.org/services/consul/start-consul-docker-image</id><content type="html" xml:base="https://datapile.coffeecrew.org/services/consul/start-consul-docker-image/">&lt;p&gt;If you quickly have to start a &lt;a href=&quot;https://www.consul.io/&quot;&gt;consul&lt;/a&gt; docker image
+you can use the following command.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run -p 8400:8400 -p 127.0.0.1:8500:8500 -p 8600:8600/udp -h node1 consul agent -dev -client 0.0.0.0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This is especially useful for development purposes and quick tests and should
+not be used in a productive environment.&lt;/p&gt;</content><author><name>{&quot;avatar&quot;=&gt;&quot;images/me.png&quot;, &quot;bio&quot;=&gt;&quot;Developer. Musician.&quot;, &quot;location&quot;=&gt;&quot;Lörrach&quot;, &quot;email&quot;=&gt;nil, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;authsec&quot;, &quot;google_plus&quot;=&gt;&quot;JensFrey&quot;, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;&quot;john-c-flow&quot;, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;&quot;authsec&quot;, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;&quot;../c/JensFrey&quot;}</name></author><summary type="html">If you quickly have to start a consul docker image you can use the following command.</summary></entry><entry><title type="html">Upload Maven Artifacts Into Nexus 3</title><link href="https://datapile.coffeecrew.org/c0ding/maven/Upload-Maven-Artifacts-Into-Nexus-3/" rel="alternate" type="text/html" title="Upload Maven Artifacts Into Nexus 3" /><published>2016-08-02T22:23:31+02:00</published><updated>2016-08-02T22:23:31+02:00</updated><id>https://datapile.coffeecrew.org/c0ding/maven/Upload-Maven-Artifacts-Into-Nexus-3</id><content type="html" xml:base="https://datapile.coffeecrew.org/c0ding/maven/Upload-Maven-Artifacts-Into-Nexus-3/">&lt;p&gt;Sometimes you need to upload an artifact into Nexus. With Nexus 2 this was very
+easy if you had filesystem access or access to the Web UI. In Nexus 3 you are no
+longer able to access the filesystem and do not have a UI to upload your
+artifacts. This is why you have to do it using the &lt;code class=&quot;highlighter-rouge&quot;&gt;mvn&lt;/code&gt; CLI.&lt;/p&gt;
+
+&lt;p&gt;If you have some strangely proxied system where you have &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh&lt;/code&gt; access to the
+machine running Nexus you can also use SSH port forwarding if you are unable
+to reach the machine directly otherwise.&lt;/p&gt;
+
+&lt;p&gt;You need a configuration like this where the user has permission to deploy into
+your repository.&lt;/p&gt;
+
+&lt;noscript&gt;&lt;pre&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;settings xmlns=&amp;quot;http://maven.apache.org/SETTINGS/1.0.0&amp;quot; xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+          xsi:schemaLocation=&amp;quot;http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd&amp;quot;&amp;gt;
+
+    &amp;lt;servers&amp;gt;
+        &amp;lt;server&amp;gt;
+            &amp;lt;!-- Link this id here to the repo ID in the mirror section --&amp;gt;
+            &amp;lt;id&amp;gt;repo&amp;lt;/id&amp;gt;
+            &amp;lt;username&amp;gt;deployment&amp;lt;/username&amp;gt;
+            &amp;lt;password&amp;gt;password&amp;lt;/password&amp;gt;
+        &amp;lt;/server&amp;gt;
+    &amp;lt;/servers&amp;gt;
+&amp;lt;/settings&amp;gt;&lt;/pre&gt;&lt;/noscript&gt;
+&lt;script src=&quot;https://gist.github.com/authsec/b603d2eaf4afc02ca4802a450838e7a1.js&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;If that is out of the way you can use the CLI to upload the artifact like so:&lt;/p&gt;
+
+&lt;p&gt;Please note that in this case also a different configuration file is used to
+upload the artifact, to avoid working with the deployment user for normal builds
+where you want the user only to have read permission.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mvn -s ~/.m2/settings.xml.upload deploy:deploy-file \
+    -DgroupId=org.wildfly \
+    -DartifactId=wildfly-dist \
+    -Dversion=10.0.0.Final \
+    -DgeneratePom=true \
+    -Dpackaging=tar.gz \
+    -DrepositoryId=repo \
+    -Durl=http://repo.example.com/repository/thirdparty \
+    -Dfile=wildfly-10.0.0.Final.tar.gz
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>{&quot;avatar&quot;=&gt;&quot;images/me.png&quot;, &quot;bio&quot;=&gt;&quot;Developer. Musician.&quot;, &quot;location&quot;=&gt;&quot;Lörrach&quot;, &quot;email&quot;=&gt;nil, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;authsec&quot;, &quot;google_plus&quot;=&gt;&quot;JensFrey&quot;, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;&quot;john-c-flow&quot;, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;&quot;authsec&quot;, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;&quot;../c/JensFrey&quot;}</name></author><category term="nexus" /><summary type="html">Sometimes you need to upload an artifact into Nexus. With Nexus 2 this was very easy if you had filesystem access or access to the Web UI. In Nexus 3 you are no longer able to access the filesystem and do not have a UI to upload your artifacts. This is why you have to do it using the mvn CLI.</summary></entry><entry><title type="html">Programmatically Start A JSF Flow</title><link href="https://datapile.coffeecrew.org/c0ding/java/programmatically-start-a-faces-flow/" rel="alternate" type="text/html" title="Programmatically Start A JSF Flow" /><published>2016-07-08T22:44:25+02:00</published><updated>2016-07-08T22:44:25+02:00</updated><id>https://datapile.coffeecrew.org/c0ding/java/programmatically-start-a-faces-flow</id><content type="html" xml:base="https://datapile.coffeecrew.org/c0ding/java/programmatically-start-a-faces-flow/">&lt;p&gt;There are situations where you can not start a JSF (2.2) flow in the usual way
+by simply redirecting to the flow’s start page from your button action.&lt;/p&gt;
+
+&lt;p&gt;This is for example the case when you want to start a JSF flow from e.g. a
+view action method. In this case it is not sufficient to simple return the view
+name of the flow as this will not just start it.&lt;/p&gt;
+
+&lt;p&gt;To properly start the flow you need to first tell the flow handler that you
+are now transitioning into a flow. You can do this with the following code:&lt;/p&gt;
+
+&lt;noscript&gt;&lt;pre&gt;FacesContext context = FacesContext.getCurrentInstance();
+FlowHandler handler = context.getApplication().getFlowHandler();
+handler.transition(context, null, handler.getFlow(context, &amp;quot;&amp;quot;, FLOW_NAME), null, &amp;quot;&amp;quot;);
+
+return FLOW_NAME;&lt;/pre&gt;&lt;/noscript&gt;
+&lt;script src=&quot;https://gist.github.com/authsec/c42b23e5f99e3a3c3ec640dc10928bb6.js&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;If done like this, that flow should start as expected. However, if you don’t
+set up the &lt;code class=&quot;highlighter-rouge&quot;&gt;FlowHandler.transition&lt;/code&gt; properly you will end up with the following
+error:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;WELD-001303: No active contexts for scope type javax.faces.flow.FlowScoped
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; You need to reach the page running the view action through a &lt;code class=&quot;highlighter-rouge&quot;&gt;GET&lt;/code&gt;
+request. So using the normal &lt;code class=&quot;highlighter-rouge&quot;&gt;h:commandButton&lt;/code&gt; will not work in this case as
+this issues a &lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt; request (except you add &lt;code class=&quot;highlighter-rouge&quot;&gt;?faces-redirect=true&lt;/code&gt; to your
+action parameter of course).&lt;/p&gt;
+
+&lt;p&gt;The full source for this example can be found &lt;a href=&quot;https://github.com/authsec/examples/tree/master/java/programmatically-start-faces-flow&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content><author><name>{&quot;avatar&quot;=&gt;&quot;images/me.png&quot;, &quot;bio&quot;=&gt;&quot;Developer. Musician.&quot;, &quot;location&quot;=&gt;&quot;Lörrach&quot;, &quot;email&quot;=&gt;nil, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;authsec&quot;, &quot;google_plus&quot;=&gt;&quot;JensFrey&quot;, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;&quot;john-c-flow&quot;, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;&quot;authsec&quot;, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;&quot;../c/JensFrey&quot;}</name></author><category term="jsf" /><summary type="html">There are situations where you can not start a JSF (2.2) flow in the usual way by simply redirecting to the flow’s start page from your button action.</summary></entry><entry><title type="html">Back To QNAP</title><link href="https://datapile.coffeecrew.org/c0ding/scripting/backup-remote-rolder-to-qnap/" rel="alternate" type="text/html" title="Back To QNAP" /><published>2016-06-15T23:36:12+02:00</published><updated>2016-06-15T23:36:12+02:00</updated><id>https://datapile.coffeecrew.org/c0ding/scripting/backup-remote-rolder-to-qnap</id><content type="html" xml:base="https://datapile.coffeecrew.org/c0ding/scripting/backup-remote-rolder-to-qnap/">&lt;p&gt;Sometimes you may want to backup/synchronize data from a remote server to your
+local QNAP server. This can be done fairly easily and efficiently
+using the already installed &lt;code class=&quot;highlighter-rouge&quot;&gt;rsync&lt;/code&gt; command.&lt;/p&gt;
+
+&lt;p class=&quot;notice--info&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; You need to have set up a passwordless SSH login from your
+QNAP to your remote host for the below script to work.&lt;/p&gt;
+
+&lt;p&gt;In addition the script below will send an eMail once it finishes
+it’s run. To get the script going on your machine, simply adapt the
+variables to point to your local directories and supply a valid eMail
+address (can be the same for FROM and TO).&lt;/p&gt;
+
+&lt;p&gt;As any operating system upgrade will otherwise delete your backup
+script you need to place it onto the share disk itself, as this will
+prevent the script of being deleted during an upgrade operation (I suggest
+stuffing it into a Gist on Github as well :wink:).&lt;/p&gt;
+
+&lt;p&gt;I suggest putting the script in the following location if you have set
+up a RAID 5 array (the location may be slightly different for you setup)
+&lt;code class=&quot;highlighter-rouge&quot;&gt;/share/MD0_DATA&lt;/code&gt;.&lt;/p&gt;
+
+&lt;noscript&gt;&lt;pre&gt;#!/bin/sh
+
+# Script to periodically synchronize a remote directory with your
+# local QNAP storage.
+
+# Source folders/user on remote machine
+BACKUP_SOURCE_USER=&amp;quot;backup-user&amp;quot;
+BACKUP_SOURCE_HOST=&amp;quot;backuphost.example.com&amp;quot;
+BACKUP_SOURCE_FOLDER=&amp;quot;/backup/subdir&amp;quot;
+
+# Directory to save the remote backup locally
+BACKUP_SINK_FOLDER=&amp;quot;/share/MD0_DATA/Qmultimedia/backup-dir&amp;quot;
+# For grepping the available space
+BACKUP_SHARE_MOUNT_POINT=&amp;quot;/share/MD0_DATA&amp;quot;
+
+SUBJ_PREFIX=&amp;quot;[RSYNC BACKUP]&amp;quot;
+SUBJECT_FAIL=&amp;quot;${SUBJ_PREFIX} Synchronization unsuccessful!&amp;quot;
+SUBJECT_SUCCESS=&amp;quot;${SUBJ_PREFIX} Synchronization successful!&amp;quot;
+
+MAIL_TO=&amp;quot;hansi@example.com&amp;quot;
+MAIL_FROM=&amp;quot;hansi-machine@example.com&amp;quot;
+
+MSG_CONTENT_FILE=&amp;quot;/tmp/email_body.txt&amp;quot;
+RSYNC_CONTENT_FILE=&amp;quot;/tmp/rsyncContent.txt&amp;quot;
+
+# Sends a mail message
+# $1 = subject
+# $2 = to
+# $3 = from
+# $4 = msg
+send_mail()
+{
+   local tmpfile=&amp;quot;/tmp/sendmail.tmp&amp;quot;
+   /bin/echo -e &amp;quot;Subject: $1\r&amp;quot; &amp;gt; &amp;quot;$tmpfile&amp;quot;
+   /bin/echo -e &amp;quot;To: $2\r&amp;quot; &amp;gt;&amp;gt; &amp;quot;$tmpfile&amp;quot;
+   /bin/echo -e &amp;quot;From: $3\r&amp;quot; &amp;gt;&amp;gt; &amp;quot;$tmpfile&amp;quot;
+   /bin/echo -e &amp;quot;\r&amp;quot; &amp;gt;&amp;gt; &amp;quot;$tmpfile&amp;quot;
+   if [ -f &amp;quot;$4&amp;quot; ]; then
+      cat &amp;quot;$4&amp;quot; &amp;gt;&amp;gt; &amp;quot;$tmpfile&amp;quot;
+      /bin/echo -e &amp;quot;\r\n&amp;quot; &amp;gt;&amp;gt; &amp;quot;$tmpfile&amp;quot;
+   else
+      /bin/echo -e &amp;quot;$4\r\n&amp;quot; &amp;gt;&amp;gt; &amp;quot;$tmpfile&amp;quot;
+   fi
+   /usr/sbin/sendmail -t &amp;lt; &amp;quot;$tmpfile&amp;quot;
+   rm $tmpfile
+}
+
+/bin/echo -e &amp;quot;Backup started at: $(date)\n&amp;quot; &amp;gt; ${MSG_CONTENT_FILE}
+/bin/echo &amp;quot;Space available on backup disk (before backup)&amp;quot; &amp;gt;&amp;gt; ${MSG_CONTENT_FILE}
+/bin/echo &amp;quot;$(df -h | head -n1)&amp;quot; &amp;gt;&amp;gt; ${MSG_CONTENT_FILE}
+/bin/echo &amp;quot;$(df -h | grep ${BACKUP_SHARE_MOUNT_POINT})&amp;quot; &amp;gt;&amp;gt; ${MSG_CONTENT_FILE}
+/bin/echo -e &amp;quot;\n&amp;quot; &amp;gt;&amp;gt; ${MSG_CONTENT_FILE}
+
+/bin/echo -e &amp;quot;The following output was produced by the rsync command:\n&amp;quot; &amp;gt; ${RSYNC_CONTENT_FILE}
+/usr/bin/rsync -azhv ${BACKUP_SOURCE_USER}@${BACKUP_SOURCE_HOST}:${BACKUP_SOURCE_FOLDER} ${BACKUP_SINK_FOLDER} &amp;gt;&amp;gt; ${RSYNC_CONTENT_FILE}
+
+if [ $? -eq 0 ]
+then
+  SUBJECT=${SUBJECT_SUCCESS}
+else
+  SUBJECT=${SUBJECT_FAIL}
+fi
+
+/bin/echo -e &amp;quot;Backup ended at: $(date)\n&amp;quot; &amp;gt;&amp;gt; ${MSG_CONTENT_FILE}
+/bin/echo &amp;quot;Space available on backup disk (after backup)&amp;quot; &amp;gt;&amp;gt; ${MSG_CONTENT_FILE}
+/bin/echo &amp;quot;$(df -h | head -n1)&amp;quot; &amp;gt;&amp;gt; ${MSG_CONTENT_FILE}
+/bin/echo &amp;quot;$(df -h | grep ${BACKUP_SHARE_MOUNT_POINT})&amp;quot; &amp;gt;&amp;gt; ${MSG_CONTENT_FILE}
+/bin/echo -e &amp;quot;\n&amp;quot; &amp;gt;&amp;gt; ${MSG_CONTENT_FILE}
+
+/bin/cat ${RSYNC_CONTENT_FILE} &amp;gt;&amp;gt; ${MSG_CONTENT_FILE}
+
+send_mail &amp;quot;${SUBJECT}&amp;quot; &amp;quot;${MAIL_TO}&amp;quot; &amp;quot;${MAIL_FROM}&amp;quot; ${MSG_CONTENT_FILE}
+&lt;/pre&gt;&lt;/noscript&gt;
+&lt;script src=&quot;https://gist.github.com/authsec/42b3c5099e1cc45bc761c8bb6366ede8.js&quot;&gt; &lt;/script&gt;
+
+&lt;h2 id=&quot;executing-a-daily-backup&quot;&gt;Executing A Daily backup&lt;/h2&gt;
+
+&lt;p&gt;Once the script is in it’s place you need to configure a cron job
+so it will be executed let’s say once a day at 5 AM. To do so simply
+type &lt;code class=&quot;highlighter-rouge&quot;&gt;crontab -e&lt;/code&gt; into your terminal as admin user and add a line like
+this at the end of the file.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0 5 * * * /share/MD0_DATA/backupRemoteDirToQnap.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;There you have it, nice and shiny backup.&lt;/p&gt;</content><author><name>{&quot;avatar&quot;=&gt;&quot;images/me.png&quot;, &quot;bio&quot;=&gt;&quot;Developer. Musician.&quot;, &quot;location&quot;=&gt;&quot;Lörrach&quot;, &quot;email&quot;=&gt;nil, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;authsec&quot;, &quot;google_plus&quot;=&gt;&quot;JensFrey&quot;, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;&quot;john-c-flow&quot;, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;&quot;authsec&quot;, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;&quot;../c/JensFrey&quot;}</name></author><category term="shell" /><category term="backup" /><summary type="html">How to backup a remote folder to your QNAP storage</summary></entry><entry><title type="html">SSL/TLS Strong Encryption: How-To</title><link href="https://datapile.coffeecrew.org/links/SSL-TLS-Encryption-With-Apache/" rel="alternate" type="text/html" title="SSL/TLS Strong Encryption: How-To" /><published>2016-06-14T01:18:34+02:00</published><updated>2016-06-14T01:18:34+02:00</updated><id>https://datapile.coffeecrew.org/links/SSL-TLS-Encryption-With-Apache</id><content type="html" xml:base="https://datapile.coffeecrew.org/links/SSL-TLS-Encryption-With-Apache/"></content><author><name>{&quot;avatar&quot;=&gt;&quot;images/me.png&quot;, &quot;bio&quot;=&gt;&quot;Developer. Musician.&quot;, &quot;location&quot;=&gt;&quot;Lörrach&quot;, &quot;email&quot;=&gt;nil, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;authsec&quot;, &quot;google_plus&quot;=&gt;&quot;JensFrey&quot;, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;&quot;john-c-flow&quot;, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;&quot;authsec&quot;, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;&quot;../c/JensFrey&quot;}</name></author><summary type="html">This is a really good read for configuring apache 2.2!</summary></entry><entry><title type="html">How To Setup Hovercraft On Mac OS</title><link href="https://datapile.coffeecrew.org/utilities/how-to-setup-hovercraft-on-mac-os/" rel="alternate" type="text/html" title="How To Setup Hovercraft On Mac OS" /><published>2016-05-27T21:02:00+02:00</published><updated>2016-05-27T21:02:00+02:00</updated><id>https://datapile.coffeecrew.org/utilities/how-to-setup-hovercraft-on-mac-os</id><content type="html" xml:base="https://datapile.coffeecrew.org/utilities/how-to-setup-hovercraft-on-mac-os/">&lt;p&gt;If you want to setup hovercraft for creating presentations on your
+Mac, the following steps may help if you already have
+&lt;a href=&quot;https://www.macports.org/&quot;&gt;MacPorts&lt;/a&gt; installed.&lt;/p&gt;
+
+&lt;p&gt;At first install python if you haven’t already:&lt;/p&gt;
+
+&lt;noscript&gt;&lt;pre&gt;sudo port install python33 py33-pip&lt;/pre&gt;&lt;/noscript&gt;
+&lt;script src=&quot;https://gist.github.com/authsec/40d06a17c89921ad360535db17ff636c.js&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;As you’ll run into problems, you have to export the language for the
+next command to run successfully. So add these two lines to your
+&lt;code class=&quot;highlighter-rouge&quot;&gt;~/.bash_profile&lt;/code&gt;&lt;/p&gt;
+
+&lt;noscript&gt;&lt;pre&gt;export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8&lt;/pre&gt;&lt;/noscript&gt;
+&lt;script src=&quot;https://gist.github.com/authsec/e4c0619817730b9d1e4d103ca63266a3.js&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;And while we’re at it, add the following path to your &lt;code class=&quot;highlighter-rouge&quot;&gt;PATH&lt;/code&gt; variable
+as well, so you can later access the &lt;code class=&quot;highlighter-rouge&quot;&gt;hovercraft&lt;/code&gt; command directly.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/opt/local/Library/Frameworks/Python.framework/Versions/3.3/bin
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Your path then looks something like this:&lt;/p&gt;
+
+&lt;noscript&gt;&lt;pre&gt;export PATH=&amp;quot;/opt/local/bin:/opt/local/sbin:/opt/local/Library/Frameworks/Python.framework/Versions/3.3/bin:$PATH&amp;quot;&lt;/pre&gt;&lt;/noscript&gt;
+&lt;script src=&quot;https://gist.github.com/authsec/0ac1d9c03d09beb44f9ed48a20db8d8e.js&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;Now you can finally install hovercraft like this:&lt;/p&gt;
+
+&lt;noscript&gt;&lt;pre&gt;sudo -H pip install hovercraft&lt;/pre&gt;&lt;/noscript&gt;
+&lt;script src=&quot;https://gist.github.com/authsec/103a44736f295bc130969d7bfebf8383.js&quot;&gt; &lt;/script&gt;
+
+&lt;p&gt;Happy hovercrafting!&lt;/p&gt;</content><author><name>{&quot;avatar&quot;=&gt;&quot;images/me.png&quot;, &quot;bio&quot;=&gt;&quot;Developer. Musician.&quot;, &quot;location&quot;=&gt;&quot;Lörrach&quot;, &quot;email&quot;=&gt;nil, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;authsec&quot;, &quot;google_plus&quot;=&gt;&quot;JensFrey&quot;, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;&quot;john-c-flow&quot;, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;&quot;authsec&quot;, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;&quot;../c/JensFrey&quot;}</name></author><summary type="html">If you want to setup hovercraft for creating presentations on your Mac, the following steps may help if you already have MacPorts installed.</summary></entry><entry><title type="html">Quickly Rename a Bunch Of Files With Bash</title><link href="https://datapile.coffeecrew.org/c0ding/scripting/quickly-rename-a-bunch-of-files-with-bash/" rel="alternate" type="text/html" title="Quickly Rename a Bunch Of Files With Bash" /><published>2015-11-22T18:36:12+01:00</published><updated>2015-11-22T18:36:12+01:00</updated><id>https://datapile.coffeecrew.org/c0ding/scripting/quickly-rename-a-bunch-of-files-with-bash</id><content type="html" xml:base="https://datapile.coffeecrew.org/c0ding/scripting/quickly-rename-a-bunch-of-files-with-bash/">&lt;p&gt;Sometimes you might feel the need to rename a bunch of files from one
+file extension to another.&lt;/p&gt;
+
+&lt;p&gt;This can easily be done with built in shell functions. To quickly
+rename a bunch of file endings from say for example &lt;code class=&quot;highlighter-rouge&quot;&gt;*.markdown&lt;/code&gt; to
+&lt;code class=&quot;highlighter-rouge&quot;&gt;*.md&lt;/code&gt; you simply can execute the following (&lt;code class=&quot;highlighter-rouge&quot;&gt;bash&lt;/code&gt;) command.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;for i in *.markdown; do mv $i &quot;${i%.markdown}.md&quot;; done
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>{&quot;avatar&quot;=&gt;&quot;images/me.png&quot;, &quot;bio&quot;=&gt;&quot;Developer. Musician.&quot;, &quot;location&quot;=&gt;&quot;Lörrach&quot;, &quot;email&quot;=&gt;nil, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;authsec&quot;, &quot;google_plus&quot;=&gt;&quot;JensFrey&quot;, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;&quot;john-c-flow&quot;, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;&quot;authsec&quot;, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;&quot;../c/JensFrey&quot;}</name></author><category term="shell" /><summary type="html">Sometimes you might feel the need to rename a bunch of files from one file extension to another.</summary></entry><entry><title type="html">Setup A Local DNS Server For Development</title><link href="https://datapile.coffeecrew.org/utilities/setup-a-local-dns-server-for-development/" rel="alternate" type="text/html" title="Setup A Local DNS Server For Development" /><published>2015-11-22T18:02:00+01:00</published><updated>2015-11-22T18:02:00+01:00</updated><id>https://datapile.coffeecrew.org/utilities/setup-a-local-dns-server-for-development</id><content type="html" xml:base="https://datapile.coffeecrew.org/utilities/setup-a-local-dns-server-for-development/">&lt;p&gt;When you develop a web site or when you want to address multiple
+virtual machines by name on your local machine, you need to find a
+solution to implement this.&lt;/p&gt;
+
+&lt;p&gt;You can either input all your host names into your local
+&lt;code class=&quot;highlighter-rouge&quot;&gt;/etc/resolv.conf&lt;/code&gt; which may not result in a managable scenario after
+some time, or you can just install &lt;code class=&quot;highlighter-rouge&quot;&gt;Dnsmasq&lt;/code&gt; which is a local DNS
+responder that allows you to manage your own custom domain or extend
+the dns domain name space of another service.&lt;/p&gt;
+
+&lt;p&gt;You can install &lt;code class=&quot;highlighter-rouge&quot;&gt;Dnsmasq&lt;/code&gt; from &lt;code class=&quot;highlighter-rouge&quot;&gt;ports&lt;/code&gt; or probably &lt;code class=&quot;highlighter-rouge&quot;&gt;homebrew&lt;/code&gt; if
+you’re on a Mac or get it from your local packet manager on your
+favourite Linux distribution.&lt;/p&gt;
+
+&lt;p&gt;After the installation just make sure that you are pointing you
+operating systems DNS resolution to your local host instance.&lt;/p&gt;
+
+&lt;p&gt;To resolve the usual internet domains via dnsmasq as well be sure to
+include your official DNS server in the configration.&lt;/p&gt;
+
+&lt;p&gt;The Dnsmasq configuration file can be found at
+&lt;code class=&quot;highlighter-rouge&quot;&gt;/opt/local/etc/dnsmasq.conf&lt;/code&gt; if you installed from ports. My
+configuration file is somewhat along these lines.&lt;/p&gt;
+
+&lt;p&gt;You probably want to sudo to change this file for editing like for
+example so &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo vim /opt/local/etc/dnsmasq.conf&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;resolv-file=/etc/resolv.conf
+# My local IP address
+server=192.168.221.1
+# Both are googles DNS servers
+server=8.8.8.8
+server=8.8.4.4
+
+# here go the IP addresses you want to remap or setup as new
+address=/alpha1.cluster.local.domain/172.16.232.135
+address=/red.alpha1.cluster.local.domain/172.16.232.141
+address=/black.alpha1.cluster.local.domain/172.16.232.141
+address=/green.alpha2.cluster.local.domain/172.16.232.132
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;After you have changed the configuration you probably want to flush the DNS
+cache and reload the service by issuing the following commands:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo port unload dnsmasq &amp;amp;&amp;amp; \
+sudo killall -HUP mDNSResponder &amp;amp;&amp;amp; \
+sudo port load dnsmasq
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>{&quot;avatar&quot;=&gt;&quot;images/me.png&quot;, &quot;bio&quot;=&gt;&quot;Developer. Musician.&quot;, &quot;location&quot;=&gt;&quot;Lörrach&quot;, &quot;email&quot;=&gt;nil, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;authsec&quot;, &quot;google_plus&quot;=&gt;&quot;JensFrey&quot;, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;&quot;john-c-flow&quot;, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;&quot;authsec&quot;, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;&quot;../c/JensFrey&quot;}</name></author><summary type="html">When you develop a web site or when you want to address multiple virtual machines by name on your local machine, you need to find a solution to implement this.</summary></entry></feed>
