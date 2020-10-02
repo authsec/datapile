@@ -169,10 +169,10 @@ SHARE_LINKS = [("twitter", "Twitter"), ("facebook", "Facebook"), ("email", "Emai
 LANDING_PAGE_TITLE = "Welcome to the Datapile"
 
 AUTHORS = {
-    "Talha Mansoor": {
-        "url": "https://www.oncrashreboot.com/",
-        "blurb": "is the creator and lead developer of Elegant theme.",
-        "avatar": "/images/avatars/talha131.png",
+    "Jens Frey": {
+        "url": "https://www.coffeecrew.org/",
+        "blurb": "is the creator of the datapile blog.",
+        "avatar": "https://avatars3.githubusercontent.com/u/7973409?s=400&u=071356b002dc73eed0cf5ff16474df64edd3943c&v=4",
     },
     "Pablo Iranzo Gómez": {
         "url": "http://iranzo.github.io",
