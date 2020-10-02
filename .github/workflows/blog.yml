@@ -1,0 +1,63 @@
+---
+name: Build blog
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Cloning Pelican Themes branch
+      uses: actions/checkout@v2
+      with:
+        repository: 'getpelican/pelican-themes'
+        ref: 'master'
+        path: 'pelican-themes'
+        submodules: 'recursive'
+
+    - name: Cloning Pelican Plugins branch
+      uses: actions/checkout@v2
+      with:
+        repository: 'getpelican/pelican-plugins'
+        ref: 'master'
+        path: 'pelican-plugins'
+        submodules: 'recursive'
+
+    - name: Cloning source branch
+      uses: actions/checkout@v2
+      with:
+        ref: 'source'
+        path: 'source'
+
+    - name: Building site 
+      run: |
+        docker run --rm -v ${{ github.workspace }}/source:/docs -v ${{ github.workspace }}/pelican-themes:/pelican-themes -v ${{ github.workspace }}/pelican-plugins:/pelican-plugins authsec/sphinx:1.0.3 pelican -s publishconf.py
+
+    - name: Cloning gh-pages branch
+      uses: actions/checkout@v2
+      with:
+        ref: 'gh-pages-2'
+        path: 'gh-pages-2'
+
+    - name: Copying content to gh-pages branch repo
+      run: cp -R ${{ github.workspace }}/master/output/* ${{ github.workspace }}/gh-pages-2
+
+    - name: Commit files
+      run: |
+        cd ${{ github.workspace }}/gh-pages
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add *
+        git commit -m "Updated Blog" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        directory: ${{ github.workspace }}/gh-pages-2
+        branch: 'gh-pages-2'
+        github_token: ${{ secrets.GITHUB_TOKEN }}
