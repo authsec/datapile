@@ -22,10 +22,7 @@ in :code:`apr_tables.h`), provides such a data type to you.
 Hashtables do have the big advantage that you can supply them any data type you like. The next big thing with hashtables is that they are usually very efficient if the number of elements that they are holding
 grows.
 
-The file looks like:
-
-.. include:: ../examples/c/aprHashtable.c
-    :code: c
+You can download the file `On Github <https://raw.githubusercontent.com/authsec/examples/master/c/aprHashtable.c>`_.
 
 Let's hash
 **********
@@ -41,4 +38,5 @@ Now that you do have some overview of what we are actually doing here, it's time
 
 You should however, if you are using strings as keys, use the special :code:`APR_HASH_KEY_STRING` value to indicate a string valued key to APR. This will use :code:`strlen(key)` to compute the length (:code:`NUL` terminator is not included there).
 
-You can download the file `On Github <https://raw.githubusercontent.com/authsec/examples/master/c/aprHashtable.c>`_.
+.. include:: ../examples/c/aprHashtable.c
+    :code: c
