@@ -4,7 +4,7 @@ name: Build blog
 on:
   push:
     branches:
-      - master
+      - source
 
 jobs:
   build:
