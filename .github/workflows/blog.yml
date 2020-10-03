@@ -37,7 +37,7 @@ jobs:
 
     - name: Building site 
       run: |
-        docker run --rm -v ${{ github.workspace }}/source:/docs -v ${{ github.workspace }}/pelican-themes:/pelican-themes -v ${{ github.workspace }}/pelican-plugins:/pelican-plugins authsec/sphinx:1.0.3 pelican -s publishconf.py
+        docker run --rm -v ${{ github.workspace }}/source:/docs -v ${{ github.workspace }}/pelican-themes:/pelican-themes -v ${{ github.workspace }}/pelican-plugins:/pelican-plugins authsec/sphinx pelican -s publishconf.py
 
     - name: Cloning gh-pages branch
       uses: actions/checkout@v2
