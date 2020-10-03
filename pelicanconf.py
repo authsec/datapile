@@ -9,6 +9,7 @@ SITESUBTITLE = "Against Digital Amnesia"
 SITEURL = ""
 
 PATH = "content"
+GITHUB_EXAMPLE_FOLDER = "examples"
 
 # Regional Settings
 TIMEZONE = "Europe/Berlin"
@@ -66,13 +67,11 @@ CATEGORY_FEED_RSS = None
 
 # Social
 SOCIAL = (
-    ("Github", "https://github.com/Pelican-Elegant/", "Elegant Github Repository"),
-    ("RSS", SITEURL + "/feeds/all.atom.xml"),
-    (
-        "Calendar",
-        "https://github.com/Pelican-Elegant/elegant/milestones",
-        "Elegant Project Roadmap",
-    ),
+    ("Github", "https://github.com/authsec/", "Authsec Github Repository"),
+    ("Twitter", "https://twitter.com/authsec"),
+    ("Linkedin", "https://www.linkedin.com/in/jens-frey-409ab844/"),
+    ("youtube", "https://www.youtube.com/jensfrey"),
+    ("RSS", SITEURL + "/feeds/all.atom.xml")
 )
 
 # Elegant theme
@@ -108,14 +107,14 @@ FREELISTS_NAME = "oracle-l"
 FREELISTS_FILTER = True
 
 # SMO
-TWITTER_USERNAME = ""
+TWITTER_USERNAME = "authsec"
 FEATURED_IMAGE = SITEURL + "/theme/images/apple-touch-icon-152x152.png"
 
 # Legal
 SITE_LICENSE = """Content licensed under <a rel="license nofollow noopener noreferrer"
     href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
     Creative Commons Attribution 4.0 International License</a>."""
-HOSTED_ON = {"name": "Netlify", "url": "https://www.netlify.com/"}
+HOSTED_ON = {"name": "Github", "url": "https://www.netlify.com/"}
 
 # SEO
 SITE_DESCRIPTION = (
@@ -173,19 +172,6 @@ AUTHORS = {
         "url": "https://www.coffeecrew.org/",
         "blurb": "is the creator of the datapile blog.",
         "avatar": "https://avatars3.githubusercontent.com/u/7973409?s=400&u=071356b002dc73eed0cf5ff16474df64edd3943c&v=4",
-    },
-    "Pablo Iranzo Gómez": {
-        "url": "http://iranzo.github.io",
-        "blurb": " opensource enthusiast and Lego fan doing some python simple programs like @redken_bot in telegram, etc",
-        "avatar": "https://avatars.githubusercontent.com/u/312463",
-    },
-    "Jack De Winter": {
-        "url": "http://jackdewinter.github.io",
-        "blurb": "ever evolving, ever learning",
-    },
-    "Matija Šuklje": {
-        "url": "https://matija.suklje.name",
-        "blurb": "FOSS lawyer by trade, hacker by heart.",
     },
 }
 
