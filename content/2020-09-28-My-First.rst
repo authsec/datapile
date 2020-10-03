@@ -5,7 +5,7 @@ My First Post
 :tags: thats, awesome
 :category: Programming, Java
 :slug: my-first-post
-:authors: Jens Frey
+:author: Jens Frey
 :summary: Nothing much to see
 
 This is so amazing. It's my first post.

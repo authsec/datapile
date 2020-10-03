@@ -4,6 +4,7 @@ Programming with the APR - Using MD5
 :date: 2010-11-02 11:00:34 +0100
 :tags: APR, Apache, C
 :category: Programming
+:author: Jens Frey
 :summary: This article will show you how to use the OpenID delegation feature which allows you to use your own domain as an identifier for OpenID.
 
 This article intends to show how to basically use the MD5 hashing

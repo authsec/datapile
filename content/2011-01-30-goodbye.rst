@@ -1,0 +1,101 @@
+Goodbye
+#######
+
+:date: 2011-01-30 14:00:34 +0100
+:tags: Original, Song
+:category: Music
+:author: Jens Frey
+:summary: Just listen ...
+
+The song
+********
+
+.. raw:: html
+
+   <iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/9807219&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/john-c-flow" title="John C. Flow" target="_blank" style="color: #cccccc; text-decoration: none;">John C. Flow</a> · <a href="https://soundcloud.com/john-c-flow/goodbye" title="Goodbye" target="_blank" style="color: #cccccc; text-decoration: none;">Goodbye</a></div>
+
+Can be found at: https://soundcloud.com/john-c-flow/goodbye
+
+The lyrics
+**********
+
+Verse
+=====
+
+.. line-block::
+
+   [F#m]Like a lonesome voice, [A]in the crowd,
+   [F#m]like a broken toy, [A]left on the ground,
+   [Bm]I feel like I've been left behind, [D]been canceled out,
+   [Bm]no one's right here by my side,
+   [Esus4]no one is a[E]round.
+
+   [F#m]I've been on this empty road, [A]for quite some time,
+   [F#m]I've been searching out for love, [A]but never could find mine.
+   [Bm]It always ran away from me, [D]I never was that fast,
+   [Bm]I had just a simple dream, [D]but it couldn't l[Esus4]a---a[E]st ...
+
+
+Chorus
+======
+
+.. line-block::
+
+   [A]Good-[C#m7]bye, [D]my [E]everlasting dre[A]am,
+   [A] [C#m7] [D] [E] [A]
+   [A]Good-[C#m7]bye, [D]love is [E]never like it s[A]eems
+   [A] [C#m7] [D] [E]
+   Cause when there's [Dmaj7]love there's misery,
+   which is a[Asus2/C#]lways finding me,
+   love has a b[Bm]etter place to [Esus4]be,
+   like [F#5]me.
+
+
+Verse
+=====
+
+.. line-block::
+
+   [F#m]If only I could understand, [A]why it is me,
+   [F#m]is it just my bad luck or my [A]destiny?
+   [Bm]what is it what the others do? what [D]is it? Please tell me.
+   [Bm]I guess I will never know, so I say [D]goodbye to my [Esus4]drea--[E]m.
+
+Chorus
+======
+
+.. line-block::
+
+   [A]Good-[C#m7]bye, [D]my [E]everlasting dre[A]am,
+   [A] [C#m7] [D] [E] [A]
+   [A]Good-[C#m7]bye, [D]love is [E]never like it s[A]eems
+   [A] [C#m7] [D] [E]
+   The only [D]thing I [E]now do [F#m]fear,
+   is [D]someone [E]getting [F#m]near,
+   Who will [D]brake my [E]heart and [F#m]then,
+   I have to [Esus4]say goodbye ag[E]ain.
+
+Solo over
+=========
+
+.. line-block::
+
+   [A][C#m7][D][E]
+   [A][C#m7][D][E]
+   [A][C#m7][D][E]
+   [Dmaj7][C#m7][Esus4][E]
+
+Chorus
+======
+
+.. line-block::
+
+   [A]Good-[C#m7]bye, [D]my [E]everlasting dre[A]am,
+   [A] [C#m7] [D] [E] [A]
+   [A]Good-[C#m7]bye, [D]love is [E]never like it s[A]eems
+   [A] [C#m7] [D] [E]
+   Cause when there's [Dmaj7]love there's misery,
+   which is a[Asus2/C#]lways finding me,
+   love has a b[Bm]etter place to [Esus4]be,
+   like [F#5]me.
+

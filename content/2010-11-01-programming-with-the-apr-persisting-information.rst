@@ -4,10 +4,10 @@ Programming with the APR - Persisting information
 :date: 2010-11-01 11:00:34 +0100
 :tags: APR, Apache, C
 :category: Programming
-:authors: Jens Frey
+:author: Jens Frey
 :summary: This article will show you how to store information in the database that comes with the Apache Portable Runtime (APR).
 
-This article will show you how to store information in the database that comes with the Apache Portable Runtime (APR). Basically a simple struct data type is persisted into that database. You can download the code [here][1].
+This article will show you how to store information in the database that comes with the Apache Portable Runtime (APR). Basically a simple struct data type is persisted into that database. You can download the code `here <https://raw.githubusercontent.com/authsec/examples/master/c/aprWithSdbm.c>`_ .
 
 .. note:: The program supplied should actually use :code:`apr_app_initialize(&argc, &argv, NULL);` since :code:`apr_initialize()` is intended for library use only.
 
@@ -25,7 +25,7 @@ My helper functions which convert a normal :code:`char*` or an :code:`apr_time_t
 *   :code:`time2datum(apr_pool_t *p, apr_time_t *toDump)`
 *   :code:`checkError(apr_status_t rv)`
 
-You eventually might ask what the pool is for. Since the :code:`apr_datum_t` type holds a :code:`char *` and the according size of that pointer, we have to allocate space somewhere. That space is allocated on the pool you give that function. So make sure your pools lifetime is big enough so you can retrieve the value the function built for you. The :code: `checkError` function is used for checking the return value that the various database access functions might return. This is basically to avoid lots of typing.
+You eventually might ask what the pool is for. Since the :code:`apr_datum_t` type holds a :code:`char *` and the according size of that pointer, we have to allocate space somewhere. That space is allocated on the pool you give that function. So make sure your pools lifetime is big enough so you can retrieve the value the function built for you. The :code:`checkError` function is used for checking the return value that the various database access functions might return. This is basically to avoid lots of typing.
 
 Worker functions
 ================

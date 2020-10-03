@@ -4,7 +4,7 @@ Programming with the APR - Using apr_getopt
 :date: 2010-11-02 10:00:34 +0100
 :tags: APR, Apache, C
 :category: Programming
-:authors: Jens Frey
+:author: Jens Frey
 :summary: This article will show you how to use the built in command line parser that comes with the APR.
 
 This article will show you how to use the built in command line parser that comes with the APR. There will be two source files, one showing you how to use :code:`apr_getopt` just to parse simple, single options and the other peace of source will show you how to use it with so called long options. 

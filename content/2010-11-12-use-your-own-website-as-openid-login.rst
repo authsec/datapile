@@ -6,6 +6,7 @@ Use your own website as OpenID login
 :date: 2010-11-12 14:00:34 +0100
 :modified: 2010-12-04 18:40
 :tags: OpenID, Security
+:author: Jens Frey
 :category: Security
 :summary: This article will show you how to use the OpenID delegation feature which allows you to use your own domain as an identifier for OpenID.
 

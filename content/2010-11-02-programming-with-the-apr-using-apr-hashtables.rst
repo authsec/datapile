@@ -4,7 +4,7 @@ Programming with the APR - Using APR HashTables
 :date: 2010-11-02 12:00:34 +0100
 :tags: APR, Apache, C
 :category: Programming
-:authors: Jens Frey
+:author: Jens Frey
 :summary: This article will show you how to use the OpenID delegation feature which allows you to use your own domain as an identifier for OpenID.
 
 This short article will show how to use the Apache Portable Runtime
@@ -22,7 +22,7 @@ in :code:`apr_tables.h`), provides such a data type to you.
 Hashtables do have the big advantage that you can supply them any data type you like. The next big thing with hashtables is that they are usually very efficient if the number of elements that they are holding
 grows.
 
-You can download the file `On Github <https://raw.githubusercontent.com/authsec/examples/master/c/aprHashtable.c>`_.
+You can download the file `here <https://raw.githubusercontent.com/authsec/examples/master/c/aprHashtable.c>`_.
 
 Let's hash
 **********

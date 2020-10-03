@@ -6,7 +6,7 @@ import os
 AUTHOR = "Jens Frey"
 SITENAME = "Datapile"
 SITESUBTITLE = "Against Digital Amnesia"
-SITEURL = ""
+SITEURL = "http://localhost:8000"
 
 PATH = "content"
 GITHUB_EXAMPLE_FOLDER = "examples"
@@ -75,7 +75,7 @@ SOCIAL = (
 )
 
 # Elegant theme
-STATIC_PATHS = ["theme/images", "images", "extra/_redirects", "code"]
+STATIC_PATHS = ["theme/images", "images", "extra/_redirects", "code", "downloads"]
 EXTRA_PATH_METADATA = {"extra/_redirects": {"path": "_redirects"},
 }
 
@@ -118,7 +118,7 @@ HOSTED_ON = {"name": "Github", "url": "https://www.netlify.com/"}
 
 # SEO
 SITE_DESCRIPTION = (
-    "Documentation of Elegant, a theme for Pelican, originally created by Talha Mansoor"
+    "Collection of mostly technical how to material."
 )
 
 # Share links at bottom of articles
