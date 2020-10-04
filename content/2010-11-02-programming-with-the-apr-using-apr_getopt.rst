@@ -28,7 +28,7 @@ The most notable part here is the line: :code:`cmdLineArgs->interleave= 1;`. Set
 Simple options code
 *******************
 
-.. include:: ../examples/c/aprGetopt.c
+.. include:: examples/c/aprGetopt.c
     :code: c
 
 Now that you have seen how it works with simple options, long options is no more magic. You just have to additionally initialize an array basically, but see for yourself.
@@ -36,7 +36,7 @@ Now that you have seen how it works with simple options, long options is no more
 Long options code
 *****************
 
-.. include:: ../examples/c/aprGetoptLong.c
+.. include:: examples/c/aprGetoptLong.c
     :code: c
 
 Hope you enjoyed it.

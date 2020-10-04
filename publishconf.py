@@ -10,7 +10,7 @@ sys.path.append(os.curdir)
 from pelicanconf import *
 
 # If your site is available via HTTPS, make sure SITEURL begins with https://
-SITEURL = 'https://authsec.github.io/datapile'
+SITEURL = 'https://datapile.coffeecrew.org'
 RELATIVE_URLS = False
 #THEME = '/pelican-themes/flex'
 

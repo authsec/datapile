@@ -45,7 +45,7 @@ These functions are not implemented, but might give you an idea of how the API c
 
 You surely are interested in how the actual code looks by now. Now i will no longer deprive you from that.
 
-.. include:: ../examples/c/aprWithSdbm.c
+.. include:: examples/c/aprWithSdbm.c
     :code: c
 
 Hope you enjoyed it.

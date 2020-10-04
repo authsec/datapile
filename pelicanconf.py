@@ -9,7 +9,7 @@ SITESUBTITLE = "Against Digital Amnesia"
 SITEURL = "http://localhost:8000"
 
 PATH = "content"
-GITHUB_EXAMPLE_FOLDER = "examples"
+CODE_DIR = "examples"
 
 # Regional Settings
 TIMEZONE = "Europe/Berlin"
@@ -46,7 +46,7 @@ SITEMAP = {
 # Appearance
 THEME = "/pelican-themes/elegant"
 TYPOGRIFY = True
-DEFAULT_PAGINATION = False
+DEFAULT_PAGINATION = True
 
 # Defaults
 DEFAULT_CATEGORY = "Miscellaneous"
@@ -71,13 +71,17 @@ SOCIAL = (
     ("Twitter", "https://twitter.com/authsec"),
     ("Linkedin", "https://www.linkedin.com/in/jens-frey-409ab844/"),
     ("youtube", "https://www.youtube.com/jensfrey"),
-    ("RSS", SITEURL + "/feeds/all.atom.xml")
+    ("RSS", SITEURL + "/feeds/all.atom.xml") 
 )
 
 # Elegant theme
-STATIC_PATHS = ["theme/images", "images", "extra/_redirects", "code", "downloads"]
+IGNORE_FILES = ['*examples*']
+STATIC_PATHS = ["theme/images", "downloads", "examples"]
 EXTRA_PATH_METADATA = {"extra/_redirects": {"path": "_redirects"},
 }
+STATIC_EXCLUDES = ["examples"]
+ARTICLE_EXCLUDES = ["examples"]
+PAGE_EXCLUDES = ["examples"]
 
 if os.environ.get("CONTEXT") == "production":
     STATIC_PATHS.append("extra/robots.txt")

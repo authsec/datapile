@@ -67,5 +67,5 @@ The code itself is pretty straight forward. You might notice that I'm not using 
 
 The program first initializes internal APR data structures and registers a termination function. Then a randomized salt value is generated (you could also use a fixed salt, but that is not recommended). Finally the MD5 encoding is performed. The most problematic part here is to figure out what the actual length of the result will be. From what I observed the result is no longer than 37 characters, but that might change if the APR people e.g. decide to change their :code:`$apr1$` prefix which indicates the custom salting algorithm to the library.
 
-.. include:: ../examples/c/aprMd5.c
+.. include:: examples/c/aprMd5.c
     :code: c

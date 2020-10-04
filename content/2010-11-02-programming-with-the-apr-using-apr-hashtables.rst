@@ -38,5 +38,5 @@ Now that you do have some overview of what we are actually doing here, it's time
 
 You should however, if you are using strings as keys, use the special :code:`APR_HASH_KEY_STRING` value to indicate a string valued key to APR. This will use :code:`strlen(key)` to compute the length (:code:`NUL` terminator is not included there).
 
-.. include:: ../examples/c/aprHashtable.c
+.. include:: examples/c/aprHashtable.c
     :code: c
