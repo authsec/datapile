@@ -107,8 +107,8 @@ EMAIL_SUBSCRIPTION_LABEL = "Get New Release Alert"
 EMAIL_FIELD_PLACEHOLDER = "Enter your email..."
 SUBSCRIBE_BUTTON_TITLE = "Notify me"
 
-FREELISTS_NAME = "oracle-l"
-FREELISTS_FILTER = True
+# FREELISTS_NAME = "oracle-l"
+# FREELISTS_FILTER = True
 
 # SMO
 TWITTER_USERNAME = "authsec"
@@ -118,7 +118,7 @@ FEATURED_IMAGE = SITEURL + "/theme/images/apple-touch-icon-152x152.png"
 SITE_LICENSE = """Content licensed under <a rel="license nofollow noopener noreferrer"
     href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
     Creative Commons Attribution 4.0 International License</a>."""
-HOSTED_ON = {"name": "Github", "url": "https://www.netlify.com/"}
+HOSTED_ON = {"name": "Github", "url": "https://datapile.coffeecrew.org/"}
 
 # SEO
 SITE_DESCRIPTION = (
@@ -130,44 +130,19 @@ SITE_DESCRIPTION = (
 SHARE_LINKS = [("twitter", "Twitter"), ("facebook", "Facebook"), ("email", "Email")]
 
 # Landing Page
-# PROJECTS_TITLE = "Related Projects"
-# PROJECTS = [
-#     {
-#         "name": "Elegant",
-#         "url": "https://github.com/Pelican-Elegant/elegant",
-#         "description": "Source code of Elegant theme",
-#     },
-#     {
-#         "name": "Issue Tracker",
-#         "url": "https://github.com/Pelican-Elegant/elegant/issues",
-#         "description": "Give your feedback, ask questions or report issues",
-#     },
-#     {
-#         "name": "Roadmap",
-#         "url": "https://github.com/Pelican-Elegant/elegant/milestones",
-#         "description": "See planned features and estimated release dates",
-#     },
-#     {
-#         "name": "Press Kit",
-#         "url": "https://github.com/Pelican-Elegant/elegant/tree/master/elegant-logo",
-#         "description": "Writing an article on Elegant? Get Elegant logo from here",
-#     },
-#     {
-#         "name": "onCrashReboot",
-#         "url": "https://www.oncrashreboot.com/",
-#         "description": "Home page of Elegant creator and lead developer",
-#     },
-#     {
-#         "name": "Pelican",
-#         "url": "https://github.com/getpelican/pelican/",
-#         "description": "Static site generator that powers Elegant",
-#     },
-#     {
-#         "name": "Pelican Plugins",
-#         "url": "https://github.com/getpelican/pelican-plugins",
-#         "description": "Collection of plugins for the Pelican static site generator",
-#     },
-# ]
+PROJECTS_TITLE = "Related Projects"
+PROJECTS = [
+    {
+        "name": "Sphinx Toolchain",
+        "url": "https://github.com/authsec/sphinx",
+        "description": "Docker image to build sphinx docs and various others.",
+    },
+    {
+        "name": "Ansible Pihole Role",
+        "url": "https://github.com/authsec/ansible_role_pihole",
+        "description": "Role to provision pihole with Ansible",
+    }
+]
 
 LANDING_PAGE_TITLE = "Welcome to the Datapile"
 
