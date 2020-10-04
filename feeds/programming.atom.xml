@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Datapile - Programming</title><link href="https://authsec.github.io/datapile/" rel="alternate"></link><link href="https://authsec.github.io/datapile/feeds/programming.atom.xml" rel="self"></link><id>https://authsec.github.io/datapile/</id><updated>2010-11-01T10:00:34+01:00</updated><subtitle>Against Digital Amnesia</subtitle><entry><title>Programming with the APR</title><link href="https://authsec.github.io/datapile/programming-with-the-apr" rel="alternate"></link><published>2010-11-01T10:00:34+01:00</published><updated>2010-11-01T10:00:34+01:00</updated><author><name>Jens Frey</name></author><id>tag:authsec.github.io,2010-11-01:/datapile/programming-with-the-apr</id><summary type="html">&lt;p class="first last"&gt;This article will give you an introduction of how to program with the Apache Portable Runtime (&lt;span class="caps"&gt;APR&lt;/span&gt;).&lt;/p&gt;
+</summary><content type="html">&lt;p&gt;This article will give you an introduction of how to program with the
+Apache Portable Runtime (&lt;span class="caps"&gt;APR&lt;/span&gt;). It illustrates a simple command line&amp;nbsp;program.&lt;/p&gt;
+&lt;div class="admonition note"&gt;
+&lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
+&lt;p class="last"&gt;The program supplied should actually use &lt;code&gt;apr_app_initialize(&amp;amp;argc, &amp;amp;argv, NULL);&lt;/code&gt; since &lt;code&gt;apr_initialize()&lt;/code&gt; is intended for library use&amp;nbsp;only.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;I was playing around with the Apache Portable Runtime (&lt;span class="caps"&gt;APR&lt;/span&gt;) recently and found out, probably the most difficult part was to find out how to compile the program you have just written. The probably most famous projects using &lt;span class="caps"&gt;APR&lt;/span&gt; are the Apache HTTPd and&amp;nbsp;Subversion.&lt;/p&gt;
+&lt;div class="section" id="overview"&gt;
+&lt;h2&gt;Overview&lt;/h2&gt;
+&lt;p&gt;&lt;span class="caps"&gt;APR&lt;/span&gt;&amp;#8217;s goal is to provide a platform independent &lt;span class="caps"&gt;API&lt;/span&gt; that provides a consistent interface to the platform specific implementation. The &lt;span class="caps"&gt;APR&lt;/span&gt; code itself is pretty good documented. But i wouldn&amp;#8217;t say you&amp;#8217;d find plenty of resources on the web. Especially a simple example on how to program with the &lt;span class="caps"&gt;APR&lt;/span&gt; was missing for&amp;nbsp;me.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="example-program"&gt;
+&lt;h2&gt;Example&amp;nbsp;program&lt;/h2&gt;
+&lt;p&gt;I put together an example program which shows how to use the &lt;span class="caps"&gt;APR&lt;/span&gt;. This includes instructions on how to get the program compiled after you have written it. This seems to be so self-evident to people, that no one seems to write that up. The heart of this process lies in the usage of the &lt;code&gt;apr-config&lt;/code&gt;, or sometimes called &lt;code&gt;apr-1-config&lt;/code&gt; utility.&lt;/p&gt;
+&lt;div class="section" id="preconditions"&gt;
+&lt;h3&gt;Preconditions&lt;/h3&gt;
+&lt;p&gt;Make sure you have the &lt;span class="caps"&gt;APR&lt;/span&gt; development files installed. Since i am mostly working with Debian based distributions, like Debian itself or Ubuntu, i install the libraries with my package management system. Of course make sure you install the &amp;#8220;-dev&amp;#8221; versions of &lt;span class="caps"&gt;APR&lt;/span&gt;. For me that have been the&amp;nbsp;packages&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;libapr1&lt;/li&gt;
+&lt;li&gt;libapr1-dbg&lt;/li&gt;
+&lt;li&gt;libapr1-dev&lt;/li&gt;
+&lt;li&gt;libaprutil1&lt;/li&gt;
+&lt;li&gt;libaprutil1-dbg&lt;/li&gt;
+&lt;li&gt;libaprutil1-dev&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can get those packages by issuing the following command on the command line (this may of course vary if you are not using a Debian based distribution or if you install from&amp;nbsp;source):&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+$ sudo apt-get install libapr1 libapr1-dbg libapr1-dev libaprutil1 libaprutil1-dbg libaprutil1-dev
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="program-code"&gt;
+&lt;h3&gt;Program&amp;nbsp;code&lt;/h3&gt;
+&lt;p&gt;The program itself is obviously a pretty easy one, it basically allocates resources from a memory pool managed through &lt;span class="caps"&gt;APR&lt;/span&gt; onto a struct and later simply prints the allocated values. The programs code is as&amp;nbsp;follows.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="compile-the-program"&gt;
+&lt;h3&gt;Compile the&amp;nbsp;program&lt;/h3&gt;
+&lt;p&gt;Now there comes the next crucial step in getting your program to fly. To do so you probably best export a variable as suggested by the &lt;code&gt;apr-1-config&lt;/code&gt; tool. Then you can go on an compile your program the &amp;#8220;normal&amp;#8221; way you&amp;#8217;d do that. If you do not want debug symbols compiled into your code, you of course would remove the &lt;code&gt;-g&lt;/code&gt; option in front of the &lt;code&gt;APR_LIBS&lt;/code&gt; variable:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+$&amp;gt; export APR_LIBS=&amp;quot;`apr-1-config --cflags --cppflags --includes --ldflags --link-ld --libs`&amp;quot;
+$&amp;gt; gcc -g simple_apr.c -o simple_apr $APR_LIBS
+&lt;/pre&gt;
+&lt;p&gt;By executing the program your output should now look something like&amp;nbsp;that:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+$ ./simple_apr
+Username: Jens Frey
+Password: secret
+Time: 1231102877630911
+Time readable: Sun, 04 Jan 2009 21:01:17 GMT
+&lt;/pre&gt;
+&lt;p&gt;I hope you achieved similar&amp;nbsp;results.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="references"&gt;
+&lt;h2&gt;References&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://apr.apache.org/"&gt;The &lt;span class="caps"&gt;APR&lt;/span&gt;&amp;nbsp;homepage&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://apr.apache.org/docs/apr/trunk/"&gt;The &lt;span class="caps"&gt;APR&lt;/span&gt; &lt;span class="caps"&gt;API&lt;/span&gt;&amp;nbsp;documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://svn.apache.org/viewvc/apr/apr/trunk/docs/pool-design.html?view=co"&gt;Using &lt;span class="caps"&gt;APR&lt;/span&gt;&amp;nbsp;Pools&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://people.apache.org/~rooneg/talks/portable-c-with-apr/apr.html"&gt;Writing Portable C Code with &lt;span class="caps"&gt;APR&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</content><category term="Programming"></category><category term="APR"></category><category term="Apache"></category><category term="C"></category></entry></feed>

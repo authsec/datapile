@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Datapile - Programming, Java</title><link href="https://authsec.github.io/datapile/" rel="alternate"></link><link href="https://authsec.github.io/datapile/feeds/programming-java.atom.xml" rel="self"></link><id>https://authsec.github.io/datapile/</id><updated>2020-09-28T22:22:00+02:00</updated><subtitle>Against Digital Amnesia</subtitle><entry><title>My First Post</title><link href="https://authsec.github.io/datapile/my-first-post" rel="alternate"></link><published>2020-09-28T22:22:00+02:00</published><updated>2020-09-28T22:22:00+02:00</updated><author><name>Jens Frey</name></author><id>tag:authsec.github.io,2020-09-28:/datapile/my-first-post</id><summary type="html">&lt;p class="first last"&gt;Nothing much to&amp;nbsp;see&lt;/p&gt;
+</summary><content type="html">&lt;p&gt;This is so amazing. It&amp;#8217;s my first&amp;nbsp;post.&lt;/p&gt;
+&lt;div class="section" id="why"&gt;
+&lt;h2&gt;Why&lt;/h2&gt;
+&lt;p&gt;I guess just for the fun of&amp;nbsp;it.&lt;/p&gt;
+&lt;/div&gt;
+</content><category term="Programming, Java"></category><category term="thats"></category><category term="awesome"></category></entry></feed>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Datapile - Security</title><link href="https://authsec.github.io/datapile/" rel="alternate"></link><link href="https://authsec.github.io/datapile/feeds/security.atom.xml" rel="self"></link><id>https://authsec.github.io/datapile/</id><updated>2010-12-04T18:40:00+01:00</updated><subtitle>Against Digital Amnesia</subtitle><entry><title>Use your own website as OpenID login</title><link href="https://authsec.github.io/datapile/use-your-own-website-as-openid-login" rel="alternate"></link><published>2010-11-12T14:00:34+01:00</published><updated>2010-12-04T18:40:00+01:00</updated><author><name>Jens Frey</name></author><id>tag:authsec.github.io,2010-11-12:/datapile/use-your-own-website-as-openid-login</id><summary type="html">&lt;p class="first last"&gt;This article will show you how to use the OpenID delegation feature which allows you to use your own domain as an identifier for&amp;nbsp;OpenID.&lt;/p&gt;
+</summary><content type="html">&lt;p&gt;If you want to use OpenID as an authentication mechanism, but are
+afraid of the fact that your OpenID provider may die in the future, or
+you simply might want to use another provider in the future, you can
+use a delegation model with&amp;nbsp;OpenID.&lt;/p&gt;
+&lt;p&gt;A reason to change the OpenID provider might be, that your current
+OpenID provider does not support an authentication mechanism you like
+to, as for example the YubiKey or something like&amp;nbsp;that.&lt;/p&gt;
+&lt;p&gt;Let&amp;#8217;s say you want to use &lt;a class="reference external" href="http://xyz.example.com"&gt;http://xyz.example.com&lt;/a&gt; as your OpenID and
+you want to use &lt;a class="reference external" href="http://clavid.com"&gt;http://clavid.com&lt;/a&gt; as your Identity Provider, you have to
+execute the following&amp;nbsp;steps.&lt;/p&gt;
+&lt;div class="section" id="create-a-sub-domain-for-example-com-called-xyz"&gt;
+&lt;h2&gt;Create a (sub-)domain for example.com called&amp;nbsp;xyz.&lt;/h2&gt;
+&lt;p&gt;This can for example be done by adding another virtual host to your
+apache configuration. The configuration might look like the following&amp;nbsp;one:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;VirtualHost&lt;/span&gt; &lt;span class="s"&gt;xx.xx.xx.xx:80&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="nb"&gt;ServerAdmin&lt;/span&gt; webmaster@example.com
+        &lt;span class="nb"&gt;ServerName&lt;/span&gt; xyz.example.com
+
+        &lt;span class="nb"&gt;DocumentRoot&lt;/span&gt; &lt;span class="sx"&gt;/var/www/xyz/&lt;/span&gt;
+
+        &lt;span class="nt"&gt;&amp;lt;Directory&lt;/span&gt; &lt;span class="s"&gt;/var/www/xyz/&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+                &lt;span class="c"&gt;# Options Indexes MultiViews&lt;/span&gt;
+                &lt;span class="nb"&gt;AllowOverride&lt;/span&gt; &lt;span class="k"&gt;None&lt;/span&gt;
+                &lt;span class="nb"&gt;Order&lt;/span&gt; allow,deny
+                &lt;span class="nb"&gt;allow&lt;/span&gt; from &lt;span class="k"&gt;all&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;/Directory&amp;gt;&lt;/span&gt;
+
+        &lt;span class="nb"&gt;ErrorLog&lt;/span&gt; &lt;span class="sx"&gt;/var/log/apache2/error_xyz.log&lt;/span&gt;
+
+        &lt;span class="c"&gt;# Possible values include: debug, info, notice, warn, error, crit,&lt;/span&gt;
+        &lt;span class="c"&gt;# alert, emerg.&lt;/span&gt;
+
+        &lt;span class="nb"&gt;LogLevel&lt;/span&gt; &lt;span class="k"&gt;warn&lt;/span&gt;
+        &lt;span class="nb"&gt;CustomLog&lt;/span&gt; &lt;span class="sx"&gt;/var/log/apache2/access_xyz.log&lt;/span&gt; combined
+&lt;span class="nt"&gt;&amp;lt;/VirtualHost&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="create-a-index-html-file-inside-your-document-root"&gt;
+&lt;h2&gt;Create a index.html file inside your document&amp;nbsp;root&lt;/h2&gt;
+&lt;p&gt;As a next step you have to create a index.html file in your document
+root (in this case &lt;span class="file"&gt;/var/www/xyz&lt;/span&gt;) with the following content in order
+for OpenID services being able to find your current identity&amp;nbsp;provider:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;html&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;head&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;title&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;Jens&amp;#39; OpenID delegation page&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;title&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;link&lt;/span&gt; &lt;span class="na"&gt;rel&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;openid.server&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;href&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;http://www.clavid.com/provider/openid&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;link&lt;/span&gt; &lt;span class="na"&gt;rel&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;openid2.provider&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;href&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;http://www.clavid.com/provider/openid&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;link&lt;/span&gt; &lt;span class="na"&gt;rel&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;openid.delegate&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;href&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;http://jens.clavid.com&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;link&lt;/span&gt; &lt;span class="na"&gt;rel&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;openid2.local_id&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;href&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;http://jens.clavid.com&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;head&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;body&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;h1&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;This page is used for OpenID delegation.&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;h1&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+        For more information on OpenID either visit
+        &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;a&lt;/span&gt; &lt;span class="na"&gt;href&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;http://openid.net&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;http://openid.net&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;a&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt; or
+        &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;a&lt;/span&gt; &lt;span class="na"&gt;href&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;http://clavid.com&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;http://clavid.com&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;a&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;body&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;html&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="ready"&gt;
+&lt;h2&gt;Ready&lt;/h2&gt;
+&lt;p&gt;From now on you can use &lt;a class="reference external" href="http://xyz.example.com"&gt;http://xyz.example.com&lt;/a&gt; as your OpenID, which will, as currently configured, be redirecting to &lt;a class="reference external" href="http://clavid.com"&gt;http://clavid.com&lt;/a&gt; where authentication will take&amp;nbsp;place.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="references"&gt;
+&lt;h2&gt;References&lt;/h2&gt;
+&lt;p&gt;You can read all about OpenID in the specification, but the part used for this example is available&amp;nbsp;at:&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://openid.net/specs/openid-authentication-1_1.html#delegating_authentication"&gt;http://openid.net/specs/openid-authentication-1_1.html#delegating_authentication&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+</content><category term="Security"></category><category term="OpenID"></category><category term="Security"></category></entry></feed>

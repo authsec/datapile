@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Datapile - Infrastructure</title><link href="https://authsec.github.io/datapile/" rel="alternate"></link><link href="https://authsec.github.io/datapile/feeds/infrastructure.atom.xml" rel="self"></link><id>https://authsec.github.io/datapile/</id><updated>2016-09-20T21:48:12+01:00</updated><subtitle>Against Digital Amnesia</subtitle><entry><title>How To Start A Consul Docker Image</title><link href="https://authsec.github.io/datapile/how-to-start-a-consul-docker-image" rel="alternate"></link><published>2016-09-20T21:48:12+01:00</published><updated>2016-09-20T21:48:12+01:00</updated><author><name>Jens Frey</name></author><id>tag:authsec.github.io,2016-09-20:/datapile/how-to-start-a-consul-docker-image</id><summary type="html">&lt;p class="first last"&gt;How to start a local consul&amp;nbsp;server.&lt;/p&gt;
+</summary><content type="html">&lt;p&gt;If you quickly have to start a &lt;a class="reference external" href="https://www.consul.io/"&gt;Consul&lt;/a&gt;  docker image you can use the following&amp;nbsp;command:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+docker run -p 8400:8400 -p 127.0.0.1:8500:8500 -p 8600:8600/udp -h node1 consul agent -dev -client 0.0.0.0
+&lt;/pre&gt;
+&lt;p&gt;This is especially useful for development purposes and quick tests and should not be used in a productive&amp;nbsp;environment.&lt;/p&gt;
+</content><category term="Infrastructure"></category><category term="Consul"></category><category term="Database"></category></entry><entry><title>Setup roller weblogger 4.1 on Glassfish v2</title><link href="https://authsec.github.io/datapile/setup-roller-weblogger-41-on-glassfish-v2" rel="alternate"></link><published>2010-10-31T11:11:11+01:00</published><updated>2010-10-31T11:11:11+01:00</updated><author><name>Jens Frey</name></author><id>tag:authsec.github.io,2010-10-31:/datapile/setup-roller-weblogger-41-on-glassfish-v2</id><summary type="html">&lt;p class="first last"&gt;This guide will walk you through installing the Apache Roller Blog Software, version&amp;nbsp;4.1(-dev).&lt;/p&gt;
+</summary><content type="html">&lt;p&gt;This guide will walk you through installing the Apache Roller Blog Software, version 4.1(-dev). The installation I did, resides on a Debian based distribution (Ubuntu works too, just prefix the commands with&amp;nbsp;sudo).&lt;/p&gt;
+&lt;div class="admonition note"&gt;
+&lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
+&lt;p class="last"&gt;This was implemented/tested with Roller Weblogger 4.1 and Glassfish&amp;nbsp;v2UR2&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="quick-install"&gt;
+&lt;h2&gt;Quick&amp;nbsp;install&lt;/h2&gt;
+&lt;p&gt;This is for the impatient, you need to have &lt;code&gt;jar&lt;/code&gt; and &lt;code&gt;wget&lt;/code&gt; in your $&lt;span class="caps"&gt;PATH&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;If you just want to have roller to be set up for you to do e.g. some work on roller templates, or just to basically play with it a bit, here is the real quick deal for you (This will install everything into&amp;nbsp;/opt/roller).&lt;/p&gt;
+&lt;p&gt;Download the &lt;a class="reference external" href="https://raw.githubusercontent.com/authsec/examples/master/sh/rollerGlassfish.sh"&gt;automated installer script&lt;/a&gt;, save it to e.g. your home directory. Then call the script like &lt;code&gt;./rollerGlassfish.sh realLongKey1 realLongKey2 run-as-username run-as-groupname&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="admonition note"&gt;
+&lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
+&lt;p class="last"&gt;You can get those long keys easily from &lt;a class="reference external" href="https://www.grc.com/passwords.htm"&gt;&lt;span class="caps"&gt;GRC&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="manual-installation"&gt;
+&lt;h2&gt;Manual&amp;nbsp;installation&lt;/h2&gt;
+&lt;p&gt;The following text basically describes what the script is automatically doing for you. This way you can change the according parameters which will affect your installation. Most probably you will just have to change the following variables inside the install&amp;nbsp;script.&lt;/p&gt;
+&lt;div class="section" id="prerequisites"&gt;
+&lt;h3&gt;Prerequisites&lt;/h3&gt;
+&lt;p&gt;You have to install a few things before you can actually start installing roller on your system. At first you need to be sure that the &lt;code&gt;jar&lt;/code&gt; command is installed on your system, since this is required for the build you will be doing on your system. On a Debian based system you can do that with the following&amp;nbsp;command:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="gp"&gt;root@sigusr1:$&lt;/span&gt; aptitude install sun-java5-jdk
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;After the &lt;span class="caps"&gt;JDK&lt;/span&gt; installation you basically have everything ready to go, but wait if you want to use my &lt;a class="reference external" href="https://raw.githubusercontent.com/authsec/examples/master/sh/rollerGlassfish.sh"&gt;automated installer script&lt;/a&gt; you need to have the &lt;code&gt;wget&lt;/code&gt; command installed too, since the script tries to download the Glassfish application server and the given Apache Roller version by itself in order to be able to install it for&amp;nbsp;you.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;root@sigusr1:$ &lt;span class="c1"&gt;#&lt;/span&gt;
+        &lt;span class="nv"&gt;TARGET&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/opt/roller
+        &lt;span class="nv"&gt;TARGET_TMP&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;TARGET&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;/tmp
+        &lt;span class="nv"&gt;UPLOADS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$TARGET&lt;/span&gt;/uploads
+        &lt;span class="nv"&gt;THEMES&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$TARGET&lt;/span&gt;/themes
+        &lt;span class="nv"&gt;PLANET_CACHE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$TARGET&lt;/span&gt;/planetcache
+        &lt;span class="nv"&gt;SEARCH_INDEX&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$TARGET&lt;/span&gt;/searchindex
+        &lt;span class="c1"&gt;#ROLLER_FILENAME=&amp;quot;apache-roller-4.0.1-snapshot-20080211.tar.gz&amp;quot;&lt;/span&gt;
+        &lt;span class="nv"&gt;ROLLER_FILENAME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;apache-roller-4.1-snapshot-m1.tar.gz&amp;quot;&lt;/span&gt;
+        &lt;span class="nv"&gt;CTX_ROOT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;blogs&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Gist: &lt;a class="reference external" href="https://gist.github.com/authsec/455940a3f6bd5673c1c9dd16ea4ec0af"&gt;https://gist.github.com/authsec/455940a3f6bd5673c1c9dd16ea4ec0af&lt;/a&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://glassfish.dev.java.net/downloads/v2ur2-b04.html"&gt;Download&amp;nbsp;Glassfish&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="section" id="choose-install-location"&gt;
+&lt;h4&gt;Choose install&amp;nbsp;location&lt;/h4&gt;
+&lt;p&gt;As a last prerequisite step you need to choose an install location. I chose &lt;code&gt;/opt/roller&lt;/code&gt; to be the install location of my&amp;nbsp;choice.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="setup-user-and-group"&gt;
+&lt;h3&gt;Setup user and&amp;nbsp;group&lt;/h3&gt;
+&lt;p&gt;As you probably won&amp;#8217;t be running roller as root, you&amp;#8217;ll have to setup a user and a group for your roller installation. This, again on Debian based systems, is done using the following&amp;nbsp;commands:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;root@sigusr1:$
+        mkdir /opt/roller
+        addgroup --system roller
+        adduser --home /opt/roller &lt;span class="se"&gt;\&lt;/span&gt;
+        --shell /bin/bash &lt;span class="se"&gt;\&lt;/span&gt;
+        --no-create-home &lt;span class="se"&gt;\&lt;/span&gt;
+        --ingroup roller &lt;span class="se"&gt;\&lt;/span&gt;
+        --disabled-password &lt;span class="se"&gt;\&lt;/span&gt;
+        --system roller
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="setup-glassfish"&gt;
+&lt;h3&gt;Setup&amp;nbsp;Glassfish&lt;/h3&gt;
+&lt;p&gt;I assume you downloaded roller and glassfish into &lt;code&gt;/opt/roller/tmp&lt;/code&gt;. In order to get the Glassfish installation working, you need to have &lt;code&gt;JAVA_HOME&lt;/code&gt; exported into your environment. Then you can start running the Glassfish installer. On a bourne shell do (inside the directory where you saved the Glassfish&amp;nbsp;installer):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;root@sigusr1:$
+        &lt;span class="nb"&gt;cd&lt;/span&gt; /opt/roller/tmp
+        &lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;JAVA_HOME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/usr/lib/jvm/java-1.5.0-sun
+        java -Xmx256m -jar glassfish-installer-v2ur2-b04-linux.jar
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The installer will ask you if you are willing to accept the license agreement. If you are running this on a remote machine, it will ask you on the command line, whether or not you are willing to accept; on your local machine it will show a nice graphical dialog for you to accept. After that setup is completed, do (machine name is included, so you&amp;#8217;re able to see in which directory I&amp;#8217;m&amp;nbsp;operating)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;j@sigusr1:/opt/roller/tmp$ mv glassfish ..
+j@sigusr1:/opt/roller/tmp$ &lt;span class="nb"&gt;cd&lt;/span&gt; ../glassfish/
+j@sigusr1:/opt/roller/glassfish$ chmod -R +x lib/ant/bin
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;As a next step you have to setup a domain for roller within Glassfish, this is a rather easy task to&amp;nbsp;do:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;j@sigusr1:/opt/roller/glassfish$ lib/ant/bin/ant -f setup.xml -Ddomain.name&lt;span class="o"&gt;=&lt;/span&gt;roller
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now start Glassfish, so we can do s.th. with it&amp;nbsp;&amp;#8230;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;j@sigusr1:/opt/roller/glassfish$ ./bin/asadmin start-domain roller
+&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="section" id="setup-built-in-database"&gt;
+&lt;h4&gt;Setup built in&amp;nbsp;database&lt;/h4&gt;
+&lt;p&gt;The following series of command all takes place inside the &lt;code&gt;/opt/roller/glassfish&lt;/code&gt; directory.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;root@sigusr1:$ ./bin/asadmin create-jdbc-connection-pool &lt;span class="se"&gt;\&lt;/span&gt;
+        --datasourceclassname org.apache.derby.jdbc.EmbeddedDataSource &lt;span class="se"&gt;\&lt;/span&gt;
+        --property &lt;span class="nv"&gt;databaseName&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="se"&gt;\$\{&lt;/span&gt;com.sun.aas.instanceRoot&lt;span class="se"&gt;\}&lt;/span&gt;/databases/rollerdb:&lt;span class="se"&gt;\&lt;/span&gt;
+        &lt;span class="nv"&gt;connectionAttributes&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="se"&gt;\;&lt;/span&gt;create&lt;span class="se"&gt;\\&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt; rollerpool
+        ./bin/asadmin ping-connection-pool rollerpool
+        ./bin/asadmin create-jdbc-resource --connectionpoolid&lt;span class="o"&gt;=&lt;/span&gt;rollerpool jdbc/rollerdb
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="setup-jndi-mail-resource"&gt;
+&lt;h4&gt;Setup &lt;span class="caps"&gt;JNDI&lt;/span&gt; mail&amp;nbsp;resource&lt;/h4&gt;
+&lt;p&gt;If that would work in roller 4.1(-dev) with Glassfish, you would&amp;nbsp;do:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;root@sigusr1:$ ./bin/asadmin create-javamail-resource --mailhost localhost --mailuser rollermail --fromaddress roller&lt;span class="se"&gt;\@&lt;/span&gt;blogs&lt;span class="se"&gt;\.&lt;/span&gt;coffeecrew&lt;span class="se"&gt;\.&lt;/span&gt;org mail/Session
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="securing-glassfish"&gt;
+&lt;h4&gt;Securing&amp;nbsp;Glassfish&lt;/h4&gt;
+&lt;p&gt;Some of you might be thinking about running Glassfish behind an Apache reverse proxy. This is exactly what I am thinking about. So if you plan to do that, it might come in handy that Glassfish would only accept connections from the local machine and therefore not let anyone easily bypass your secured apache instance. First we delete both &lt;span class="caps"&gt;HTTP&lt;/span&gt; listener instances that are listening on ports 8080 and 8443 and then recreate the 8080 one. As we are proxying with apache, we do not need the &lt;span class="caps"&gt;SSL&lt;/span&gt; listener (port 8443)&amp;nbsp;anyway.&lt;/p&gt;
+&lt;p&gt;And while we&amp;#8217;re just doing it, let&amp;#8217;s rebind those &lt;span class="caps"&gt;IIOP&lt;/span&gt; services&amp;nbsp;to.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;root@sigusr1:$
+        ./bin/asadmin delete-http-listener http-listener-1
+        ./bin/asadmin delete-http-listener http-listener-2
+        ./bin/asadmin create-http-listener --listeneraddress &lt;span class="m"&gt;127&lt;/span&gt;.0.0.1 --listenerport &lt;span class="m"&gt;8080&lt;/span&gt; --acceptorthreads &lt;span class="m"&gt;32&lt;/span&gt; --enabled&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt; --defaultvs server --securityenabled&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;false&lt;/span&gt; roller-listener
+
+        &lt;span class="c1"&gt;# Configure admin page to listen locally too&lt;/span&gt;
+        ./bin/asadmin &lt;span class="nb"&gt;set&lt;/span&gt; server.http-service.http-listener.admin-listener.address&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;127&lt;/span&gt;.0.0.1
+
+        &lt;span class="c1"&gt;# Disable IIOP stuff to listen globally, we do not need that right now.&lt;/span&gt;
+        ./bin/asadmin &lt;span class="nb"&gt;set&lt;/span&gt; server.iiop-service.iiop-listener.SSL.address&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;127&lt;/span&gt;.0.0.1
+        ./bin/asadmin &lt;span class="nb"&gt;set&lt;/span&gt; server.iiop-service.iiop-listener.SSL_MUTUALAUTH.address&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;127&lt;/span&gt;.0.0.1
+        ./bin/asadmin &lt;span class="nb"&gt;set&lt;/span&gt; server.iiop-service.iiop-listener.orb-listener-1.address&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;127&lt;/span&gt;.0.0.1
+
+        &lt;span class="c1"&gt;# Disable JMX connector for remote access&lt;/span&gt;
+        ./bin/asadmin &lt;span class="nb"&gt;set&lt;/span&gt; server.admin-service.jmx-connector.system.enabled&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;false&lt;/span&gt;
+
+        &lt;span class="c1"&gt;# JMS&lt;/span&gt;
+        ./bin/asadmin &lt;span class="nb"&gt;set&lt;/span&gt; server.jms-service.jms-host.default_JMS_host.host&lt;span class="o"&gt;=&lt;/span&gt;localhost
+
+        &lt;span class="c1"&gt;# Require client authentication, just to be sure ...&lt;/span&gt;
+        ./bin/asadmin &lt;span class="nb"&gt;set&lt;/span&gt; server.iiop-service.client-authentication-required&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nb"&gt;true&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now, to make changes effective we have to restart Glassfish. But before that we want to make sure everything has correct permissions for our newly created user, won&amp;#8217;t&amp;nbsp;we?&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;root@sigusr1:$ &lt;span class="c1"&gt;# Fix permissions&lt;/span&gt;
+        chown -R roller:roller /opt/roller
+
+        &lt;span class="c1"&gt;# Restart gf to make changes effective&lt;/span&gt;
+        ./bin/asadmin stop-domain roller
+
+        &lt;span class="c1"&gt;# Start as roller user&lt;/span&gt;
+        su -c &lt;span class="s2"&gt;&amp;quot;./bin/asadmin start-domain roller&amp;quot;&lt;/span&gt; roller
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="setup-and-configure-roller"&gt;
+&lt;h3&gt;Setup and configure&amp;nbsp;Roller&lt;/h3&gt;
+&lt;p&gt;Setting up Roller 4.1(-dev) is pretty easy. We start by extracting the tarball we downloaded earlier. Since we have set our theme directory to be &lt;code&gt;/opt/roller/themes&lt;/code&gt; we do have to copy the themes we want to use there. As a next step we &lt;em&gt;really want to have security keys **changed**&lt;/em&gt;. This is done by either editing the &lt;code&gt;security.xml&lt;/code&gt; file manually or using a &lt;code&gt;sed&lt;/code&gt; expression. After we have changed the keys, we can pack us a nice &lt;code&gt;roller.war&lt;/code&gt; file. The few commands below execute the described&amp;nbsp;actions.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;root@sigusr1:$ &lt;span class="c1"&gt;#Roller setup&lt;/span&gt;
+        &lt;span class="nb"&gt;cd&lt;/span&gt; /opt/roller/tmp
+        tar zxvf apache-roller-4.1-snapshot-m1.tar.gz
+
+        &lt;span class="c1"&gt;#Copy themes&lt;/span&gt;
+        &lt;span class="nb"&gt;cd&lt;/span&gt; apache-roller*/webapp/roller/themes
+        cp -vR * /opt/roller/themes
+
+        &lt;span class="nb"&gt;cd&lt;/span&gt; ../WEB-INF
+        cp security.xml /tmp
+
+        &lt;span class="c1"&gt;# actually change keys&lt;/span&gt;
+        cat /tmp/security.xml &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
+        sed &lt;span class="s2"&gt;&amp;quot;s/name=\&amp;quot;key\&amp;quot; value=\&amp;quot;anonymous\&amp;quot;/name=\&amp;quot;key\&amp;quot; value=\&amp;quot;myOwnLongKey\&amp;quot;/&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
+        sed &lt;span class="s2"&gt;&amp;quot;s/name=\&amp;quot;key\&amp;quot; value=\&amp;quot;rollerlovesacegi\&amp;quot;/name=\&amp;quot;key\&amp;quot; value=\&amp;quot;myOwnLongKey2\&amp;quot;/&amp;quot;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
+        &amp;gt; security.xml
+
+        &lt;span class="c1"&gt;#Pack war file&lt;/span&gt;
+        &lt;span class="nb"&gt;cd&lt;/span&gt; ..
+        jar cvf ../../../roller.war *
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now we&amp;#8217;re nearly finished &amp;#8230; just a few seconds away from experimenting with your own roller instance now :). As a next necessary step we need to create a custom configuration file for Roller. That configuration file has to be saved in &lt;code&gt;/opt/roller/glassfish/domains/roller/lib/classes/roller-custom.properties&lt;/code&gt; to take effect. The configuration file can be built as&amp;nbsp;follows:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;root@sigusr1:$ &lt;span class="c1"&gt;#Build roller-custom.properties&lt;/span&gt;
+cat &lt;span class="s"&gt;&amp;lt;&amp;lt;EOF &amp;gt; $TARGET/glassfish/domains/roller/lib/classes/roller-custom.properties&lt;/span&gt;
+
+&lt;span class="s"&gt;installation.type=auto&lt;/span&gt;
+
+&lt;span class="s"&gt;#Should work with JNDI but maybe not with glassfish&lt;/span&gt;
+&lt;span class="s"&gt;mail.configurationType=properties&lt;/span&gt;
+&lt;span class="s"&gt;mail.hostname=localhost&lt;/span&gt;
+
+&lt;span class="s"&gt;planet.aggregator.enabled=true&lt;/span&gt;
+&lt;span class="s"&gt;uploads.dir=$UPLOADS&lt;/span&gt;
+&lt;span class="s"&gt;themes.dir=$THEMES&lt;/span&gt;
+&lt;span class="s"&gt;search.index.dir=$SEARCH_INDEX&lt;/span&gt;
+&lt;span class="s"&gt;planet.aggregator.cache.dir=$PLANET_CACHE&lt;/span&gt;
+&lt;span class="s"&gt;EOF&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now that the configuration is in place, we are finally ready to deploy the Roller application. With the deployment we are able to specify a context root, which is the (&lt;span class="caps"&gt;URL&lt;/span&gt;) location where your application can be reached later on. So if you specify &lt;code&gt;blogs&lt;/code&gt; then your application can later be accessed at &lt;code&gt;http://your.example.com:8080/blogs&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;root@sigusr1:$ &lt;span class="c1"&gt;#Deploy application&lt;/span&gt;
+        &lt;span class="nb"&gt;cd&lt;/span&gt; &lt;span class="nv"&gt;$TARGET&lt;/span&gt;/glassfish
+        ./bin/asadmin deploy --contextroot blogs ../tmp/roller.war
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Just to be sure everything you&amp;#8217;ve installed so far has correct permission, you might want to run the following commands again. It fixes your permissions and runs Glassfish as roller&amp;nbsp;user.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;root@sigusr1:$ &lt;span class="c1"&gt;# Fix permissions&lt;/span&gt;
+        chown -R roller:roller /opt/roller
+
+        &lt;span class="c1"&gt;#Restart gf to make changes effective&lt;/span&gt;
+        ./bin/asadmin stop-domain roller
+
+        &lt;span class="c1"&gt;# Start as roller user&lt;/span&gt;
+        su -c &lt;span class="s2"&gt;&amp;quot;./bin/asadmin start-domain roller&amp;quot;&lt;/span&gt; roller
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;After you&amp;#8217;ve done all that you now should have a ready to go roller installation. Now go visit &lt;code&gt;http://localhost:8080/blogs&lt;/code&gt; and configure your shiny new roller installation. It is pretty much self explanatory, but if you need further assistance, you might want to have a look into the installation guide, which you can get &lt;a class="reference external" href="http://roller.apache.org/download.cgi"&gt;here&lt;/a&gt; (see chapter&amp;nbsp;8ff).&lt;/p&gt;
+&lt;p&gt;Now after you&amp;#8217;ve set up everything exactly as you like, you should change &lt;code&gt;/opt/roller/glassfish/domains/roller/lib/classes/roller-custom.properties&lt;/code&gt; to read &lt;code&gt;installation.type=manual&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content><category term="Infrastructure"></category><category term="Glassfish"></category><category term="Roller"></category></entry></feed>
