@@ -46,11 +46,11 @@ jobs:
         path: 'gh-pages-2'
 
     - name: Copying content to gh-pages branch repo
-      run: cp -R ${{ github.workspace }}/master/output/* ${{ github.workspace }}/gh-pages-2
+      run: cp -R ${{ github.workspace }}/source/output/* ${{ github.workspace }}/gh-pages-2
 
     - name: Commit files
       run: |
-        cd ${{ github.workspace }}/gh-pages
+        cd ${{ github.workspace }}/gh-pages-2
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add *
