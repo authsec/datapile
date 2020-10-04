@@ -1,5 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Datapile - Programming</title><link href="https://authsec.github.io/datapile/" rel="alternate"></link><link href="https://authsec.github.io/datapile/feeds/programming.atom.xml" rel="self"></link><id>https://authsec.github.io/datapile/</id><updated>2010-11-01T10:00:34+01:00</updated><subtitle>Against Digital Amnesia</subtitle><entry><title>Programming with the APR</title><link href="https://authsec.github.io/datapile/programming-with-the-apr" rel="alternate"></link><published>2010-11-01T10:00:34+01:00</published><updated>2010-11-01T10:00:34+01:00</updated><author><name>Jens Frey</name></author><id>tag:authsec.github.io,2010-11-01:/datapile/programming-with-the-apr</id><summary type="html">&lt;p class="first last"&gt;This article will give you an introduction of how to program with the Apache Portable Runtime (&lt;span class="caps"&gt;APR&lt;/span&gt;).&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Datapile - Programming</title><link href="https://datapile.coffeecrew.org/" rel="alternate"></link><link href="https://datapile.coffeecrew.org/feeds/programming.atom.xml" rel="self"></link><id>https://datapile.coffeecrew.org/</id><updated>2016-07-08T21:44:25+01:00</updated><subtitle>Against Digital Amnesia</subtitle><entry><title>Programmatically Start A JSF Flow</title><link href="https://datapile.coffeecrew.org/programmatically-start-a-jsf-flow" rel="alternate"></link><published>2016-07-08T21:44:25+01:00</published><updated>2016-07-08T21:44:25+01:00</updated><author><name>Jens Frey</name></author><id>tag:datapile.coffeecrew.org,2016-07-08:/programmatically-start-a-jsf-flow</id><summary type="html">&lt;p class="first last"&gt;How to programmatically start a faces&amp;nbsp;flow.&lt;/p&gt;
+</summary><content type="html">&lt;div class="admonition note"&gt;
+&lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
+&lt;p class="last"&gt;This was tested with Wildfly 10.0.0.Final, Mojarra 2.2.12 and Java &lt;span class="caps"&gt;JDK&lt;/span&gt;&amp;nbsp;1.8.0_51&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;There are situations where you can not start a &lt;span class="caps"&gt;JSF&lt;/span&gt; (2.2) flow in the usual way by simply redirecting to the flow&amp;#8217;s start page from your button&amp;nbsp;action.&lt;/p&gt;
+&lt;p&gt;This is for example the case when you want to start a &lt;span class="caps"&gt;JSF&lt;/span&gt; flow from e.g. a view action method. In this case it is not sufficient to simple return the view name of the flow as this will not just start&amp;nbsp;it.&lt;/p&gt;
+&lt;p&gt;To properly start the flow you need to first tell the flow handler that you are now transitioning into a flow. You can do this with the following&amp;nbsp;code:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;FacesContext&lt;/span&gt; &lt;span class="n"&gt;context&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;FacesContext&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getCurrentInstance&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="n"&gt;FlowHandler&lt;/span&gt; &lt;span class="n"&gt;handler&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getApplication&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="na"&gt;getFlowHandler&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="n"&gt;handler&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;transition&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kc"&gt;null&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;handler&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getFlow&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;FLOW_NAME&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="kc"&gt;null&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;FLOW_NAME&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If done like this, that flow should start as expected. However, if you don&amp;#8217;t set up the &lt;code&gt;FlowHandler.transition&lt;/code&gt; properly you will end up with the following&amp;nbsp;error:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;WELD-001303: No active contexts for scope type javax.faces.flow.FlowScoped
+&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="admonition note"&gt;
+&lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
+&lt;p class="last"&gt;You need to reach the page running the view action through a &lt;code&gt;GET&lt;/code&gt; request. So using the normal &lt;code&gt;h:commandButton&lt;/code&gt; will not work in this case as this issues a &lt;code&gt;POST&lt;/code&gt; request (except you add &lt;code&gt;?faces-redirect=true&lt;/code&gt; to your action parameter of&amp;nbsp;course).&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;The full source for this example can be found &lt;a class="reference external" href="https://github.com/authsec/examples/tree/master/java/programmatically-start-faces-flow"&gt;here&lt;/a&gt;.&lt;/p&gt;
+</content><category term="Programming"></category><category term="Java"></category><category term="JSF"></category></entry><entry><title>Have a ReST Endpoint Catch All</title><link href="https://datapile.coffeecrew.org/have-a-rest-endpoint-catch-all" rel="alternate"></link><published>2015-11-22T17:44:25+01:00</published><updated>2015-11-22T17:44:25+01:00</updated><author><name>Jens Frey</name></author><id>tag:datapile.coffeecrew.org,2015-11-22:/have-a-rest-endpoint-catch-all</id><summary type="html">&lt;p class="first last"&gt;How to handle unspecific calls to a ReST&amp;nbsp;endpoint.&lt;/p&gt;
+</summary><content type="html">&lt;p&gt;If you need a ReST endpoint which returns kind of a default page when
+a client accesses a unmapped path, you need an implementation like the
+one shown&amp;nbsp;below.&lt;/p&gt;
+&lt;dl class="docutils"&gt;
+&lt;dt&gt;Index.java&lt;/dt&gt;
+&lt;dd&gt;&lt;div class="first last"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nd"&gt;@ApplicationScoped&lt;/span&gt; &lt;span class="nd"&gt;@Path&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="nd"&gt;@Produces&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;MediaType&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;TEXT_HTML&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+ &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Index&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+
+ &lt;span class="nd"&gt;@GET&lt;/span&gt; &lt;span class="nd"&gt;@Path&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/{any : .*}&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+ &lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;Response&lt;/span&gt; &lt;span class="nf"&gt;root&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;Response&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;ok&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="na"&gt;entity&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&amp;lt;!DOCTYPE html&amp;gt;\n&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;
+         &lt;span class="s"&gt;&amp;quot;&amp;lt;html&amp;gt;\n&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;
+         &lt;span class="s"&gt;&amp;quot;    &amp;lt;head&amp;gt;\n&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;
+         &lt;span class="s"&gt;&amp;quot;        &amp;lt;title&amp;gt;Response&amp;lt;/title&amp;gt;\n&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;
+     &lt;span class="s"&gt;&amp;quot;    &amp;lt;/head&amp;gt;\n&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;
+         &lt;span class="s"&gt;&amp;quot;    &amp;lt;body&amp;gt;\n&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;
+     &lt;span class="s"&gt;&amp;quot;        &amp;lt;h1&amp;gt;Catch All Response&amp;lt;/h1&amp;gt;\n&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;
+         &lt;span class="s"&gt;&amp;quot;    &amp;lt;/body&amp;gt;\n&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;
+     &lt;span class="s"&gt;&amp;quot;&amp;lt;/html&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="na"&gt;build&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+ &lt;span class="p"&gt;}&lt;/span&gt;
+
+ &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/dd&gt;
+&lt;/dl&gt;
+</content><category term="Programming"></category><category term="Java"></category><category term="ReST"></category></entry><entry><title>Reading the Conversation ID From Another Parameter</title><link href="https://datapile.coffeecrew.org/reading-the-conversation-id-from-another-parameter" rel="alternate"></link><published>2015-09-16T11:21:00+02:00</published><updated>2015-09-16T11:21:00+02:00</updated><author><name>Jens Frey</name></author><id>tag:datapile.coffeecrew.org,2015-09-16:/reading-the-conversation-id-from-another-parameter</id><summary type="html">&lt;p class="first last"&gt;How to read the &lt;span class="caps"&gt;JSF&lt;/span&gt; conversation &lt;span class="caps"&gt;ID&lt;/span&gt; from another parameter than&amp;nbsp;cid.&lt;/p&gt;
+</summary><content type="html">&lt;div class="admonition note"&gt;
+&lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
+&lt;p class="last"&gt;This was tested with Wildfly 10.0.0.Final, Mojarra 2.2.12 and Java &lt;span class="caps"&gt;JDK&lt;/span&gt;&amp;nbsp;1.8.0_51&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;When you are working with a &lt;code&gt;&amp;#64;ConversationScoped&lt;/code&gt; bean you may want to read &lt;span class="caps"&gt;JSF&lt;/span&gt;&amp;#8217;s conversation &lt;span class="caps"&gt;ID&lt;/span&gt; (&lt;code&gt;cid&lt;/code&gt;) from another request parameter such as for example a parameter named &lt;code&gt;state&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;At first I tried to find a configuration option to change this behaviour, but failed to find one. In the end the problem can be solved using the &lt;code&gt;org.jboss.weld.context.http.HttpConversationContext&lt;/code&gt; class from the Weld &lt;span class="caps"&gt;CDI&lt;/span&gt; implementation if you don&amp;#8217;t mind being a little implementation&amp;nbsp;dependent.&lt;/p&gt;
+&lt;p&gt;This class allows you to activate a specific context &lt;span class="caps"&gt;ID&lt;/span&gt; or &lt;code&gt;cid&lt;/code&gt; so you have access to your &lt;em&gt;normal&lt;/em&gt; &lt;code&gt;&amp;#64;ConversationScoped&lt;/code&gt; beans. The only pitfall here to remember is that you have to call &lt;code&gt;deactivate()&lt;/code&gt; first or you may end up with some kind of a &lt;em&gt;Context is already active&lt;/em&gt;&amp;nbsp;Exception.&lt;/p&gt;
+&lt;p&gt;Well you basically do this in your &lt;code&gt;&amp;#64;PostConstruct&lt;/code&gt; method.&lt;/p&gt;
+&lt;dl class="docutils"&gt;
+&lt;dt&gt;RemapCID.java&lt;/dt&gt;
+&lt;dd&gt;&lt;div class="first last"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nd"&gt;@PostConstruct&lt;/span&gt;
+ &lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;init&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+     &lt;span class="kd"&gt;final&lt;/span&gt; &lt;span class="n"&gt;HttpServletRequest&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;HttpServletRequest&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;FacesContext&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getCurrentInstance&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="na"&gt;getExternalContext&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="na"&gt;getRequest&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+     &lt;span class="c1"&gt;// This basically makes the state parameter the conversation id&lt;/span&gt;
+     &lt;span class="kd"&gt;final&lt;/span&gt; &lt;span class="n"&gt;String&lt;/span&gt; &lt;span class="n"&gt;state&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;getParameter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;state&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+     &lt;span class="n"&gt;httpConversationContext&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;deactivate&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+     &lt;span class="n"&gt;httpConversationContext&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="na"&gt;activate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;state&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+ &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;I admit this is a pretty pragmatic solution, but it seems to work. Maybe the &lt;code&gt;&amp;#64;ConversationScoped&lt;/code&gt; needs to let you specify the parameters to read it&amp;#8217;s &lt;span class="caps"&gt;ID&lt;/span&gt;&amp;nbsp;from.&lt;/p&gt;
+&lt;p&gt;Hope this helps, until next&amp;nbsp;time.&lt;/p&gt;
+</content><category term="Programming"></category><category term="Java"></category><category term="JSF"></category><category term="CDI"></category></entry><entry><title>Programming with the APR</title><link href="https://datapile.coffeecrew.org/programming-with-the-apr" rel="alternate"></link><published>2010-11-01T10:00:34+01:00</published><updated>2010-11-01T10:00:34+01:00</updated><author><name>Jens Frey</name></author><id>tag:datapile.coffeecrew.org,2010-11-01:/programming-with-the-apr</id><summary type="html">&lt;p class="first last"&gt;This article will give you an introduction of how to program with the Apache Portable Runtime (&lt;span class="caps"&gt;APR&lt;/span&gt;).&lt;/p&gt;
 </summary><content type="html">&lt;p&gt;This article will give you an introduction of how to program with the
 Apache Portable Runtime (&lt;span class="caps"&gt;APR&lt;/span&gt;). It illustrates a simple command line&amp;nbsp;program.&lt;/p&gt;
 &lt;div class="admonition note"&gt;

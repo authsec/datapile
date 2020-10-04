@@ -6,26 +6,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Jens Frey" />
 
-        <meta name="description" content="How to start a local consul server.
+        <meta name="description" content="How to programmatically start a faces flow.
 " />
         <meta name="twitter:creator" content="@authsec">
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="Pro Tools, Cheat Sheet, Shortcuts, Music, " />
+<meta name="keywords" content="Java, JSF, Programming, " />
 
-<meta property="og:title" content="Pro Tools - Playlists "/>
-<meta property="og:url" content="https://datapile.coffeecrew.org/pro-tools-playlists" />
-<meta property="og:description" content="How to start a local consul server." />
+<meta property="og:title" content="Programmatically Start A JSF Flow "/>
+<meta property="og:url" content="https://datapile.coffeecrew.org/programmatically-start-a-jsf-flow" />
+<meta property="og:description" content="How to programmatically start a faces flow." />
 <meta property="og:site_name" content="Datapile" />
 <meta property="og:article:author" content="Jens Frey" />
-<meta property="og:article:published_time" content="2015-09-03T19:36:55+02:00" />
-<meta name="twitter:title" content="Pro Tools - Playlists ">
-<meta name="twitter:description" content="How to start a local consul server.">
+<meta property="og:article:published_time" content="2016-07-08T21:44:25+01:00" />
+<meta name="twitter:title" content="Programmatically Start A JSF Flow ">
+<meta name="twitter:description" content="How to programmatically start a faces flow.">
 <meta property="og:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" />
 <meta name="twitter:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" >
 
-        <title>Pro Tools - Playlists  · Datapile
+        <title>Programmatically Start A JSF Flow  · Datapile
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="https://datapile.coffeecrew.org/theme/css/elegant.prod.css" media="screen">
@@ -89,8 +89,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://datapile.coffeecrew.org/pro-tools-playlists">
-                Pro Tools -&nbsp;Playlists
+            <a href="https://datapile.coffeecrew.org/programmatically-start-a-jsf-flow">
+                Programmatically Start A <span class="caps">JSF</span>&nbsp;Flow
             </a>
         </h1>
     </header>
@@ -99,12 +99,27 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>When working with Pro Tools you may find yourself in a position where you need to create a few takes of for example a chorus. Instead of creating a completely new track for every take you do, you can simply create what is called a playlist in Pro&nbsp;Tools.</p>
-<div class="section" id="shortcut">
-<h2>Shortcut</h2>
-<p>You can create a playlist using the right control key and the backslash symbol like <code>RCTRL - \ </code>.</p>
-<p>There is also another shortcut assigned if you may not have remapped it in <span class="caps">OS</span> X or it may be mapped to something else by default. That shortcut would be <code>LCMD - LALT - LSHIFT - \ </code> where the letter <code>L</code> denotes the keys on the left side of the keyboard are&nbsp;pressed.</p>
+            <div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This was tested with Wildfly 10.0.0.Final, Mojarra 2.2.12 and Java <span class="caps">JDK</span>&nbsp;1.8.0_51</p>
 </div>
+<p>There are situations where you can not start a <span class="caps">JSF</span> (2.2) flow in the usual way by simply redirecting to the flow&#8217;s start page from your button&nbsp;action.</p>
+<p>This is for example the case when you want to start a <span class="caps">JSF</span> flow from e.g. a view action method. In this case it is not sufficient to simple return the view name of the flow as this will not just start&nbsp;it.</p>
+<p>To properly start the flow you need to first tell the flow handler that you are now transitioning into a flow. You can do this with the following&nbsp;code:</p>
+<div class="highlight"><pre><span></span><span class="n">FacesContext</span> <span class="n">context</span> <span class="o">=</span> <span class="n">FacesContext</span><span class="p">.</span><span class="na">getCurrentInstance</span><span class="p">();</span>
+<span class="n">FlowHandler</span> <span class="n">handler</span> <span class="o">=</span> <span class="n">context</span><span class="p">.</span><span class="na">getApplication</span><span class="p">().</span><span class="na">getFlowHandler</span><span class="p">();</span>
+<span class="n">handler</span><span class="p">.</span><span class="na">transition</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="n">handler</span><span class="p">.</span><span class="na">getFlow</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">FLOW_NAME</span><span class="p">),</span> <span class="kc">null</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span>
+
+<span class="k">return</span> <span class="n">FLOW_NAME</span><span class="p">;</span>
+</pre></div>
+<p>If done like this, that flow should start as expected. However, if you don&#8217;t set up the <code>FlowHandler.transition</code> properly you will end up with the following&nbsp;error:</p>
+<div class="highlight"><pre><span></span>WELD-001303: No active contexts for scope type javax.faces.flow.FlowScoped
+</pre></div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You need to reach the page running the view action through a <code>GET</code> request. So using the normal <code>h:commandButton</code> will not work in this case as this issues a <code>POST</code> request (except you add <code>?faces-redirect=true</code> to your action parameter of&nbsp;course).</p>
+</div>
+<p>The full source for this example can be found <a class="reference external" href="https://github.com/authsec/examples/tree/master/java/programmatically-start-faces-flow">here</a>.</p>
 
 
 
@@ -112,11 +127,11 @@
  
                 <p id="post-share-links">
     Like this post? Share on:
-    <a href="https://twitter.com/intent/tweet?text=Pro%20Tools%20-%C2%A0Playlists&url=https%3A//datapile.coffeecrew.org/pro-tools-playlists&via=authsec&hashtags=pro-tools,cheat-sheet,shortcuts" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+    <a href="https://twitter.com/intent/tweet?text=Programmatically%20Start%20A%20JSF%C2%A0Flow&url=https%3A//datapile.coffeecrew.org/programmatically-start-a-jsf-flow&via=authsec&hashtags=java,jsf" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
     ❄
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/pro-tools-playlists" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/programmatically-start-a-jsf-flow" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
     ❄
-    <a href="mailto:?subject=Pro%20Tools%20-%C2%A0Playlists&amp;body=https%3A//datapile.coffeecrew.org/pro-tools-playlists" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
+    <a href="mailto:?subject=Programmatically%20Start%20A%20JSF%C2%A0Flow&amp;body=https%3A//datapile.coffeecrew.org/programmatically-start-a-jsf-flow" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
     </p>
 
                 <hr />
@@ -136,30 +151,35 @@
 
 
             <hr/>
+<section>
+    <h2>Keep Reading</h2>
+<ul class="related-posts-list">
+<li><a href="https://datapile.coffeecrew.org/reading-the-conversation-id-from-another-parameter" title="Reading the Conversation ID From Another Parameter">Reading the Conversation ID From Another Parameter</a></li>
+<li><a href="https://datapile.coffeecrew.org/have-a-rest-endpoint-catch-all" title="Have a ReST Endpoint Catch All">Have a ReST Endpoint Catch All</a></li>
+</ul>
+<hr />
+</section>
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/grenade-cover-version" title="Previous: Grenade - Cover Version">Grenade - Cover Version</a></li>
-                <li class="next-article"><a href="https://datapile.coffeecrew.org/reading-the-conversation-id-from-another-parameter" title="Next: Reading the Conversation ID From Another Parameter">Reading the Conversation ID From Another Parameter</a> »</li>
+                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/back-to-qnap" title="Previous: Back To QNAP">Back To QNAP</a></li>
+                <li class="next-article"><a href="https://datapile.coffeecrew.org/upload-maven-artifacts-into-nexus-3" title="Next: Upload Maven Artifacts Into Nexus 3">Upload Maven Artifacts Into Nexus 3</a> »</li>
             </ul>
             </nav>
             </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2015-09-03T19:36:55+02:00">Sep 3, 2015</time>
+            <time itemprop="dateCreated" datetime="2016-07-08T21:44:25+01:00">Jul 8, 2016</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://datapile.coffeecrew.org/categories#music-ref">Music</a>
+            <a class="category-link" href="https://datapile.coffeecrew.org/categories#programming-ref">Programming</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://datapile.coffeecrew.org/tags#cheat-sheet-ref">Cheat Sheet
-                    <span>1</span>
+                <li><a href="https://datapile.coffeecrew.org/tags#java-ref">Java
+                    <span>3</span>
 </a></li>
-                <li><a href="https://datapile.coffeecrew.org/tags#pro-tools-ref">Pro Tools
-                    <span>1</span>
-</a></li>
-                <li><a href="https://datapile.coffeecrew.org/tags#shortcuts-ref">Shortcuts
-                    <span>1</span>
+                <li><a href="https://datapile.coffeecrew.org/tags#jsf-ref">JSF
+                    <span>2</span>
 </a></li>
             </ul>
 <h4>Stay in Touch</h4>

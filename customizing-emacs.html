@@ -6,26 +6,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Jens Frey" />
 
-        <meta name="description" content="How to start a local consul server.
+        <meta name="description" content="This article will how to customize the emacs editor.
 " />
         <meta name="twitter:creator" content="@authsec">
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="Pro Tools, Cheat Sheet, Shortcuts, Music, " />
+<meta name="keywords" content="Editor, Emacs, Infrastructure, " />
 
-<meta property="og:title" content="Pro Tools - Playlists "/>
-<meta property="og:url" content="https://datapile.coffeecrew.org/pro-tools-playlists" />
-<meta property="og:description" content="How to start a local consul server." />
+<meta property="og:title" content="Customizing Emacs "/>
+<meta property="og:url" content="https://datapile.coffeecrew.org/customizing-emacs" />
+<meta property="og:description" content="This article will how to customize the emacs editor." />
 <meta property="og:site_name" content="Datapile" />
 <meta property="og:article:author" content="Jens Frey" />
-<meta property="og:article:published_time" content="2015-09-03T19:36:55+02:00" />
-<meta name="twitter:title" content="Pro Tools - Playlists ">
-<meta name="twitter:description" content="How to start a local consul server.">
+<meta property="og:article:published_time" content="2010-11-04T14:00:34+01:00" />
+<meta name="twitter:title" content="Customizing Emacs ">
+<meta name="twitter:description" content="This article will how to customize the emacs editor.">
 <meta property="og:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" />
 <meta name="twitter:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" >
 
-        <title>Pro Tools - Playlists  · Datapile
+        <title>Customizing Emacs  · Datapile
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="https://datapile.coffeecrew.org/theme/css/elegant.prod.css" media="screen">
@@ -89,8 +89,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://datapile.coffeecrew.org/pro-tools-playlists">
-                Pro Tools -&nbsp;Playlists
+            <a href="https://datapile.coffeecrew.org/customizing-emacs">
+                Customizing&nbsp;Emacs
             </a>
         </h1>
     </header>
@@ -99,11 +99,59 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>When working with Pro Tools you may find yourself in a position where you need to create a few takes of for example a chorus. Instead of creating a completely new track for every take you do, you can simply create what is called a playlist in Pro&nbsp;Tools.</p>
-<div class="section" id="shortcut">
-<h2>Shortcut</h2>
-<p>You can create a playlist using the right control key and the backslash symbol like <code>RCTRL - \ </code>.</p>
-<p>There is also another shortcut assigned if you may not have remapped it in <span class="caps">OS</span> X or it may be mapped to something else by default. That shortcut would be <code>LCMD - LALT - LSHIFT - \ </code> where the letter <code>L</code> denotes the keys on the left side of the keyboard are&nbsp;pressed.</p>
+            <div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This tutorial was tested with <span class="caps">GNU</span> Emacs&nbsp;23.0.91.1</p>
+</div>
+<p>Some of you might be forced to spent nearly the whole day in a text editor like e.g. emacs to do their work. This usually is especially true for developers, that have to write code the whole day and therefore are forced to look into their editor the whole day. So why not customize it a little, so work might be more pleasant in the&nbsp;end?</p>
+<p>This article will show you how you can customize emacs to hopefully suit your needs. Since I am using Ubuntu, which is a Debian based distribution, the installation of packages might vary for your&nbsp;distribution.</p>
+<div class="section" id="prerequisites">
+<h2>Prerequisites</h2>
+<p>In order for this customization to work, you need to get some things first. This includes the development version of emacs, which in my distribution is marked as emacs-snapshot, and the Terminus font, which is according to many users <em>the</em> font if you have to work long on your computer. That&#8217;s what I can say too, the font is very pleasant on the&nbsp;eyes.</p>
+<p>So, be sure to have the following stuff&nbsp;available:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.is-vn.bg/hamster/">The Terminus&nbsp;font</a></li>
+<li><a class="reference external" href="http://www.gnu.org/software/emacs/emacs-faq.html#Installing-Emacs">Emacs</a></li>
+</ul>
+<p>For the development (snapshot) version of emacs you&#8217;d probably have to check out the <span class="caps">CVS</span> repository, if you&#8217;re lucky, version 23 is released when you read this&nbsp;;).</p>
+<p>On an Ubuntu based installation, these packages are quite easy to get, simply enter the following commands in your&nbsp;terminal.</p>
+<div class="highlight"><pre><span></span>j@sigusr1:$ sudo aptitude install <span class="se">\</span>
+   console-terminus xfonts-terminus <span class="se">\</span>
+   xfonts-terminus-dos xfonts-terminus-oblique <span class="se">\</span>
+   emacs-snapshot emacs-snapshot-gtk
+</pre></div>
+<p>If you do have the non-snapshot edition of emacs already installed on
+your system, you might want to update your default, be executing the
+following commands and select the snapshot as the default being
+started when you type <cite>emacs</cite>:</p>
+<div class="highlight"><pre><span></span>$ sudo update-alternatives --config emacs
+$ sudo update-alternatives --config emacsclient
+</pre></div>
+<p>You should now be able to type <code>emacs</code> into your terminal and the emacs-snapshot will be&nbsp;started.</p>
+</div>
+<div class="section" id="color-themes">
+<h2>Color&nbsp;Themes</h2>
+<p>I like colors, and I think the basic color theme that comes with emacs is not very nice. So I decided to install some color themes. Luckily these color themes can be easily installed on Ubuntu. If you are using another distribution which might not have support for that, you might want to try <a class="reference external" href="http://www.nongnu.org/color-theme/">downloading and installing it manually</a>. For the automatic version, simply&nbsp;do:</p>
+<div class="highlight"><pre><span></span>$ sudo apt-get install emacs-goodies-el
+</pre></div>
+<p>After the installation completes, you should be able to start emacs and select a color theme like &#8220;Subtle Hacker&#8221; or &#8220;Gnome 2&#8221; with <code>M-x color-theme-select</code>. The &#8220;Save customization&#8221; feature in the snapshot I am using (<span class="caps">GNU</span> Emacs 23.0.91.1) does not seem to work unfortunately. There is one &#8220;trick&#8221; though that might work; if the customization file does not yet exist, saving seems to&nbsp;work.</p>
+</div>
+<div class="section" id="customization-files">
+<h2>Customization&nbsp;Files</h2>
+<p>If you externalize your configuration into a -custom.el file, you end up with two files, the .emacs and the .emacs-custom.el file (or whatever you name it). My files look as&nbsp;follows.</p>
+</div>
+<div class="section" id="references">
+<h2>References</h2>
+<ul class="simple">
+<li><a class="reference external" href="http://www.gnu.org/software/emacs/emacs-faq.html#Installing-Emacs">http://www.gnu.org/software/emacs/emacs-faq.html#Installing-Emacs</a></li>
+<li><a class="reference external" href="http://www.is-vn.bg/hamster">http://www.is-vn.bg/hamster</a></li>
+<li><a class="reference external" href="http://www.nongnu.org/color-theme">http://www.nongnu.org/color-theme</a></li>
+<li><a class="reference external" href="http://homepages.inf.ed.ac.uk/s0243221/emacs">http://homepages.inf.ed.ac.uk/s0243221/emacs</a></li>
+<li><a class="reference external" href="http://amrmostafa.org/bearable-emacs-recipe">http://amrmostafa.org/bearable-emacs-recipe</a></li>
+<li><a class="reference external" href="http://peadrop.com/blog/2007/01/06/pretty-emacs">http://peadrop.com/blog/2007/01/06/pretty-emacs</a></li>
+<li><a class="reference external" href="http://fractal.csie.org/~eric/wiki/Terminus_font">http://fractal.csie.org/~eric/wiki/Terminus_font</a></li>
+<li><a class="reference external" href="http://copyleft.free.fr/wordpress/index.php/2009/04/24/nice-fonts-with-emacs-23-snapshot">http://copyleft.free.fr/wordpress/index.php/2009/04/24/nice-fonts-with-emacs-23-snapshot</a></li>
+</ul>
 </div>
 
 
@@ -112,11 +160,11 @@
  
                 <p id="post-share-links">
     Like this post? Share on:
-    <a href="https://twitter.com/intent/tweet?text=Pro%20Tools%20-%C2%A0Playlists&url=https%3A//datapile.coffeecrew.org/pro-tools-playlists&via=authsec&hashtags=pro-tools,cheat-sheet,shortcuts" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+    <a href="https://twitter.com/intent/tweet?text=Customizing%C2%A0Emacs&url=https%3A//datapile.coffeecrew.org/customizing-emacs&via=authsec&hashtags=editor,emacs" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
     ❄
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/pro-tools-playlists" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/customizing-emacs" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
     ❄
-    <a href="mailto:?subject=Pro%20Tools%20-%C2%A0Playlists&amp;body=https%3A//datapile.coffeecrew.org/pro-tools-playlists" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
+    <a href="mailto:?subject=Customizing%C2%A0Emacs&amp;body=https%3A//datapile.coffeecrew.org/customizing-emacs" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
     </p>
 
                 <hr />
@@ -139,26 +187,23 @@
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/grenade-cover-version" title="Previous: Grenade - Cover Version">Grenade - Cover Version</a></li>
-                <li class="next-article"><a href="https://datapile.coffeecrew.org/reading-the-conversation-id-from-another-parameter" title="Next: Reading the Conversation ID From Another Parameter">Reading the Conversation ID From Another Parameter</a> »</li>
+                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/roller-template" title="Previous: Roller template">Roller template</a></li>
+                <li class="next-article"><a href="https://datapile.coffeecrew.org/use-your-own-website-as-openid-login" title="Next: Use your own website as OpenID login">Use your own website as OpenID login</a> »</li>
             </ul>
             </nav>
             </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2015-09-03T19:36:55+02:00">Sep 3, 2015</time>
+            <time itemprop="dateCreated" datetime="2010-11-04T14:00:34+01:00">Nov 4, 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://datapile.coffeecrew.org/categories#music-ref">Music</a>
+            <a class="category-link" href="https://datapile.coffeecrew.org/categories#infrastructure-ref">Infrastructure</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://datapile.coffeecrew.org/tags#cheat-sheet-ref">Cheat Sheet
+                <li><a href="https://datapile.coffeecrew.org/tags#editor-ref">Editor
                     <span>1</span>
 </a></li>
-                <li><a href="https://datapile.coffeecrew.org/tags#pro-tools-ref">Pro Tools
-                    <span>1</span>
-</a></li>
-                <li><a href="https://datapile.coffeecrew.org/tags#shortcuts-ref">Shortcuts
+                <li><a href="https://datapile.coffeecrew.org/tags#emacs-ref">Emacs
                     <span>1</span>
 </a></li>
             </ul>

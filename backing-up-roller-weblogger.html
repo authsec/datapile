@@ -6,26 +6,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Jens Frey" />
 
-        <meta name="description" content="How to start a local consul server.
+        <meta name="description" content="This guide will walk you through installing the PostgreSQL database for use in Apache Roller.
 " />
         <meta name="twitter:creator" content="@authsec">
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="Pro Tools, Cheat Sheet, Shortcuts, Music, " />
+<meta name="keywords" content="Glassfish, Roller, Backup, Infrastructure, " />
 
-<meta property="og:title" content="Pro Tools - Playlists "/>
-<meta property="og:url" content="https://datapile.coffeecrew.org/pro-tools-playlists" />
-<meta property="og:description" content="How to start a local consul server." />
+<meta property="og:title" content="Backing up roller weblogger "/>
+<meta property="og:url" content="https://datapile.coffeecrew.org/backing-up-roller-weblogger" />
+<meta property="og:description" content="This guide will walk you through installing the PostgreSQL database for use in Apache Roller." />
 <meta property="og:site_name" content="Datapile" />
 <meta property="og:article:author" content="Jens Frey" />
-<meta property="og:article:published_time" content="2015-09-03T19:36:55+02:00" />
-<meta name="twitter:title" content="Pro Tools - Playlists ">
-<meta name="twitter:description" content="How to start a local consul server.">
+<meta property="og:article:published_time" content="2010-11-01T09:00:34+01:00" />
+<meta name="twitter:title" content="Backing up roller weblogger ">
+<meta name="twitter:description" content="This guide will walk you through installing the PostgreSQL database for use in Apache Roller.">
 <meta property="og:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" />
 <meta name="twitter:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" >
 
-        <title>Pro Tools - Playlists  · Datapile
+        <title>Backing up roller weblogger  · Datapile
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="https://datapile.coffeecrew.org/theme/css/elegant.prod.css" media="screen">
@@ -89,8 +89,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://datapile.coffeecrew.org/pro-tools-playlists">
-                Pro Tools -&nbsp;Playlists
+            <a href="https://datapile.coffeecrew.org/backing-up-roller-weblogger">
+                Backing up roller&nbsp;weblogger
             </a>
         </h1>
     </header>
@@ -99,11 +99,54 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>When working with Pro Tools you may find yourself in a position where you need to create a few takes of for example a chorus. Instead of creating a completely new track for every take you do, you can simply create what is called a playlist in Pro&nbsp;Tools.</p>
-<div class="section" id="shortcut">
-<h2>Shortcut</h2>
-<p>You can create a playlist using the right control key and the backslash symbol like <code>RCTRL - \ </code>.</p>
-<p>There is also another shortcut assigned if you may not have remapped it in <span class="caps">OS</span> X or it may be mapped to something else by default. That shortcut would be <code>LCMD - LALT - LSHIFT - \ </code> where the letter <code>L</code> denotes the keys on the left side of the keyboard are&nbsp;pressed.</p>
+            <p>If you followed the <a class="reference external" href="https://datapile.coffeecrew.org/setup-roller-weblogger-41-on-glassfish-v2">Setup Roller Weblogger 4.1 On Glassfish V2</a> tutorial, or you do have a roller installation already in place, you probably want to back that up&nbsp;somehow.</p>
+<div class="section" id="backup-the-file-system">
+<h2>Backup the file&nbsp;system</h2>
+<p>Since I do not know where you possibly will have installed roller to, I am using the locations from the previous how to. The backup procedure should not be that complex after&nbsp;all.</p>
+<p>The data residing on your filesystem (I know, the database resides on the file system too), is the data you uploaded into you blog. You do have a <code>/opt/roller/uploads</code> directory for example. Depending on how many blogs you have created, there are numerous folders inside. Each sub-folder represents data for another blog. So if your blog is called &#8220;datapile&#8221;, then there will be a &#8220;datapile&#8221;&nbsp;sub-folder.</p>
+<p>For the sake of simplicity you can of course just backup the whole <code>/opt/roller</code> folder which should also save the custom themes you created eventually. If you installed it the way as described in the tutorial at the beginning, you do also backup search indexes and the glassfish installation with&nbsp;this.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">You might not have deleted the <code>/opt/roller/tmp</code> directory yet. You might backup this temporary files too in this case. If you backup the full <code>/opt/roller</code> directory, you might remove the <code>/opt/roller/tmp</code> folder manually, or at least move it to another location, so your compressed archive will not pack that (unnecessary) information too. A simple command line might look like as&nbsp;follows:</p>
+</div>
+<div class="highlight"><pre><span></span>$ <span class="nb">cd</span> /opt/ <span class="o">&amp;&amp;</span> tar cjvf /tmp/roller.tar.bz2 roller/
+</pre></div>
+</div>
+<div class="section" id="restore-the-file-system">
+<h2>Restore the file&nbsp;system</h2>
+<p>In order to restore the file system you have to recreate your installation and then copy the files back to the location where the installation can find them, or simply <code>untar</code> your backed up <code>/opt/roller</code> folder.</p>
+</div>
+<div class="section" id="backup-the-database">
+<h2>Backup the&nbsp;database</h2>
+<p>The database can be backed up pretty easily. The part to remember is that you <em>switch to the postgres user</em> when you execute the <code>pg_dumpall &gt; /tmp/rollerDb.dump</code> command.</p>
+<p>The backup command order in this case&nbsp;is:</p>
+<div class="highlight"><pre><span></span>root@sigusr1:$
+        <span class="c1"># su - postgres</span>
+        $ pg_dumpall &gt; /tmp/rollerDb.dump
+        $ pg_dumpall <span class="p">|</span> bzip2 &gt; /tmp/rollerDb.dump.bz2 <span class="c1">#bzipped version</span>
+</pre></div>
+</div>
+<div class="section" id="restore-the-database">
+<h2>Restore the&nbsp;database</h2>
+<p>Restoring the full database is a pretty easy task. On a test installation I did, this worked like a charm. I really hope there&#8217;s nothing more to add to&nbsp;it.</p>
+<div class="highlight"><pre><span></span>root@sigusr1:$
+        <span class="c1"># su - postgres</span>
+        $ createdb rollerdb
+        $ cat /tmp/rollerDb.dump.bz2 <span class="p">|</span> bunzip2 <span class="p">|</span> psql postgres
+        $ psql -f /tmp/rollerDb.dump postgres <span class="c1">#restore from non-compressed file</span>
+</pre></div>
+<p>After having played back the information into the database, you might need to adopt the postgres passwords back to the values you have set them during your installation on the servlet container (in this case glassfish). You might otherwise end up with some ugly exceptions. To do that start the <code>psql</code> tool as postgres user and enter the following statements (of course adopt to your password ;)&nbsp;).</p>
+<div class="highlight"><pre><span></span><span class="n">postgres</span><span class="o">@</span><span class="n">sigusr1</span><span class="p">:</span><span class="o">~</span><span class="err">$</span> <span class="n">psql</span>
+<span class="n">postgres</span><span class="o">=#</span> <span class="k">alter</span> <span class="k">user</span> <span class="n">roller</span> <span class="k">with</span> <span class="n">password</span> <span class="s1">&#39;roller&#39;</span><span class="p">;</span>
+<span class="n">postgres</span><span class="o">=#</span> <span class="k">alter</span> <span class="k">user</span> <span class="n">postgres</span> <span class="k">with</span> <span class="n">password</span> <span class="s1">&#39;postgres&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="section" id="references">
+<h2>References</h2>
+<p>Especially when it comes to handling the database stuff, the PostgreSQL documentation was very&nbsp;helpful.</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.postgresql.org/docs/8.1/static/backup.html">http://www.postgresql.org/docs/8.1/static/backup.html</a></li>
+</ul>
 </div>
 
 
@@ -112,11 +155,11 @@
  
                 <p id="post-share-links">
     Like this post? Share on:
-    <a href="https://twitter.com/intent/tweet?text=Pro%20Tools%20-%C2%A0Playlists&url=https%3A//datapile.coffeecrew.org/pro-tools-playlists&via=authsec&hashtags=pro-tools,cheat-sheet,shortcuts" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+    <a href="https://twitter.com/intent/tweet?text=Backing%20up%20roller%C2%A0weblogger&url=https%3A//datapile.coffeecrew.org/backing-up-roller-weblogger&via=authsec&hashtags=glassfish,roller,backup" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
     ❄
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/pro-tools-playlists" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/backing-up-roller-weblogger" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
     ❄
-    <a href="mailto:?subject=Pro%20Tools%20-%C2%A0Playlists&amp;body=https%3A//datapile.coffeecrew.org/pro-tools-playlists" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
+    <a href="mailto:?subject=Backing%20up%20roller%C2%A0weblogger&amp;body=https%3A//datapile.coffeecrew.org/backing-up-roller-weblogger" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
     </p>
 
                 <hr />
@@ -136,30 +179,40 @@
 
 
             <hr/>
+<section>
+    <h2>Keep Reading</h2>
+<ul class="related-posts-list">
+<li><a href="https://datapile.coffeecrew.org/setup-roller-weblogger-41-on-glassfish-v2" title="Setup roller weblogger 4.1 on Glassfish v2">Setup roller weblogger 4.1 on Glassfish v2</a></li>
+<li><a href="https://datapile.coffeecrew.org/switching-roller-from-derby-to-postgresql" title="Switching roller from Derby to PostgreSQL">Switching roller from Derby to PostgreSQL</a></li>
+<li><a href="https://datapile.coffeecrew.org/roller-template" title="Roller template">Roller template</a></li>
+<li><a href="https://datapile.coffeecrew.org/back-to-qnap" title="Back To QNAP">Back To QNAP</a></li>
+</ul>
+<hr />
+</section>
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/grenade-cover-version" title="Previous: Grenade - Cover Version">Grenade - Cover Version</a></li>
-                <li class="next-article"><a href="https://datapile.coffeecrew.org/reading-the-conversation-id-from-another-parameter" title="Next: Reading the Conversation ID From Another Parameter">Reading the Conversation ID From Another Parameter</a> »</li>
+                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/switching-roller-from-derby-to-postgresql" title="Previous: Switching roller from Derby to PostgreSQL">Switching roller from Derby to PostgreSQL</a></li>
+                <li class="next-article"><a href="https://datapile.coffeecrew.org/programming-with-the-apr" title="Next: Programming with the APR">Programming with the APR</a> »</li>
             </ul>
             </nav>
             </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2015-09-03T19:36:55+02:00">Sep 3, 2015</time>
+            <time itemprop="dateCreated" datetime="2010-11-01T09:00:34+01:00">Nov 1, 2010</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://datapile.coffeecrew.org/categories#music-ref">Music</a>
+            <a class="category-link" href="https://datapile.coffeecrew.org/categories#infrastructure-ref">Infrastructure</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://datapile.coffeecrew.org/tags#cheat-sheet-ref">Cheat Sheet
-                    <span>1</span>
+                <li><a href="https://datapile.coffeecrew.org/tags#backup-ref">Backup
+                    <span>2</span>
 </a></li>
-                <li><a href="https://datapile.coffeecrew.org/tags#pro-tools-ref">Pro Tools
-                    <span>1</span>
+                <li><a href="https://datapile.coffeecrew.org/tags#glassfish-ref">Glassfish
+                    <span>3</span>
 </a></li>
-                <li><a href="https://datapile.coffeecrew.org/tags#shortcuts-ref">Shortcuts
-                    <span>1</span>
+                <li><a href="https://datapile.coffeecrew.org/tags#roller-ref">Roller
+                    <span>4</span>
 </a></li>
             </ul>
 <h4>Stay in Touch</h4>

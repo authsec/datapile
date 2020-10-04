@@ -15,7 +15,7 @@
 <meta name="keywords" content="Consul, Database, Infrastructure, " />
 
 <meta property="og:title" content="How To Start A Consul Docker Image "/>
-<meta property="og:url" content="https://authsec.github.io/datapile/how-to-start-a-consul-docker-image" />
+<meta property="og:url" content="https://datapile.coffeecrew.org/how-to-start-a-consul-docker-image" />
 <meta property="og:description" content="How to start a local consul server." />
 <meta property="og:site_name" content="Datapile" />
 <meta property="og:article:author" content="Jens Frey" />
@@ -28,21 +28,29 @@
         <title>How To Start A Consul Docker Image  · Datapile
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="https://authsec.github.io/datapile/theme/css/elegant.prod.css" media="screen">
-        <link rel="stylesheet" type="text/css" href="https://authsec.github.io/datapile/theme/css/custom.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://datapile.coffeecrew.org/theme/css/elegant.prod.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://datapile.coffeecrew.org/theme/css/custom.css" media="screen">
 
-        <link rel="shortcut icon" href="https://authsec.github.io/datapile/theme/images/favicon.ico" type="image/x-icon" />
-        <link rel="icon" href="https://authsec.github.io/datapile/theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <link rel="apple-touch-icon" href="https://authsec.github.io/datapile/theme/images/apple-touch-icon.png"  type="image/png" />
-        <link rel="apple-touch-icon" sizes="57x57" href="https://authsec.github.io/datapile/theme/images/apple-touch-icon-57x57.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="https://authsec.github.io/datapile/theme/images/apple-touch-icon-72x72.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="https://authsec.github.io/datapile/theme/images/apple-touch-icon-76x76.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="https://authsec.github.io/datapile/theme/images/apple-touch-icon-114x114.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="https://authsec.github.io/datapile/theme/images/apple-touch-icon-120x120.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="https://authsec.github.io/datapile/theme/images/apple-touch-icon-144x144.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="https://authsec.github.io/datapile/theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="https://authsec.github.io/datapile/theme/images/apple-touch-icon-180x180.png" type="image/png" />
-        <link href="https://authsec.github.io/datapile/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Datapile - Full Atom Feed" />
+        <link rel="shortcut icon" href="https://datapile.coffeecrew.org/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-180x180.png" type="image/png" />
+        <link href="https://datapile.coffeecrew.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Datapile - Full Atom Feed" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-19717065-1', 'auto');
+    ga('send', 'pageview');
+</script>
 
 
     </head>
@@ -56,18 +64,18 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </a>
-                        <a class="brand" href="https://authsec.github.io/datapile/"><span class=site-name>Datapile</span></a>
+                        <a class="brand" href="https://datapile.coffeecrew.org/"><span class=site-name>Datapile</span></a>
                         <div class="nav-collapse collapse">
                             <ul class="nav pull-right top-menu">
                                 <li >
                                     <a href=
-                                       https://authsec.github.io/datapile
+                                       https://datapile.coffeecrew.org
                                     >Home</a>
                                 </li>
-                                <li ><a href="https://authsec.github.io/datapile/categories">Categories</a></li>
-                                <li ><a href="https://authsec.github.io/datapile/tags">Tags</a></li>
-                                <li ><a href="https://authsec.github.io/datapile/archives">Archives</a></li>
-                                <li><form class="navbar-search" action="https://authsec.github.io/datapile/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                                <li ><a href="https://datapile.coffeecrew.org/categories">Categories</a></li>
+                                <li ><a href="https://datapile.coffeecrew.org/tags">Tags</a></li>
+                                <li ><a href="https://datapile.coffeecrew.org/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://datapile.coffeecrew.org/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                             </ul>
                         </div>
                     </div>
@@ -81,7 +89,7 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://authsec.github.io/datapile/how-to-start-a-consul-docker-image">
+            <a href="https://datapile.coffeecrew.org/how-to-start-a-consul-docker-image">
                 How To Start A Consul Docker&nbsp;Image
             </a>
         </h1>
@@ -103,11 +111,11 @@ docker run -p 8400:8400 -p 127.0.0.1:8500:8500 -p 8600:8600/udp -h node1 consul 
  
                 <p id="post-share-links">
     Like this post? Share on:
-    <a href="https://twitter.com/intent/tweet?text=How%20To%20Start%20A%20Consul%20Docker%C2%A0Image&url=https%3A//authsec.github.io/datapile/how-to-start-a-consul-docker-image&via=authsec&hashtags=consul,database" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+    <a href="https://twitter.com/intent/tweet?text=How%20To%20Start%20A%20Consul%20Docker%C2%A0Image&url=https%3A//datapile.coffeecrew.org/how-to-start-a-consul-docker-image&via=authsec&hashtags=consul,database" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
     ❄
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//authsec.github.io/datapile/how-to-start-a-consul-docker-image" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/how-to-start-a-consul-docker-image" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
     ❄
-    <a href="mailto:?subject=How%20To%20Start%20A%20Consul%20Docker%C2%A0Image&amp;body=https%3A//authsec.github.io/datapile/how-to-start-a-consul-docker-image" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
+    <a href="mailto:?subject=How%20To%20Start%20A%20Consul%20Docker%C2%A0Image&amp;body=https%3A//datapile.coffeecrew.org/how-to-start-a-consul-docker-image" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
     </p>
 
                 <hr />
@@ -127,11 +135,17 @@ docker run -p 8400:8400 -p 127.0.0.1:8500:8500 -p 8600:8600/udp -h node1 consul 
 
 
             <hr/>
+<section>
+    <h2>Keep Reading</h2>
+<ul class="related-posts-list">
+<li><a href="https://datapile.coffeecrew.org/switching-roller-from-derby-to-postgresql" title="Switching roller from Derby to PostgreSQL">Switching roller from Derby to PostgreSQL</a></li>
+</ul>
+<hr />
+</section>
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="https://authsec.github.io/datapile/pro-tools-playlists" title="Previous: Pro Tools - Playlists">Pro Tools - Playlists</a></li>
-                <li class="next-article"><a href="https://authsec.github.io/datapile/my-first-post" title="Next: My First Post">My First Post</a> »</li>
+                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/upload-maven-artifacts-into-nexus-3" title="Previous: Upload Maven Artifacts Into Nexus 3">Upload Maven Artifacts Into Nexus 3</a></li>
             </ul>
             </nav>
             </aside>
@@ -140,14 +154,14 @@ docker run -p 8400:8400 -p 127.0.0.1:8500:8500 -p 8600:8600/udp -h node1 consul 
             <h4>Published</h4>
             <time itemprop="dateCreated" datetime="2016-09-20T21:48:12+01:00">Sep 20, 2016</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://authsec.github.io/datapile/categories#infrastructure-ref">Infrastructure</a>
+            <a class="category-link" href="https://datapile.coffeecrew.org/categories#infrastructure-ref">Infrastructure</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://authsec.github.io/datapile/tags#consul-ref">Consul
+                <li><a href="https://datapile.coffeecrew.org/tags#consul-ref">Consul
                     <span>1</span>
 </a></li>
-                <li><a href="https://authsec.github.io/datapile/tags#database-ref">Database
-                    <span>1</span>
+                <li><a href="https://datapile.coffeecrew.org/tags#database-ref">Database
+                    <span>2</span>
 </a></li>
             </ul>
 <h4>Stay in Touch</h4>
@@ -178,6 +192,8 @@ docker run -p 8400:8400 -p 127.0.0.1:8500:8500 -p 8600:8600/udp -h node1 consul 
 
 
 
+
+
         </section>
 </div>
 </article>
@@ -203,7 +219,7 @@ docker run -p 8400:8400 -p 127.0.0.1:8500:8500 -p 8600:8600/udp -h node1 consul 
         Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
         Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
         Hosted on:
-        <a href=https://www.netlify.com/ target="_blank" rel="nofollow noopener noreferrer">
+        <a href=https://datapile.coffeecrew.org/ target="_blank" rel="nofollow noopener noreferrer">
             Github
         </a>
     </div>

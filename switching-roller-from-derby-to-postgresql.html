@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Jens Frey" />
+
+        <meta name="description" content="This guide will walk you through installing the PostgreSQL database for use in Apache Roller.
+" />
+        <meta name="twitter:creator" content="@authsec">
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="Glassfish, Roller, Database, PostgreSQL, Infrastructure, " />
+
+<meta property="og:title" content="Switching roller from Derby to PostgreSQL "/>
+<meta property="og:url" content="https://datapile.coffeecrew.org/switching-roller-from-derby-to-postgresql" />
+<meta property="og:description" content="This guide will walk you through installing the PostgreSQL database for use in Apache Roller." />
+<meta property="og:site_name" content="Datapile" />
+<meta property="og:article:author" content="Jens Frey" />
+<meta property="og:article:published_time" content="2010-10-31T14:00:34+01:00" />
+<meta name="twitter:title" content="Switching roller from Derby to PostgreSQL ">
+<meta name="twitter:description" content="This guide will walk you through installing the PostgreSQL database for use in Apache Roller.">
+<meta property="og:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" />
+<meta name="twitter:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" >
+
+        <title>Switching roller from Derby to PostgreSQL  · Datapile
+</title>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://datapile.coffeecrew.org/theme/css/elegant.prod.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://datapile.coffeecrew.org/theme/css/custom.css" media="screen">
+
+        <link rel="shortcut icon" href="https://datapile.coffeecrew.org/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-180x180.png" type="image/png" />
+        <link href="https://datapile.coffeecrew.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Datapile - Full Atom Feed" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-19717065-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://datapile.coffeecrew.org/"><span class=site-name>Datapile</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://datapile.coffeecrew.org
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://datapile.coffeecrew.org/categories">Categories</a></li>
+                                <li ><a href="https://datapile.coffeecrew.org/tags">Tags</a></li>
+                                <li ><a href="https://datapile.coffeecrew.org/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://datapile.coffeecrew.org/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://datapile.coffeecrew.org/switching-roller-from-derby-to-postgresql">
+                Switching roller from Derby to&nbsp;PostgreSQL
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>Since Roller seems to have problems with the Glassfish built-in Derby database, especially when it comes to &#8220;Full preview&#8221; (you might end up with an <span class="caps">HTTP</span> 404 error code if you try to preview your post), you might want to switch your Roller installation to <a class="reference external" href="https://www.postgresql.org/">PostgreSQL</a>.</p>
+<p>This article will explain, how you can switch the installed Roller instance from Glassfishs built-in derby database to the PostgreSQL&nbsp;database.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This was implemented/tested with Roller Weblogger 4.1 and Glassfish&nbsp;v2UR2</p>
+</div>
+<div class="section" id="quick-install">
+<h2>Quick&nbsp;install</h2>
+<p>For the people who don&#8217;t care if anything goes wrong or just don&#8217;t like to type at all, <a class="reference external" href="https://gist.github.com/authsec/a048fb1d1ade8004dd55f4ede17c077b">here is a little script</a>, which might help you save a few keystrokes. Just be aware of the fact that you might have to change a few variables inside the&nbsp;script.</p>
+</div>
+<div class="section" id="manual-installation">
+<h2>Manual&nbsp;installation</h2>
+<p>This describes basically what the script in the quick installation tries to achieve by being&nbsp;run.</p>
+<div class="section" id="prerequisites">
+<h3>Prerequisites</h3>
+<p>As with the roller install itself, you need of course a few things before you can start. In this case you need of course the <a class="reference external" href="https://www.postgresql.org/">PostgreSQL</a> database itself and a <span class="caps">JDBC</span> driver to attach roller to the&nbsp;database.</p>
+<p>The installation of the database depends on the type of operating system you are using. I describe the setup using a <a class="reference external" href="http://www.debian.org/">Debian</a> based system, since this is so nice and easy&nbsp;:).</p>
+</div>
+<div class="section" id="get-the-database-driver">
+<h3>Get the database&nbsp;driver</h3>
+<p>To enable Glassfish to talk to your postgres installation, you have to supply it some code. Glassfish likes Java the best and you can get some <span class="caps">JDBC</span> drivers from <a class="reference external" href="http://jdbc.postgresql.org/download.html">here</a> , but specifically the <a class="reference external" href="http://jdbc.postgresql.org/download/postgresql-8.3-604.jdbc3.jar">postgresql-8.3-604.jdbc3.jar</a> is of interest to&nbsp;us.</p>
+<p>So go get the <span class="caps">JDBC</span> driver and save it in <code>/opt/roller/glassfish/domains/roller/lib</code></p>
+</div>
+<div class="section" id="install-database">
+<h3>Install&nbsp;database</h3>
+<p>For a debian based system just enter the following command as user root (or prefix it with sudo on ubuntu). You might of course have a newer version of postgresql available with you current&nbsp;installation.</p>
+<div class="highlight"><pre><span></span>root@sigusr1:$ aptitude install postgresql-8.1
+</pre></div>
+<p>After the installation finishes, you might want to create the database roller will be accessing later and also create a user for use with roller. This can be achieved by entering the following sequence of commands into a terminal of your&nbsp;choice.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Be aware of the fact that you have to <em>execute</em> the commands as user <em>postgres</em>.</p>
+</div>
+<div class="highlight"><pre><span></span>root@sigusr1:$
+        <span class="c1"># Get root</span>
+        su -
+
+        <span class="c1"># Get postgres user</span>
+        su - postgres
+
+        <span class="c1"># create database</span>
+        createdb rollerdb
+
+        <span class="c1"># create roller user</span>
+        createuser roller
+        <span class="c1"># Answers</span>
+        <span class="c1"># Shall the new role be a superuser? (y/n) n</span>
+        <span class="c1"># Shall the new role be allowed to create databases? (y/n) n</span>
+        <span class="c1"># Shall the new role be allowed to create more new roles? (y/n) n</span>
+
+        <span class="c1"># Enter postgres prompt</span>
+        psql
+</pre></div>
+<p>When you are in the prompt which will look something like&nbsp;this:</p>
+<div class="highlight"><pre><span></span><span class="n">Welcome</span> <span class="k">to</span> <span class="n">psql</span> <span class="mi">8</span><span class="p">.</span><span class="mi">3</span><span class="p">.</span><span class="mi">4</span><span class="p">,</span> <span class="n">the</span> <span class="n">PostgreSQL</span> <span class="n">interactive</span> <span class="n">terminal</span><span class="p">.</span>
+
+<span class="k">Type</span><span class="p">:</span>  <span class="err">\</span><span class="n">copyright</span> <span class="k">for</span> <span class="n">distribution</span> <span class="n">terms</span>
+                <span class="err">\</span><span class="n">h</span> <span class="k">for</span> <span class="n">help</span> <span class="k">with</span> <span class="k">SQL</span> <span class="n">commands</span>
+                <span class="err">\</span><span class="o">?</span> <span class="k">for</span> <span class="n">help</span> <span class="k">with</span> <span class="n">psql</span> <span class="n">commands</span>
+                <span class="err">\</span><span class="k">g</span> <span class="k">or</span> <span class="k">terminate</span> <span class="k">with</span> <span class="n">semicolon</span> <span class="k">to</span> <span class="k">execute</span> <span class="n">query</span>
+                <span class="err">\</span><span class="n">q</span> <span class="k">to</span> <span class="n">quit</span>
+
+<span class="n">postgres</span><span class="o">=#</span>
+</pre></div>
+<p>Enter the following <span class="caps">SQL</span> statements which change the passwords for the roller
+and postgres user&nbsp;accordingly:</p>
+<div class="highlight"><pre><span></span><span class="k">alter</span> <span class="k">user</span> <span class="n">roller</span> <span class="k">with</span> <span class="n">password</span> <span class="s1">&#39;roller&#39;</span><span class="p">;</span>
+<span class="k">alter</span> <span class="k">user</span> <span class="n">postgres</span> <span class="k">with</span> <span class="n">password</span> <span class="s1">&#39;postgres&#39;</span><span class="p">;</span>
+</pre></div>
+<p>You are now finished using the postgres user. You may want to continue as user roller with the following&nbsp;commands.</p>
+<p>If you followed the <a class="reference external" href="https://datapile.coffeecrew.org/setup-roller-weblogger-41-on-glassfish-v2">Setup Roller Weblogger 4.1 On Glassfish V2</a>  tutorial, you do have to do an additional step to get rid of the previously assigned <span class="caps">JDBC</span> connection; that is deleting the <span class="caps">JDBC</span> connection pool. Aside from that we simply create a <span class="caps">JDBC</span> connection pool and the according resource. Once that is done you might want to start configuring your roller&nbsp;installation.</p>
+<div class="highlight"><pre><span></span>root@sigusr1:$
+        <span class="c1">#if you followed glassfish ... (cleans jdbc resource too)</span>
+        ./bin/asadmin delete-jdbc-connection-pool --cascade rollerpool
+
+        ./bin/asadmin create-jdbc-connection-pool
+        --datasourceclassname org.postgresql.ds.PGSimpleDataSource <span class="se">\</span>
+        --restype javax.sql.DataSource <span class="se">\</span>
+        --property <span class="nv">portNumber</span><span class="o">=</span><span class="m">5432</span>:password<span class="o">=</span>roller:user<span class="o">=</span>roller:serverName<span class="o">=</span>localhost:databaseName<span class="o">=</span>rollerdb <span class="se">\</span>
+        rollerpool
+
+        ./bin/asadmin ping-connection-pool rollerpool
+        ./bin/asadmin create-jdbc-resource --connectionpoolid<span class="o">=</span>rollerpool jdbc/rollerdb
+</pre></div>
+<p>Once that is finished, you should restart Glassfish in order to make changes effective. This is done through the following&nbsp;command:</p>
+<div class="highlight"><pre><span></span>root@sigusr1:$ su - roller -c <span class="s2">&quot;cd glassfish; ./bin/asadmin stop-domain roller&quot;</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+                                   su - roller -c <span class="s2">&quot;cd glassfish; ./bin/asadmin start-domain roller&quot;</span>
+</pre></div>
+<p>When you have finished all that, you now should be able to point you browser to <a class="reference external" href="http://localhost:8080/blogs">http://localhost:8080/blogs</a> and start configuring your Roller installation. Have&nbsp;fun.</p>
+</div>
+</div>
+
+
+
+             
+ 
+                <p id="post-share-links">
+    Like this post? Share on:
+    <a href="https://twitter.com/intent/tweet?text=Switching%20roller%20from%20Derby%20to%C2%A0PostgreSQL&url=https%3A//datapile.coffeecrew.org/switching-roller-from-derby-to-postgresql&via=authsec&hashtags=glassfish,roller,database,postgresql" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+    ❄
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/switching-roller-from-derby-to-postgresql" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
+    ❄
+    <a href="mailto:?subject=Switching%20roller%20from%20Derby%20to%C2%A0PostgreSQL&amp;body=https%3A//datapile.coffeecrew.org/switching-roller-from-derby-to-postgresql" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
+    </p>
+
+                <hr />
+    <div class="author_blurb">
+        <a href="https://www.coffeecrew.org/" target="_blank" rel="nofollow noopener noreferrer">
+            <img src=https://avatars3.githubusercontent.com/u/7973409?s=400&u=071356b002dc73eed0cf5ff16474df64edd3943c&v=4 alt="Jens Frey Avatar" title="Jens Frey">
+            <span class="author_name">Jens Frey</span>
+        </a>
+        is the creator of the datapile blog.
+    </div>
+
+            
+
+
+
+
+
+
+            <hr/>
+<section>
+    <h2>Keep Reading</h2>
+<ul class="related-posts-list">
+<li><a href="https://datapile.coffeecrew.org/setup-roller-weblogger-41-on-glassfish-v2" title="Setup roller weblogger 4.1 on Glassfish v2">Setup roller weblogger 4.1 on Glassfish v2</a></li>
+<li><a href="https://datapile.coffeecrew.org/backing-up-roller-weblogger" title="Backing up roller weblogger">Backing up roller weblogger</a></li>
+<li><a href="https://datapile.coffeecrew.org/roller-template" title="Roller template">Roller template</a></li>
+<li><a href="https://datapile.coffeecrew.org/how-to-start-a-consul-docker-image" title="How To Start A Consul Docker Image">How To Start A Consul Docker Image</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/free-iphone-ringtone-1" title="Previous: Free iPhone Ringtone #1">Free iPhone Ringtone #1</a></li>
+                <li class="next-article"><a href="https://datapile.coffeecrew.org/backing-up-roller-weblogger" title="Next: Backing up roller weblogger">Backing up roller weblogger</a> »</li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2010-10-31T14:00:34+01:00">Oct 31, 2010</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://datapile.coffeecrew.org/categories#infrastructure-ref">Infrastructure</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="https://datapile.coffeecrew.org/tags#database-ref">Database
+                    <span>2</span>
+</a></li>
+                <li><a href="https://datapile.coffeecrew.org/tags#glassfish-ref">Glassfish
+                    <span>3</span>
+</a></li>
+                <li><a href="https://datapile.coffeecrew.org/tags#postgresql-ref">PostgreSQL
+                    <span>1</span>
+</a></li>
+                <li><a href="https://datapile.coffeecrew.org/tags#roller-ref">Roller
+                    <span>4</span>
+</a></li>
+            </ul>
+<h4>Stay in Touch</h4>
+<div id="sidebar-social-link">
+    <a href="https://github.com/authsec/" title="Authsec Github Repository" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+    <a href="https://twitter.com/authsec" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/in/jens-frey-409ab844/" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="LinkedIn" role="img" viewBox="0 0 512 512" fill="#fff"><rect width="512" height="512" rx="15%" fill="#0077b5"/><circle cx="142" cy="138" r="37"/><path stroke="#fff" stroke-width="66" d="M244 194v198M142 194v198"/><path d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
+    </a>
+    <a href="https://www.youtube.com/jensfrey" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="YouTube" role="img" viewBox="0 0 512 512" fill="#ed1d24"><rect width="512" height="512" rx="15%"/><path d="m427 169c-4-15-17-27-32-31-34-9-239-10-278 0-15 4-28 16-32 31-9 38-10 135 0 174 4 15 17 27 32 31 36 10 241 10 278 0 15-4 28-16 32-31 9-36 9-137 0-174" fill="#fff"/><path d="m220 203v106l93-53"/></svg>
+    </a>
+    <a href="http://localhost:8000/feeds/all.atom.xml" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="RSS" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#f80"/><circle cx="145" cy="367" r="35" fill="#fff"/><path fill="none" stroke="#fff" stroke-width="60" d="M109 241c89 0 162 73 162 162M109 127c152 0 276 124 276 276"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+    <div>
+        Content licensed under <a rel="license nofollow noopener noreferrer"
+    href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
+    Creative Commons Attribution 4.0 International License</a>.
+    </div>
+
+    <div>
+        <span class="site-name">Datapile</span> - Against Digital Amnesia
+    </div>
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+        Hosted on:
+        <a href=https://datapile.coffeecrew.org/ target="_blank" rel="nofollow noopener noreferrer">
+            Github
+        </a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

@@ -6,26 +6,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Jens Frey" />
 
-        <meta name="description" content="How to start a local consul server.
+        <meta name="description" content="How to upload artifacts into Nexus 3 from the command line.
 " />
         <meta name="twitter:creator" content="@authsec">
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="Pro Tools, Cheat Sheet, Shortcuts, Music, " />
+<meta name="keywords" content="Maven, Nexus, Infrastructure, " />
 
-<meta property="og:title" content="Pro Tools - Playlists "/>
-<meta property="og:url" content="https://datapile.coffeecrew.org/pro-tools-playlists" />
-<meta property="og:description" content="How to start a local consul server." />
+<meta property="og:title" content="Upload Maven Artifacts Into Nexus 3 "/>
+<meta property="og:url" content="https://datapile.coffeecrew.org/upload-maven-artifacts-into-nexus-3" />
+<meta property="og:description" content="How to upload artifacts into Nexus 3 from the command line." />
 <meta property="og:site_name" content="Datapile" />
 <meta property="og:article:author" content="Jens Frey" />
-<meta property="og:article:published_time" content="2015-09-03T19:36:55+02:00" />
-<meta name="twitter:title" content="Pro Tools - Playlists ">
-<meta name="twitter:description" content="How to start a local consul server.">
+<meta property="og:article:published_time" content="2016-08-02T21:23:31+01:00" />
+<meta name="twitter:title" content="Upload Maven Artifacts Into Nexus 3 ">
+<meta name="twitter:description" content="How to upload artifacts into Nexus 3 from the command line.">
 <meta property="og:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" />
 <meta name="twitter:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" >
 
-        <title>Pro Tools - Playlists  · Datapile
+        <title>Upload Maven Artifacts Into Nexus 3  · Datapile
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="https://datapile.coffeecrew.org/theme/css/elegant.prod.css" media="screen">
@@ -89,8 +89,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://datapile.coffeecrew.org/pro-tools-playlists">
-                Pro Tools -&nbsp;Playlists
+            <a href="https://datapile.coffeecrew.org/upload-maven-artifacts-into-nexus-3">
+                Upload Maven Artifacts Into Nexus&nbsp;3
             </a>
         </h1>
     </header>
@@ -99,12 +99,38 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>When working with Pro Tools you may find yourself in a position where you need to create a few takes of for example a chorus. Instead of creating a completely new track for every take you do, you can simply create what is called a playlist in Pro&nbsp;Tools.</p>
-<div class="section" id="shortcut">
-<h2>Shortcut</h2>
-<p>You can create a playlist using the right control key and the backslash symbol like <code>RCTRL - \ </code>.</p>
-<p>There is also another shortcut assigned if you may not have remapped it in <span class="caps">OS</span> X or it may be mapped to something else by default. That shortcut would be <code>LCMD - LALT - LSHIFT - \ </code> where the letter <code>L</code> denotes the keys on the left side of the keyboard are&nbsp;pressed.</p>
-</div>
+            <p>Sometimes you need to upload an artifact into Nexus. With Nexus 2 this was very easy if you had filesystem access or access to the Web <span class="caps">UI</span>. In Nexus 3 you are no longer able to access the filesystem and do not have a <span class="caps">UI</span> to upload your artifacts. This is why you have to do it using the <code>mvn</code> <span class="caps">CLI</span>.</p>
+<p>If you have some strangely proxied system where you have <code>ssh</code> access to the machine running Nexus you can also use <span class="caps">SSH</span> port forwarding if you are unable to reach the machine directly&nbsp;otherwise.</p>
+<p>You need a configuration like this where the user has permission to deploy into your&nbsp;repository.</p>
+<div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;settings</span> <span class="na">xmlns=</span><span class="s">&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+        <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;servers&gt;</span>
+        <span class="nt">&lt;server&gt;</span>
+            <span class="c">&lt;!-- Link this id here to the repo ID in the mirror section --&gt;</span>
+            <span class="nt">&lt;id&gt;</span>repo<span class="nt">&lt;/id&gt;</span>
+            <span class="nt">&lt;username&gt;</span>deployment<span class="nt">&lt;/username&gt;</span>
+            <span class="nt">&lt;password&gt;</span>password<span class="nt">&lt;/password&gt;</span>
+        <span class="nt">&lt;/server&gt;</span>
+    <span class="nt">&lt;/servers&gt;</span>
+<span class="nt">&lt;/settings&gt;</span>
+</pre></div>
+<p>Get the <a class="reference external" href="https://gist.github.com/authsec/b603d2eaf4afc02ca4802a450838e7a1">Gist here</a>!</p>
+<p>If that is out of the way you can use the <span class="caps">CLI</span> to upload the artifact like&nbsp;so:</p>
+<p>Please note that in this case also a different configuration file is used to
+upload the artifact, to avoid working with the deployment user for normal builds
+where you want the user only to have read&nbsp;permission.</p>
+<div class="highlight"><pre><span></span>mvn -s ~/.m2/settings.xml.upload deploy:deploy-file <span class="se">\</span>
+    -DgroupId<span class="o">=</span>org.wildfly <span class="se">\</span>
+    -DartifactId<span class="o">=</span>wildfly-dist <span class="se">\</span>
+    -Dversion<span class="o">=</span><span class="m">10</span>.0.0.Final <span class="se">\</span>
+    -DgeneratePom<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+    -Dpackaging<span class="o">=</span>tar.gz <span class="se">\</span>
+    -DrepositoryId<span class="o">=</span>repo <span class="se">\</span>
+    -Durl<span class="o">=</span>http://repo.example.com/repository/thirdparty <span class="se">\</span>
+    -Dfile<span class="o">=</span>wildfly-10.0.0.Final.tar.gz
+</pre></div>
 
 
 
@@ -112,11 +138,11 @@
  
                 <p id="post-share-links">
     Like this post? Share on:
-    <a href="https://twitter.com/intent/tweet?text=Pro%20Tools%20-%C2%A0Playlists&url=https%3A//datapile.coffeecrew.org/pro-tools-playlists&via=authsec&hashtags=pro-tools,cheat-sheet,shortcuts" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+    <a href="https://twitter.com/intent/tweet?text=Upload%20Maven%20Artifacts%20Into%20Nexus%C2%A03&url=https%3A//datapile.coffeecrew.org/upload-maven-artifacts-into-nexus-3&via=authsec&hashtags=maven,nexus" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
     ❄
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/pro-tools-playlists" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/upload-maven-artifacts-into-nexus-3" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
     ❄
-    <a href="mailto:?subject=Pro%20Tools%20-%C2%A0Playlists&amp;body=https%3A//datapile.coffeecrew.org/pro-tools-playlists" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
+    <a href="mailto:?subject=Upload%20Maven%20Artifacts%20Into%20Nexus%C2%A03&amp;body=https%3A//datapile.coffeecrew.org/upload-maven-artifacts-into-nexus-3" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
     </p>
 
                 <hr />
@@ -139,26 +165,23 @@
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/grenade-cover-version" title="Previous: Grenade - Cover Version">Grenade - Cover Version</a></li>
-                <li class="next-article"><a href="https://datapile.coffeecrew.org/reading-the-conversation-id-from-another-parameter" title="Next: Reading the Conversation ID From Another Parameter">Reading the Conversation ID From Another Parameter</a> »</li>
+                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/programmatically-start-a-jsf-flow" title="Previous: Programmatically Start A JSF Flow">Programmatically Start A JSF Flow</a></li>
+                <li class="next-article"><a href="https://datapile.coffeecrew.org/how-to-start-a-consul-docker-image" title="Next: How To Start A Consul Docker Image">How To Start A Consul Docker Image</a> »</li>
             </ul>
             </nav>
             </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2015-09-03T19:36:55+02:00">Sep 3, 2015</time>
+            <time itemprop="dateCreated" datetime="2016-08-02T21:23:31+01:00">Aug 2, 2016</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://datapile.coffeecrew.org/categories#music-ref">Music</a>
+            <a class="category-link" href="https://datapile.coffeecrew.org/categories#infrastructure-ref">Infrastructure</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://datapile.coffeecrew.org/tags#cheat-sheet-ref">Cheat Sheet
+                <li><a href="https://datapile.coffeecrew.org/tags#maven-ref">Maven
                     <span>1</span>
 </a></li>
-                <li><a href="https://datapile.coffeecrew.org/tags#pro-tools-ref">Pro Tools
-                    <span>1</span>
-</a></li>
-                <li><a href="https://datapile.coffeecrew.org/tags#shortcuts-ref">Shortcuts
+                <li><a href="https://datapile.coffeecrew.org/tags#nexus-ref">Nexus
                     <span>1</span>
 </a></li>
             </ul>

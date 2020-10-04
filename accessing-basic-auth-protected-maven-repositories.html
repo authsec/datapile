@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Jens Frey" />
+
+        <meta name="description" content="How to access a basic auth protected maven repository.
+" />
+        <meta name="twitter:creator" content="@authsec">
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="Arquillian, Testing, Infrastructure, " />
+
+<meta property="og:title" content="Accessing Basic Auth Protected Maven Repositories "/>
+<meta property="og:url" content="https://datapile.coffeecrew.org/accessing-basic-auth-protected-maven-repositories" />
+<meta property="og:description" content="How to access a basic auth protected maven repository." />
+<meta property="og:site_name" content="Datapile" />
+<meta property="og:article:author" content="Jens Frey" />
+<meta property="og:article:published_time" content="2015-11-22T17:23:31+01:00" />
+<meta name="twitter:title" content="Accessing Basic Auth Protected Maven Repositories ">
+<meta name="twitter:description" content="How to access a basic auth protected maven repository.">
+<meta property="og:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" />
+<meta name="twitter:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" >
+
+        <title>Accessing Basic Auth Protected Maven Repositories  · Datapile
+</title>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://datapile.coffeecrew.org/theme/css/elegant.prod.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://datapile.coffeecrew.org/theme/css/custom.css" media="screen">
+
+        <link rel="shortcut icon" href="https://datapile.coffeecrew.org/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-180x180.png" type="image/png" />
+        <link href="https://datapile.coffeecrew.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Datapile - Full Atom Feed" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-19717065-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://datapile.coffeecrew.org/"><span class=site-name>Datapile</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://datapile.coffeecrew.org
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://datapile.coffeecrew.org/categories">Categories</a></li>
+                                <li ><a href="https://datapile.coffeecrew.org/tags">Tags</a></li>
+                                <li ><a href="https://datapile.coffeecrew.org/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://datapile.coffeecrew.org/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://datapile.coffeecrew.org/accessing-basic-auth-protected-maven-repositories">
+                Accessing Basic Auth Protected Maven&nbsp;Repositories
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>When you try to access a basic auth protected maven repository you might actually already run into all sorts of weird errors, but now trying a basic auth protected maven repository during a Arquillian build when it is creating the&nbsp;deployment.</p>
+<p>You migh have figured out the first part of accessing the maven repositoryis setting a <code>Authorization</code> header and your configuration looks something like this (the encoded username is <code>test</code> and the password is <code>s3cur3</code>)&nbsp;:</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;servers&gt;</span>
+<span class="nt">&lt;server&gt;</span>
+<span class="c">&lt;!-- Link this id here to the repo ID in the mirror section --&gt;</span>
+<span class="nt">&lt;id&gt;</span>repo<span class="nt">&lt;/id&gt;</span>
+<span class="nt">&lt;configuration&gt;</span>
+   <span class="nt">&lt;httpHeaders&gt;</span>
+      <span class="nt">&lt;property&gt;</span>
+      <span class="nt">&lt;name&gt;</span>Authorization<span class="nt">&lt;/name&gt;</span>
+      <span class="nt">&lt;value&gt;</span>Basic dGVzdDpzM2N1cjM=<span class="nt">&lt;/value&gt;</span>
+      <span class="nt">&lt;/property&gt;</span>
+   <span class="nt">&lt;/httpHeaders&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/server&gt;</span>
+<span class="nt">&lt;/servers&gt;</span>
+</pre></div>
+<p>What you now just need to do on top of that is add the <code>username</code> and <code>password</code> to your <code>settings.xml</code> configuration file like&nbsp;so.</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;servers&gt;</span>
+<span class="nt">&lt;server&gt;</span>
+<span class="c">&lt;!-- Link this id here to the repo ID in the mirror section --&gt;</span>
+<span class="nt">&lt;id&gt;</span>repo<span class="nt">&lt;/id&gt;</span>
+<span class="nt">&lt;username&gt;</span>test<span class="nt">&lt;/username&gt;</span>
+<span class="nt">&lt;password&gt;</span>s3cur3<span class="nt">&lt;/password&gt;</span>
+<span class="nt">&lt;configuration&gt;</span>
+   <span class="nt">&lt;httpHeaders&gt;</span>
+      <span class="nt">&lt;property&gt;</span>
+   <span class="nt">&lt;name&gt;</span>Authorization<span class="nt">&lt;/name&gt;</span>
+   <span class="nt">&lt;value&gt;</span>Basic dGVzdDpzM2N1cjM=<span class="nt">&lt;/value&gt;</span>
+      <span class="nt">&lt;/property&gt;</span>
+   <span class="nt">&lt;/httpHeaders&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/server&gt;</span>
+<span class="nt">&lt;/servers&gt;</span>
+</pre></div>
+<p>Get the <a class="reference external" href="https://gist.github.com/anonymous/bc3a2bc73d66ecb2a9f163a99618cdcd">Gist here</a>!</p>
+<p>You especially need add values for these two if you run into the following&nbsp;exception.</p>
+<div class="highlight"><pre><span></span><span class="n">java</span><span class="p">.</span><span class="na">lang</span><span class="p">.</span><span class="na">RuntimeException</span><span class="p">:</span> <span class="n">Could</span> <span class="n">not</span> <span class="n">invoke</span> <span class="n">deployment</span> <span class="n">method</span><span class="p">:</span> <span class="kd">public</span> <span class="kd">static</span> <span class="n">org</span><span class="p">.</span><span class="na">jboss</span><span class="p">.</span><span class="na">shrinkwrap</span><span class="p">.</span><span class="na">api</span><span class="p">.</span><span class="na">Archive</span> <span class="n">org</span><span class="p">.</span><span class="na">coffeecrew</span><span class="p">.</span><span class="na">Test</span><span class="p">.</span><span class="na">createDeployment</span><span class="p">()</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">eclipse</span><span class="p">.</span><span class="na">aether</span><span class="p">.</span><span class="na">internal</span><span class="p">.</span><span class="na">impl</span><span class="p">.</span><span class="na">DefaultArtifactResolver</span><span class="p">.</span><span class="na">resolve</span><span class="p">(</span><span class="n">DefaultArtifactResolver</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">459</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">eclipse</span><span class="p">.</span><span class="na">aether</span><span class="p">.</span><span class="na">internal</span><span class="p">.</span><span class="na">impl</span><span class="p">.</span><span class="na">DefaultArtifactResolver</span><span class="p">.</span><span class="na">resolveArtifacts</span><span class="p">(</span><span class="n">DefaultArtifactResolver</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">262</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">eclipse</span><span class="p">.</span><span class="na">aether</span><span class="p">.</span><span class="na">internal</span><span class="p">.</span><span class="na">impl</span><span class="p">.</span><span class="na">DefaultArtifactResolver</span><span class="p">.</span><span class="na">resolveArtifact</span><span class="p">(</span><span class="n">DefaultArtifactResolver</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">239</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">maven</span><span class="p">.</span><span class="na">repository</span><span class="p">.</span><span class="na">internal</span><span class="p">.</span><span class="na">DefaultArtifactDescriptorReader</span><span class="p">.</span><span class="na">loadPom</span><span class="p">(</span><span class="n">DefaultArtifactDescriptorReader</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">320</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">maven</span><span class="p">.</span><span class="na">repository</span><span class="p">.</span><span class="na">internal</span><span class="p">.</span><span class="na">DefaultArtifactDescriptorReader</span><span class="p">.</span><span class="na">readArtifactDescriptor</span><span class="p">(</span><span class="n">DefaultArtifactDescriptorReader</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">217</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">eclipse</span><span class="p">.</span><span class="na">aether</span><span class="p">.</span><span class="na">internal</span><span class="p">.</span><span class="na">impl</span><span class="p">.</span><span class="na">DefaultDependencyCollector</span><span class="p">.</span><span class="na">process</span><span class="p">(</span><span class="n">DefaultDependencyCollector</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">461</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">eclipse</span><span class="p">.</span><span class="na">aether</span><span class="p">.</span><span class="na">internal</span><span class="p">.</span><span class="na">impl</span><span class="p">.</span><span class="na">DefaultDependencyCollector</span><span class="p">.</span><span class="na">process</span><span class="p">(</span><span class="n">DefaultDependencyCollector</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">573</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">eclipse</span><span class="p">.</span><span class="na">aether</span><span class="p">.</span><span class="na">internal</span><span class="p">.</span><span class="na">impl</span><span class="p">.</span><span class="na">DefaultDependencyCollector</span><span class="p">.</span><span class="na">collectDependencies</span><span class="p">(</span><span class="n">DefaultDependencyCollector</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">261</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">eclipse</span><span class="p">.</span><span class="na">aether</span><span class="p">.</span><span class="na">internal</span><span class="p">.</span><span class="na">impl</span><span class="p">.</span><span class="na">DefaultRepositorySystem</span><span class="p">.</span><span class="na">resolveDependencies</span><span class="p">(</span><span class="n">DefaultRepositorySystem</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">342</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">jboss</span><span class="p">.</span><span class="na">shrinkwrap</span><span class="p">.</span><span class="na">resolver</span><span class="p">.</span><span class="na">impl</span><span class="p">.</span><span class="na">maven</span><span class="p">.</span><span class="na">bootstrap</span><span class="p">.</span><span class="na">MavenRepositorySystem</span><span class="p">.</span><span class="na">resolveDependencies</span><span class="p">(</span><span class="n">MavenRepositorySystem</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">120</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">jboss</span><span class="p">.</span><span class="na">shrinkwrap</span><span class="p">.</span><span class="na">resolver</span><span class="p">.</span><span class="na">impl</span><span class="p">.</span><span class="na">maven</span><span class="p">.</span><span class="na">MavenWorkingSessionImpl</span><span class="p">.</span><span class="na">resolveDependencies</span><span class="p">(</span><span class="n">MavenWorkingSessionImpl</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">266</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">jboss</span><span class="p">.</span><span class="na">shrinkwrap</span><span class="p">.</span><span class="na">resolver</span><span class="p">.</span><span class="na">impl</span><span class="p">.</span><span class="na">maven</span><span class="p">.</span><span class="na">MavenStrategyStageBaseImpl</span><span class="p">.</span><span class="na">using</span><span class="p">(</span><span class="n">MavenStrategyStageBaseImpl</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">71</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">jboss</span><span class="p">.</span><span class="na">shrinkwrap</span><span class="p">.</span><span class="na">resolver</span><span class="p">.</span><span class="na">impl</span><span class="p">.</span><span class="na">maven</span><span class="p">.</span><span class="na">MavenStrategyStageBaseImpl</span><span class="p">.</span><span class="na">using</span><span class="p">(</span><span class="n">MavenStrategyStageBaseImpl</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">Caused</span> <span class="n">by</span><span class="p">:</span> <span class="n">org</span><span class="p">.</span><span class="na">eclipse</span><span class="p">.</span><span class="na">aether</span><span class="p">.</span><span class="na">transfer</span><span class="p">.</span><span class="na">ArtifactTransferException</span><span class="p">:</span> <span class="n">Could</span> <span class="n">not</span> <span class="n">transfer</span> <span class="n">artifact</span> <span class="n">org</span><span class="p">.</span><span class="na">slf4j</span><span class="p">:</span><span class="n">slf4j</span><span class="o">-</span><span class="n">log4j12</span><span class="p">:</span><span class="n">pom</span><span class="p">:</span><span class="mf">1.4.3</span> <span class="n">from</span><span class="o">/</span><span class="n">to</span> <span class="nf">repo</span> <span class="p">(</span><span class="n">https</span><span class="p">:</span><span class="c1">//repo.protected.example.com/content/groups/internal/): Access denied to: https://repo.protected.example.com/content/groups/internal/org/slf4j/slf4j-log4j12/1.4.3/slf4j-log4j12-1.4.3.pom</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">eclipse</span><span class="p">.</span><span class="na">aether</span><span class="p">.</span><span class="na">connector</span><span class="p">.</span><span class="na">wagon</span><span class="p">.</span><span class="na">WagonRepositoryConnector$6</span><span class="p">.</span><span class="na">wrap</span><span class="p">(</span><span class="n">WagonRepositoryConnector</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">1016</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">eclipse</span><span class="p">.</span><span class="na">aether</span><span class="p">.</span><span class="na">connector</span><span class="p">.</span><span class="na">wagon</span><span class="p">.</span><span class="na">WagonRepositoryConnector$6</span><span class="p">.</span><span class="na">wrap</span><span class="p">(</span><span class="n">WagonRepositoryConnector</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">1004</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">eclipse</span><span class="p">.</span><span class="na">aether</span><span class="p">.</span><span class="na">connector</span><span class="p">.</span><span class="na">wagon</span><span class="p">.</span><span class="na">WagonRepositoryConnector$GetTask</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">WagonRepositoryConnector</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">725</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">eclipse</span><span class="p">.</span><span class="na">aether</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">concurrency</span><span class="p">.</span><span class="na">RunnableErrorForwarder$1</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">RunnableErrorForwarder</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">67</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">concurrent</span><span class="p">.</span><span class="na">ThreadPoolExecutor</span><span class="p">.</span><span class="na">runWorker</span><span class="p">(</span><span class="n">ThreadPoolExecutor</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">1142</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">concurrent</span><span class="p">.</span><span class="na">ThreadPoolExecutor$Worker</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">ThreadPoolExecutor</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">617</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">java</span><span class="p">.</span><span class="na">lang</span><span class="p">.</span><span class="na">Thread</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">Thread</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">745</span><span class="p">)</span>
+<span class="n">Caused</span> <span class="n">by</span><span class="p">:</span> <span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">maven</span><span class="p">.</span><span class="na">wagon</span><span class="p">.</span><span class="na">authorization</span><span class="p">.</span><span class="na">AuthorizationException</span><span class="p">:</span> <span class="n">Access</span> <span class="n">denied</span> <span class="n">to</span><span class="p">:</span> <span class="n">https</span><span class="p">:</span><span class="c1">//repo.protected.example.com/content/groups/internal/org/slf4j/slf4j-log4j12/1.4.3/slf4j-log4j12-1.4.3.pom</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">maven</span><span class="p">.</span><span class="na">wagon</span><span class="p">.</span><span class="na">providers</span><span class="p">.</span><span class="na">http</span><span class="p">.</span><span class="na">LightweightHttpWagon</span><span class="p">.</span><span class="na">fillInputData</span><span class="p">(</span><span class="n">LightweightHttpWagon</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">144</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">maven</span><span class="p">.</span><span class="na">wagon</span><span class="p">.</span><span class="na">StreamWagon</span><span class="p">.</span><span class="na">getInputStream</span><span class="p">(</span><span class="n">StreamWagon</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">116</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">maven</span><span class="p">.</span><span class="na">wagon</span><span class="p">.</span><span class="na">StreamWagon</span><span class="p">.</span><span class="na">getIfNewer</span><span class="p">(</span><span class="n">StreamWagon</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">88</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">maven</span><span class="p">.</span><span class="na">wagon</span><span class="p">.</span><span class="na">StreamWagon</span><span class="p">.</span><span class="na">get</span><span class="p">(</span><span class="n">StreamWagon</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">61</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">eclipse</span><span class="p">.</span><span class="na">aether</span><span class="p">.</span><span class="na">connector</span><span class="p">.</span><span class="na">wagon</span><span class="p">.</span><span class="na">WagonRepositoryConnector$GetTask</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">WagonRepositoryConnector</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">660</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">org</span><span class="p">.</span><span class="na">eclipse</span><span class="p">.</span><span class="na">aether</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">concurrency</span><span class="p">.</span><span class="na">RunnableErrorForwarder$1</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">RunnableErrorForwarder</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">67</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">concurrent</span><span class="p">.</span><span class="na">ThreadPoolExecutor</span><span class="p">.</span><span class="na">runWorker</span><span class="p">(</span><span class="n">ThreadPoolExecutor</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">1142</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">concurrent</span><span class="p">.</span><span class="na">ThreadPoolExecutor$Worker</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">ThreadPoolExecutor</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">617</span><span class="p">)</span>
+<span class="n">at</span> <span class="n">java</span><span class="p">.</span><span class="na">lang</span><span class="p">.</span><span class="na">Thread</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">Thread</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="mi">745</span><span class="p">)</span>
+</pre></div>
+
+
+
+             
+ 
+                <p id="post-share-links">
+    Like this post? Share on:
+    <a href="https://twitter.com/intent/tweet?text=Accessing%20Basic%20Auth%20Protected%20Maven%C2%A0Repositories&url=https%3A//datapile.coffeecrew.org/accessing-basic-auth-protected-maven-repositories&via=authsec&hashtags=arquillian,testing" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+    ❄
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/accessing-basic-auth-protected-maven-repositories" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
+    ❄
+    <a href="mailto:?subject=Accessing%20Basic%20Auth%20Protected%20Maven%C2%A0Repositories&amp;body=https%3A//datapile.coffeecrew.org/accessing-basic-auth-protected-maven-repositories" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
+    </p>
+
+                <hr />
+    <div class="author_blurb">
+        <a href="https://www.coffeecrew.org/" target="_blank" rel="nofollow noopener noreferrer">
+            <img src=https://avatars3.githubusercontent.com/u/7973409?s=400&u=071356b002dc73eed0cf5ff16474df64edd3943c&v=4 alt="Jens Frey Avatar" title="Jens Frey">
+            <span class="author_name">Jens Frey</span>
+        </a>
+        is the creator of the datapile blog.
+    </div>
+
+            
+
+
+
+
+
+
+            <hr/>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/checklists-in-latex" title="Previous: Checklists in LaTeX">Checklists in LaTeX</a></li>
+                <li class="next-article"><a href="https://datapile.coffeecrew.org/have-a-rest-endpoint-catch-all" title="Next: Have a ReST Endpoint Catch All">Have a ReST Endpoint Catch All</a> »</li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2015-11-22T17:23:31+01:00">Nov 22, 2015</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://datapile.coffeecrew.org/categories#infrastructure-ref">Infrastructure</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="https://datapile.coffeecrew.org/tags#arquillian-ref">Arquillian
+                    <span>1</span>
+</a></li>
+                <li><a href="https://datapile.coffeecrew.org/tags#testing-ref">Testing
+                    <span>1</span>
+</a></li>
+            </ul>
+<h4>Stay in Touch</h4>
+<div id="sidebar-social-link">
+    <a href="https://github.com/authsec/" title="Authsec Github Repository" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+    <a href="https://twitter.com/authsec" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/in/jens-frey-409ab844/" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="LinkedIn" role="img" viewBox="0 0 512 512" fill="#fff"><rect width="512" height="512" rx="15%" fill="#0077b5"/><circle cx="142" cy="138" r="37"/><path stroke="#fff" stroke-width="66" d="M244 194v198M142 194v198"/><path d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
+    </a>
+    <a href="https://www.youtube.com/jensfrey" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="YouTube" role="img" viewBox="0 0 512 512" fill="#ed1d24"><rect width="512" height="512" rx="15%"/><path d="m427 169c-4-15-17-27-32-31-34-9-239-10-278 0-15 4-28 16-32 31-9 38-10 135 0 174 4 15 17 27 32 31 36 10 241 10 278 0 15-4 28-16 32-31 9-36 9-137 0-174" fill="#fff"/><path d="m220 203v106l93-53"/></svg>
+    </a>
+    <a href="http://localhost:8000/feeds/all.atom.xml" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="RSS" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#f80"/><circle cx="145" cy="367" r="35" fill="#fff"/><path fill="none" stroke="#fff" stroke-width="60" d="M109 241c89 0 162 73 162 162M109 127c152 0 276 124 276 276"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+    <div>
+        Content licensed under <a rel="license nofollow noopener noreferrer"
+    href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
+    Creative Commons Attribution 4.0 International License</a>.
+    </div>
+
+    <div>
+        <span class="site-name">Datapile</span> - Against Digital Amnesia
+    </div>
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+        Hosted on:
+        <a href=https://datapile.coffeecrew.org/ target="_blank" rel="nofollow noopener noreferrer">
+            Github
+        </a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

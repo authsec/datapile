@@ -6,26 +6,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Jens Frey" />
 
-        <meta name="description" content="How to start a local consul server.
+        <meta name="description" content="How to create a checkbox in LaTeX?
 " />
         <meta name="twitter:creator" content="@authsec">
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="Pro Tools, Cheat Sheet, Shortcuts, Music, " />
+<meta name="keywords" content="LaTeX, Infrastructure, " />
 
-<meta property="og:title" content="Pro Tools - Playlists "/>
-<meta property="og:url" content="https://datapile.coffeecrew.org/pro-tools-playlists" />
-<meta property="og:description" content="How to start a local consul server." />
+<meta property="og:title" content="Checklists in LaTeX "/>
+<meta property="og:url" content="https://datapile.coffeecrew.org/checklists-in-latex" />
+<meta property="og:description" content="How to create a checkbox in LaTeX?" />
 <meta property="og:site_name" content="Datapile" />
 <meta property="og:article:author" content="Jens Frey" />
-<meta property="og:article:published_time" content="2015-09-03T19:36:55+02:00" />
-<meta name="twitter:title" content="Pro Tools - Playlists ">
-<meta name="twitter:description" content="How to start a local consul server.">
+<meta property="og:article:published_time" content="2015-09-24T23:40:27+02:00" />
+<meta name="twitter:title" content="Checklists in LaTeX ">
+<meta name="twitter:description" content="How to create a checkbox in LaTeX?">
 <meta property="og:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" />
 <meta name="twitter:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" >
 
-        <title>Pro Tools - Playlists  · Datapile
+        <title>Checklists in LaTeX  · Datapile
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="https://datapile.coffeecrew.org/theme/css/elegant.prod.css" media="screen">
@@ -89,8 +89,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://datapile.coffeecrew.org/pro-tools-playlists">
-                Pro Tools -&nbsp;Playlists
+            <a href="https://datapile.coffeecrew.org/checklists-in-latex">
+                Checklists in&nbsp;LaTeX
             </a>
         </h1>
     </header>
@@ -99,12 +99,20 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>When working with Pro Tools you may find yourself in a position where you need to create a few takes of for example a chorus. Instead of creating a completely new track for every take you do, you can simply create what is called a playlist in Pro&nbsp;Tools.</p>
-<div class="section" id="shortcut">
-<h2>Shortcut</h2>
-<p>You can create a playlist using the right control key and the backslash symbol like <code>RCTRL - \ </code>.</p>
-<p>There is also another shortcut assigned if you may not have remapped it in <span class="caps">OS</span> X or it may be mapped to something else by default. That shortcut would be <code>LCMD - LALT - LSHIFT - \ </code> where the letter <code>L</code> denotes the keys on the left side of the keyboard are&nbsp;pressed.</p>
-</div>
+            <p>Did you ever feel the need for a simple checkbox in a letter? So did I. After searching for a while I did not really come up with a simple copy and pasteable solution to this problem. Most solutions seem to prefer the <code>hyperref</code> package which enables you to put interactive, clickable checkboxes inside your <span class="caps">PDF</span> document, but what if you actually need to physically send the&nbsp;document?</p>
+<p>As it turns out the solution is actually not that hard, a few <code>mbox</code>es and <code>adjustbox</code>es later I had a solution that did the trick for&nbsp;me.</p>
+<p>At the very basic of the box is this block which actually creates the box <em>and</em> centers the text behind it in the middle of the&nbsp;box.</p>
+<div class="highlight"><pre><span></span><span class="k">\mbox</span><span class="nb">{</span><span class="k">\adjustbox</span><span class="nb">{</span>stack=cc,fbox<span class="nb">}{</span><span class="k">\makebox</span>(6,6)<span class="nb">{}}</span> Yes I will.<span class="nb">}</span><span class="k">\\</span>
+</pre></div>
+<p>The parameters of the <code>makebox</code> command define how big the box to check will actually&nbsp;be.</p>
+<p>If you want to add a place where the future checkbox checker can put his signature to sign that he checked one of the checkboxes, you can additionally put something like this into your page, which will render the supplied text and a slightly subscript&nbsp;line.</p>
+<div class="highlight"><pre><span></span><span class="k">\mbox</span><span class="nb">{</span><span class="k">\begin</span><span class="nb">{</span>minipage<span class="nb">}</span>[t]<span class="nb">{</span>18ex<span class="nb">}</span>
+     Date and signature
+   <span class="k">\end</span><span class="nb">{</span>minipage<span class="nb">}</span>
+   <span class="k">\hspace</span><span class="nb">{</span>1ex<span class="nb">}</span><span class="k">\rule</span><span class="na">[-3ex]</span><span class="nb">{</span>12cm<span class="nb">}{</span>.5pt<span class="nb">}}</span>
+</pre></div>
+<p>Where the value <code>18ex</code> of the <code>minipage</code> environment controls the width of the box before the line. The parameters of the <code>rule</code> command are the position of the line (<code>-3ex</code>) (which makes it subscript, if you want that superscript make this value positive), the length of the rule (<code>12cm</code>) and the thickness of it (<code>.5pt</code>)</p>
+<p>So if you pimp this a little bit the code for a full letter with checkboxes looks like <a class="reference external" href="https://datapile.coffeecrew.org/downloads/checkbox-letter.tex">this</a>.</p>
 
 
 
@@ -112,11 +120,11 @@
  
                 <p id="post-share-links">
     Like this post? Share on:
-    <a href="https://twitter.com/intent/tweet?text=Pro%20Tools%20-%C2%A0Playlists&url=https%3A//datapile.coffeecrew.org/pro-tools-playlists&via=authsec&hashtags=pro-tools,cheat-sheet,shortcuts" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+    <a href="https://twitter.com/intent/tweet?text=Checklists%20in%C2%A0LaTeX&url=https%3A//datapile.coffeecrew.org/checklists-in-latex&via=authsec&hashtags=latex" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
     ❄
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/pro-tools-playlists" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/checklists-in-latex" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
     ❄
-    <a href="mailto:?subject=Pro%20Tools%20-%C2%A0Playlists&amp;body=https%3A//datapile.coffeecrew.org/pro-tools-playlists" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
+    <a href="mailto:?subject=Checklists%20in%C2%A0LaTeX&amp;body=https%3A//datapile.coffeecrew.org/checklists-in-latex" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
     </p>
 
                 <hr />
@@ -139,26 +147,20 @@
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/grenade-cover-version" title="Previous: Grenade - Cover Version">Grenade - Cover Version</a></li>
-                <li class="next-article"><a href="https://datapile.coffeecrew.org/reading-the-conversation-id-from-another-parameter" title="Next: Reading the Conversation ID From Another Parameter">Reading the Conversation ID From Another Parameter</a> »</li>
+                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/reading-the-conversation-id-from-another-parameter" title="Previous: Reading the Conversation ID From Another Parameter">Reading the Conversation ID From Another Parameter</a></li>
+                <li class="next-article"><a href="https://datapile.coffeecrew.org/accessing-basic-auth-protected-maven-repositories" title="Next: Accessing Basic Auth Protected Maven Repositories">Accessing Basic Auth Protected Maven Repositories</a> »</li>
             </ul>
             </nav>
             </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2015-09-03T19:36:55+02:00">Sep 3, 2015</time>
+            <time itemprop="dateCreated" datetime="2015-09-24T23:40:27+02:00">Sep 24, 2015</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://datapile.coffeecrew.org/categories#music-ref">Music</a>
+            <a class="category-link" href="https://datapile.coffeecrew.org/categories#infrastructure-ref">Infrastructure</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://datapile.coffeecrew.org/tags#cheat-sheet-ref">Cheat Sheet
-                    <span>1</span>
-</a></li>
-                <li><a href="https://datapile.coffeecrew.org/tags#pro-tools-ref">Pro Tools
-                    <span>1</span>
-</a></li>
-                <li><a href="https://datapile.coffeecrew.org/tags#shortcuts-ref">Shortcuts
+                <li><a href="https://datapile.coffeecrew.org/tags#latex-ref">LaTeX
                     <span>1</span>
 </a></li>
             </ul>
