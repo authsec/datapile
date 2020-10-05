@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Jens Frey" />
+
+        <meta name="description" content="This article shows how to create a simple plugin mechanism in Java.
+" />
+        <meta name="twitter:creator" content="@authsec">
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="Java, Lookup API, Service Loader, Programming, " />
+
+<meta property="og:title" content="Creating A Simple Plugin Mechanism In Java "/>
+<meta property="og:url" content="https://datapile.coffeecrew.org/creating-a-simple-plugin-mechanism-in-java" />
+<meta property="og:description" content="This article shows how to create a simple plugin mechanism in Java." />
+<meta property="og:site_name" content="Datapile" />
+<meta property="og:article:author" content="Jens Frey" />
+<meta property="og:article:published_time" content="2013-06-02T16:36:18+01:00" />
+<meta name="twitter:title" content="Creating A Simple Plugin Mechanism In Java ">
+<meta name="twitter:description" content="This article shows how to create a simple plugin mechanism in Java.">
+<meta property="og:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" />
+<meta name="twitter:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" >
+
+        <title>Creating A Simple Plugin Mechanism In Java  · Datapile
+</title>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://datapile.coffeecrew.org/theme/css/elegant.prod.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://datapile.coffeecrew.org/theme/css/custom.css" media="screen">
+
+        <link rel="shortcut icon" href="https://datapile.coffeecrew.org/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-180x180.png" type="image/png" />
+        <link href="https://datapile.coffeecrew.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Datapile - Full Atom Feed" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-19717065-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://datapile.coffeecrew.org/"><span class=site-name>Datapile</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://datapile.coffeecrew.org
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://datapile.coffeecrew.org/categories">Categories</a></li>
+                                <li ><a href="https://datapile.coffeecrew.org/tags">Tags</a></li>
+                                <li ><a href="https://datapile.coffeecrew.org/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://datapile.coffeecrew.org/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://datapile.coffeecrew.org/creating-a-simple-plugin-mechanism-in-java">
+                Creating A Simple Plugin Mechanism In&nbsp;Java
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>Our goal is to create a simple plugin mechanism in Java. On top of that we want our execution environment to be divided into three
+distinct phases. These phases are&nbsp;named:</p>
+<ol class="arabic simple">
+<li>PRE_PROCESS</li>
+<li><span class="caps">PROCESS</span></li>
+<li>POST_PROCESS</li>
+</ol>
+<p>This will allow us to run certain plugins at specific phases during program execution. So if a plugin is for example registered on the <code>PRE_PROCESS</code> hook, we can - and must - guarantee that this plugin will be executed before the <code>PROCESS</code> phase.</p>
+<p>After we’ve laid out the basic requirements now, the question is: “How do we implement&nbsp;that?”.</p>
+<p>The first thing that probably comes to mind when talking about a plugin mechanism is the standard <a class="reference external" href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html">Java ServiceLoader</a> that was officially opened with the <span class="caps">JDK6</span> and has been in there since the <span class="caps">JDK</span> 1.3 days. Another mechanism that can be used to implement a system like this is the Netbeans Lookup <span class="caps">API</span>.</p>
+<p>After defining a basic interface for the plugins we want to create, we’ll have a look at both mechanisms to see how they&nbsp;compare.</p>
+<div class="section" id="create-domain-objects">
+<h2>Create Domain&nbsp;Objects</h2>
+<p id="id1">Ok, so let’s start defining the actual <code>Plugin</code> interface so we have a common hook to execute our plugins&nbsp;on.</p>
+<p>We make the interface itself very easy and just define a process method in which we’ll later have implementations append the actual phase and class name to the <code>String</code> instance that was passed as a parameter. We’ll return that <code>String</code> to the caller, so we can subsequently use it and demonstrate very easily when and where the plugin was&nbsp;executed.</p>
+<p>The interface we want to implement looks like&nbsp;this:</p>
+<pre class="code Java literal-block">
+<span class="kn">package</span> <span class="nn">org.coffeecrew.tutorials.simplepluginmechanism</span><span class="p">;</span>
+
+<span class="cm">/**
+ Simple plugin interface.
+ &lt;p/&gt;
+ &#64;author Jens Frey
+ */</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Plugin</span> <span class="p">{</span>
+
+    <span class="cm">/**
+     Simple worker method that will append data on the processingToken.
+     &lt;p/&gt;
+     And another.
+     &lt;p/&gt;
+     &#64;param processingToken Token where data should be appended during
+                            processing.
+     &lt;p/&gt;
+     &#64;return processingToken that has been worked on.
+     */</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">process</span><span class="p">(</span><span class="n">String</span> <span class="n">processingToken</span><span class="p">);</span>
+<span class="p">}</span>
+</pre>
+<p>As a next step we define three interfaces that act as marker interfaces so we can differentiate the lifecycle phase the plugin should be run in by the name of the implemented interface. These interfaces are defined as shown&nbsp;below.</p>
+<p>For the <code>PRE_PROCESS</code> phase:</p>
+<pre class="code Java literal-block">
+<span class="kn">package</span> <span class="nn">org.coffeecrew.tutorials.simplepluginmechanism</span><span class="p">;</span>
+
+<span class="cm">/**
+ Marker Interface to tell this is a plugin running in the PRE_PROCESS phase.
+ */</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">PreProcessable</span> <span class="kd">extends</span> <span class="n">Plugin</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre>
+<p>For the <code>PROCESS</code> phase:</p>
+<pre class="code Java literal-block">
+<span class="kn">package</span> <span class="nn">org.coffeecrew.tutorials.simplepluginmechanism</span><span class="p">;</span>
+
+<span class="cm">/**
+ Marker Interface to tell this is a plugin running in the PROCESS phase.
+ */</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Processable</span> <span class="kd">extends</span> <span class="n">Plugin</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre>
+<p>For the <code>POST_PROCESS</code> phase:</p>
+<pre class="code Java literal-block">
+<span class="kn">package</span> <span class="nn">org.coffeecrew.tutorials.simplepluginmechanism</span><span class="p">;</span>
+
+<span class="cm">/**
+ Marker Interface to tell this is a plugin running in the POST_PROCESS phase.
+ */</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">PostProcessable</span> <span class="kd">extends</span> <span class="n">Plugin</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre>
+<p>Now that we’ve defined the interfaces we need some implementations that actually do something. At first we implement a plugin that should be run in the <code>PRE_PROCESS</code> phase. It looks&nbsp;like:</p>
+<pre class="code Java literal-block">
+<span class="kn">package</span> <span class="nn">org.coffeecrew.tutorials.simplepluginmechanism</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PreProcessPlugin</span> <span class="kd">implements</span> <span class="n">PreProcessable</span> <span class="p">{</span>
+
+    <span class="nd">&#64;Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">process</span><span class="p">(</span><span class="n">String</span> <span class="n">processingToken</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">processingToken</span> <span class="o">+</span> <span class="s">&quot;[PRE_PROCESS] &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;\n&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+<p>The following implementations are running on the main processing hook <code>PROCESS</code> and look as&nbsp;follows:</p>
+<pre class="code Java literal-block">
+<span class="kn">package</span> <span class="nn">org.coffeecrew.tutorials.simplepluginmechanism</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ProcessPlugin</span> <span class="kd">implements</span> <span class="n">Processable</span> <span class="p">{</span>
+
+    <span class="nd">&#64;Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">process</span><span class="p">(</span><span class="n">String</span> <span class="n">processingToken</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">processingToken</span> <span class="o">+</span> <span class="s">&quot;[PROCESS] &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;\n&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+<pre class="code Java literal-block">
+<span class="kn">package</span> <span class="nn">org.coffeecrew.tutorials.simplepluginmechanism</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MoreProcessPlugin</span> <span class="kd">implements</span> <span class="n">Processable</span> <span class="p">{</span>
+
+    <span class="nd">&#64;Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">process</span><span class="p">(</span><span class="n">String</span> <span class="n">processingToken</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">processingToken</span> <span class="o">+</span> <span class="s">&quot;[PROCESS] &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;\n&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+<p>And finally some implementation for the <code>POST_PROCESS</code> hook:</p>
+<pre class="code Java literal-block">
+<span class="kn">package</span> <span class="nn">org.coffeecrew.tutorials.simplepluginmechanism</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PostProcessPlugin</span> <span class="kd">implements</span> <span class="n">PostProcessable</span> <span class="p">{</span>
+
+    <span class="nd">&#64;Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">process</span><span class="p">(</span><span class="n">String</span> <span class="n">processingToken</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">processingToken</span> <span class="o">+</span> <span class="s">&quot;[POST_PROCESS] &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;\n&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+<p>Now that was quite a bit of work, wasn’t it? But you’ll be shortly rewarded with a nice and pluggable system. Now all we need to be happy is a piece of code that actually runs all of these plugins. Since this code looks slightly different whether we use Java’s ServiceLoader mechanism directly or the Netbeans <code>Lookup</code> all the bits ’n pieces required to make this work are outlined in separate sections shown&nbsp;below.</p>
+</div>
+<div class="section" id="service-loader">
+<h2>Service&nbsp;Loader</h2>
+<p>So let’s first have a look at the ServiceLoader mechanism. To prepare implementations of a specific interface for automatic lookup by the ServiceLoader you need to create files in the <code>META-INF/services</code> of your resulting <span class="caps">JAR</span> file. I will describe inclusion of that folder on a Maven based&nbsp;project.</p>
+<p>In order to get the <code>META-INF/services</code> folder into your maven output structure you have to create a folder named <code>resources</code> under <code>src/main</code>. Inside the created <code>resources</code> folder you must place the folder <code>META-INF</code> and underneath that the folder <code>services</code> which Maven will copy when you launch the&nbsp;build.</p>
+<p>As initially mentioned you need to put files inside the <code>services</code> folder. These files must be named after the interface you want the automatic lookup mechanism to find implementations&nbsp;for.</p>
+<p>The content of these files is the actual class name of every implementation you want the ServiceLoader to find. If you have multiple implementations of a interface you need to include every implementation class name inside that file delimited by a new&nbsp;line.</p>
+<p>In our case these three files we need to create must be named (please ensure you choose the correct package name that prepends the interface&nbsp;name):</p>
+<ul class="simple">
+<li><code>org.coffeecrew.tutorials.simplepluginmechanism.PreProcessable</code></li>
+<li><code>org.coffeecrew.tutorials.simplepluginmechanism.Processable</code></li>
+<li><code>org.coffeecrew.tutorials.simplepluginmechanism.PostProcessable</code></li>
+</ul>
+<p>These files must be filled with the following content (please ensure you choose the correct package name that prepends the implementation class&nbsp;name).</p>
+<dl class="docutils">
+<dt>org.coffeecrew.tutorials.simplepluginmechanism.PreProcessable</dt>
+<dd><pre class="code text first last literal-block">
+org.coffeecrew.tutorials.simplepluginmechanism.PreProcessPlugin
+</pre>
+</dd>
+<dt>org.coffeecrew.tutorials.simplepluginmechanism.Processable</dt>
+<dd><pre class="code text first last literal-block">
+org.coffeecrew.tutorials.simplepluginmechanism.ProcessPlugin
+org.coffeecrew.tutorials.simplepluginmechanism.MoreProcessPlugin
+</pre>
+</dd>
+<dt>org.coffeecrew.tutorials.simplepluginmechanism.PostProcessable</dt>
+<dd><pre class="code text first last literal-block">
+org.coffeecrew.tutorials.simplepluginmechanism.PostProcessPlugin
+</pre>
+</dd>
+</dl>
+<p>Now we’ve hopefully prepared everything the ServiceLoader needs to do it’s job. All that’s missing now is a simple program that executes our plugin&nbsp;mechanism.</p>
+<div class="section" id="plugin-executor">
+<h3>Plugin&nbsp;Executor</h3>
+<p>A very simple implementation that will execute all plugins we have written with the ServiceLoader mechanism is quickly written. To guarantee the execution order of the plugins as we initially defined we must implement the code as shown&nbsp;below.</p>
+<pre class="code Java literal-block">
+<span class="kn">package</span> <span class="nn">org.coffeecrew.tutorials.simplepluginmechanism</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ServiceLoader</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimplePluginExecutorServiceLoader</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">String</span> <span class="n">processingToken</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+
+        <span class="kd">final</span> <span class="n">ServiceLoader</span><span class="o">&lt;</span><span class="n">PreProcessable</span><span class="o">&gt;</span> <span class="n">preProcessables</span> <span class="o">=</span> <span class="n">ServiceLoader</span><span class="p">.</span><span class="na">load</span><span class="p">(</span><span class="n">PreProcessable</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">final</span> <span class="n">PreProcessable</span> <span class="n">preProcessable</span> <span class="p">:</span> <span class="n">preProcessables</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">processingToken</span> <span class="o">=</span> <span class="n">preProcessable</span><span class="p">.</span><span class="na">process</span><span class="p">(</span><span class="n">processingToken</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="kd">final</span> <span class="n">ServiceLoader</span><span class="o">&lt;</span><span class="n">Processable</span><span class="o">&gt;</span> <span class="n">processables</span> <span class="o">=</span> <span class="n">ServiceLoader</span><span class="p">.</span><span class="na">load</span><span class="p">(</span><span class="n">Processable</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">final</span> <span class="n">Processable</span> <span class="n">processable</span> <span class="p">:</span> <span class="n">processables</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">processingToken</span> <span class="o">=</span> <span class="n">processable</span><span class="p">.</span><span class="na">process</span><span class="p">(</span><span class="n">processingToken</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="kd">final</span> <span class="n">ServiceLoader</span><span class="o">&lt;</span><span class="n">PostProcessable</span><span class="o">&gt;</span> <span class="n">postProcessables</span> <span class="o">=</span> <span class="n">ServiceLoader</span><span class="p">.</span><span class="na">load</span><span class="p">(</span><span class="n">PostProcessable</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">final</span> <span class="n">PostProcessable</span> <span class="n">postProcessable</span> <span class="p">:</span> <span class="n">postProcessables</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">processingToken</span> <span class="o">=</span> <span class="n">postProcessable</span><span class="p">.</span><span class="na">process</span><span class="p">(</span><span class="n">processingToken</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">processingToken</span><span class="p">);</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+<p>As you can see the code is a pretty straight forward implementation. It runs through every implementation that is available for a given interface type and runs the <code>process()</code> method on&nbsp;it.</p>
+<p>If you did everything right you should now see some output similar&nbsp;to:</p>
+<dl class="docutils">
+<dt>Sample&nbsp;Output</dt>
+<dd><div class="first last"><div class="highlight"><pre><span></span>[PRE_PROCESS] org.coffeecrew.tutorials.simplepluginmechanism.PreProcessPlugin
+[PROCESS] org.coffeecrew.tutorials.simplepluginmechanism.ProcessPlugin
+[PROCESS] org.coffeecrew.tutorials.simplepluginmechanism.MoreProcessPlugin
+[POST_PROCESS] org.coffeecrew.tutorials.simplepluginmechanism.PostProcessPlugin
+</pre></div>
+</div></dd>
+</dl>
+<p>As we can see from the output every phase was executed. Where we had two plugins available, both were run as well. This fulfills our basic&nbsp;requirements.</p>
+</div>
+</div>
+<div class="section" id="netbeans-lookup">
+<h2>Netbeans&nbsp;Lookup</h2>
+<p>By utilizing the Lookup library you can very easily achieve loose coupling, as you can with the ServiceLoader described above. On top of that you get some nice annotations and the ability to give your service implementation a certain priority when it should be&nbsp;run.</p>
+<p>Now let’s have a look at the <a class="reference external" href="http://bits.netbeans.org/dev/javadoc/org-openide-util-lookup/org/openide/util/lookup/doc-files/lookup-api.html">Netbeans Lookup <span class="caps">API</span></a> and see what’s the difference to the&nbsp;ServiceLoader.</p>
+<p>Well, the obvious first difference is that you need to include a additional library in your project. That library, which was initially strongly coupled to the Netbeans platform itself, was over time separated from the platform so it can be used in applications that are not based on the Netbeans platform and is available as a separate Maven dependency these&nbsp;days.</p>
+<p>For the dependency resolution to work you need to include the Netbeans repository in your <code>pom.xml</code> so you’re able to get a hold of the library as this library is not available in one of the well know central repositories as for example <a class="reference external" href="http://repo.maven.apache.org">The Central Repository</a>. There is a <a class="reference external" href="https://netbeans.org/bugzilla/show_bug.cgi?id=202041">discussion</a> going on about this which may or may not lead to a centrally available dependency in the&nbsp;future.</p>
+<p>You can however reference the library by appending the following information into your projects <code>pom.xml</code> file.</p>
+<dl class="docutils">
+<dt>Netbeans Lookup Maven&nbsp;Dependencies</dt>
+<dd><div class="first last"><div class="highlight"><pre><span></span><span class="nt">&lt;repositories&gt;</span>
+   <span class="nt">&lt;repository&gt;</span>
+      <span class="nt">&lt;id&gt;</span>Netbeans Repository<span class="nt">&lt;/id&gt;</span>
+      <span class="nt">&lt;url&gt;</span>http://bits.netbeans.org/maven2/<span class="nt">&lt;/url&gt;</span>
+   <span class="nt">&lt;/repository&gt;</span>
+<span class="nt">&lt;/repositories&gt;</span>
+
+<span class="nt">&lt;dependencies&gt;</span>
+   <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.netbeans.api<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>org-openide-util-lookup<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>RELEASE73<span class="nt">&lt;/version&gt;</span>
+   <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+</div></dd>
+</dl>
+<p>Don’t forget to execute a build of your project, so maven can download the newly added dependency for&nbsp;you.</p>
+<p>If you’re still working on the initial project where we’ve used the ServiceLoader mechanism please make sure you delete the <code>resources</code> folder now, you don’t need it in conjunction with the Lookup <span class="caps">API</span>.</p>
+<p>For the Lookup <span class="caps">API</span> to work you need to add annotations to your domain objects. These annotations will create the files with the interface name and fill their content with the class names that provide an implementation for that&nbsp;interface.</p>
+<p>This probably sounds more difficult than it actually is now, but it’s actually a trivial thing to do. You simply need to add a little <code>&#64;ServiceProvider</code> annotation in front of your class&nbsp;name.</p>
+<p>To make this as simple as possible I print the four classes again, their content is the same as outlined in the <a class="reference external" href="https://datapile.coffeecrew.org/creating-a-simple-plugin-mechanism-in-java#create-domain-objects">Create Domain Objects</a> section, just with the added&nbsp;annotation.</p>
+<dl class="docutils">
+<dt>PreProcessPlugin.java</dt>
+<dd><pre class="code Java first last literal-block">
+<span class="kn">package</span> <span class="nn">org.coffeecrew.tutorials.simplepluginmechanism</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.openide.util.lookup.ServiceProvider</span><span class="p">;</span>
+
+<span class="nd">&#64;ServiceProvider</span><span class="p">(</span><span class="n">service</span> <span class="o">=</span> <span class="n">PreProcessable</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PreProcessPlugin</span> <span class="kd">implements</span> <span class="n">PreProcessable</span> <span class="p">{</span>
+
+    <span class="nd">&#64;Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">process</span><span class="p">(</span><span class="n">String</span> <span class="n">processingToken</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">processingToken</span> <span class="o">+</span> <span class="s">&quot;[PRE_PROCESS] &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;\n&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+</dd>
+<dt>ProcessPlugin.java</dt>
+<dd><pre class="code Java first last literal-block">
+<span class="kn">package</span> <span class="nn">org.coffeecrew.tutorials.simplepluginmechanism</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.openide.util.lookup.ServiceProvider</span><span class="p">;</span>
+
+<span class="nd">&#64;ServiceProvider</span><span class="p">(</span><span class="n">service</span> <span class="o">=</span> <span class="n">Processable</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">position</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ProcessPlugin</span> <span class="kd">implements</span> <span class="n">Processable</span> <span class="p">{</span>
+
+    <span class="nd">&#64;Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">process</span><span class="p">(</span><span class="n">String</span> <span class="n">processingToken</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">processingToken</span> <span class="o">+</span> <span class="s">&quot;[PROCESS] &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;\n&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+</dd>
+<dt>MoreProcessPlugin.java</dt>
+<dd><pre class="code Java first last literal-block">
+<span class="kn">package</span> <span class="nn">org.coffeecrew.tutorials.simplepluginmechanism</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.openide.util.lookup.ServiceProvider</span><span class="p">;</span>
+
+<span class="nd">&#64;ServiceProvider</span><span class="p">(</span><span class="n">service</span> <span class="o">=</span> <span class="n">Processable</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MoreProcessPlugin</span> <span class="kd">implements</span> <span class="n">Processable</span> <span class="p">{</span>
+
+    <span class="nd">&#64;Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">process</span><span class="p">(</span><span class="n">String</span> <span class="n">processingToken</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">processingToken</span> <span class="o">+</span> <span class="s">&quot;[PROCESS] &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;\n&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+</dd>
+<dt>PostProcessPlugin.java</dt>
+<dd><pre class="code Java first last literal-block">
+<span class="kn">package</span> <span class="nn">org.coffeecrew.tutorials.simplepluginmechanism</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">org.openide.util.lookup.ServiceProvider</span><span class="p">;</span>
+
+<span class="nd">&#64;ServiceProvider</span><span class="p">(</span><span class="n">service</span> <span class="o">=</span> <span class="n">PostProcessable</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PostProcessPlugin</span> <span class="kd">implements</span> <span class="n">PostProcessable</span> <span class="p">{</span>
+
+    <span class="nd">&#64;Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">process</span><span class="p">(</span><span class="n">String</span> <span class="n">processingToken</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">processingToken</span> <span class="o">+</span> <span class="s">&quot;[POST_PROCESS] &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getName</span><span class="p">()</span> <span class="o">+</span> <span class="s">&quot;\n&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+</dd>
+</dl>
+<p>Now that we’ve changed our domain object to utilize the annotations provided by the Lookup <span class="caps">API</span> we need an executor method to run our plugins in. All that changes compared to the ServiceLoader approach is the way you look up the implementations. It’s just a different <span class="caps">API</span>&nbsp;call.</p>
+<div class="section" id="id3">
+<h3>Plugin&nbsp;Executor</h3>
+<p>Again we’ll show a very simple implementation that will execute all plugins we have&nbsp;written.</p>
+<dl class="docutils">
+<dt>SimplePluginExecutorLookupAPI.java</dt>
+<dd><pre class="code Java first last literal-block">
+<span class="kn">package</span> <span class="nn">org.coffeecrew.tutorials.simplepluginmechanism</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Collection</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.openide.util.Lookup</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimplePluginExecutorLookupAPI</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">String</span> <span class="n">processingToken</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+
+        <span class="kd">final</span> <span class="n">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">PreProcessable</span><span class="o">&gt;</span> <span class="n">preProcessables</span> <span class="o">=</span> <span class="n">Lookup</span><span class="p">.</span><span class="na">getDefault</span><span class="p">().</span><span class="na">lookupAll</span><span class="p">(</span><span class="n">PreProcessable</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">final</span> <span class="n">PreProcessable</span> <span class="n">preProcessable</span> <span class="p">:</span> <span class="n">preProcessables</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">processingToken</span> <span class="o">=</span> <span class="n">preProcessable</span><span class="p">.</span><span class="na">process</span><span class="p">(</span><span class="n">processingToken</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="kd">final</span> <span class="n">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Processable</span><span class="o">&gt;</span> <span class="n">processables</span> <span class="o">=</span> <span class="n">Lookup</span><span class="p">.</span><span class="na">getDefault</span><span class="p">().</span><span class="na">lookupAll</span><span class="p">(</span><span class="n">Processable</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">final</span> <span class="n">Processable</span> <span class="n">processable</span> <span class="p">:</span> <span class="n">processables</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">processingToken</span> <span class="o">=</span> <span class="n">processable</span><span class="p">.</span><span class="na">process</span><span class="p">(</span><span class="n">processingToken</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="kd">final</span> <span class="n">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">PostProcessable</span><span class="o">&gt;</span> <span class="n">postProcessables</span> <span class="o">=</span> <span class="n">Lookup</span><span class="p">.</span><span class="na">getDefault</span><span class="p">().</span><span class="na">lookupAll</span><span class="p">(</span><span class="n">PostProcessable</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">final</span> <span class="n">PostProcessable</span> <span class="n">postProcessable</span> <span class="p">:</span> <span class="n">postProcessables</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">processingToken</span> <span class="o">=</span> <span class="n">postProcessable</span><span class="p">.</span><span class="na">process</span><span class="p">(</span><span class="n">processingToken</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">processingToken</span><span class="p">);</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+</dd>
+</dl>
+<p>As you can see this code is basically the same as with the ServiceLoader approach. It runs through every implementation that is available for a given interface type and runs the <code>process()</code> method on&nbsp;it.</p>
+<p>However, you might notice that the output slightly changed. With the Lookup <span class="caps">API</span> the <code>MoreProcessPlugin</code> is executed before the <code>ProcessPlugin</code>. This is something we may not want in case we care about the order in which these plugins need to run when they are executed within the same&nbsp;phase.</p>
+<dl class="docutils">
+<dt>Service Loader&nbsp;Output</dt>
+<dd><div class="first last"><div class="highlight"><pre><span></span>[PRE_PROCESS] org.coffeecrew.tutorials.simplepluginmechanism.PreProcessPlugin
+[PROCESS] org.coffeecrew.tutorials.simplepluginmechanism.ProcessPlugin
+[PROCESS] org.coffeecrew.tutorials.simplepluginmechanism.MoreProcessPlugin
+[POST_PROCESS] org.coffeecrew.tutorials.simplepluginmechanism.PostProcessPlugin
+</pre></div>
+</div></dd>
+<dt>Lookup <span class="caps">API</span>&nbsp;Output</dt>
+<dd><div class="first last"><div class="highlight"><pre><span></span>[PRE_PROCESS] org.coffeecrew.tutorials.simplepluginmechanism.PreProcessPlugin
+[PROCESS] org.coffeecrew.tutorials.simplepluginmechanism.MoreProcessPlugin
+[PROCESS] org.coffeecrew.tutorials.simplepluginmechanism.ProcessPlugin
+[POST_PROCESS] org.coffeecrew.tutorials.simplepluginmechanism.PostProcessPlugin
+</pre></div>
+</div></dd>
+</dl>
+<p>Luckily there s a mechanism which allows you to control exactly that behavior. And it’s built in right into the Lookup <span class="caps">API</span>. The <code>&#64;ServiceProvider</code> annotation let’s you set a position attribute. This position attribute defines when this implementation should be run, if another implementation is also available. The higher the position number is, the earlier the implementation is&nbsp;run.</p>
+<p>Since the default position value is 0 it is sufficient to assign a value only to the <code>ProcessPlugin</code> implementation. Changing the <code>&#64;ServiceProvider</code> line in the <code>ProcessPlugin</code> to</p>
+<div class="highlight"><pre><span></span><span class="nd">@ServiceProvider</span><span class="p">(</span><span class="n">service</span> <span class="o">=</span> <span class="n">Processable</span><span class="p">.</span><span class="na">class</span><span class="p">,</span> <span class="n">position</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+<p>Will result in the following output which reflects the actual processing order of the ServiceLoader&nbsp;example.</p>
+</div>
+</div>
+<div class="section" id="comparison">
+<h2>Comparison</h2>
+<p>As you could see the Lookup <span class="caps">API</span> simplifies work by generating the files you’d normally have to create in <code>META-INF/services</code> manually. By the generative approach and the position attribute you can also guarantee a specific execution order without the hassle to manually reorder the content of the files in <code>META-INF/services</code>.</p>
+<p>The Lookup <span class="caps">API</span> offers much more advanced features aside from the ones that were mentioned here, like for example Lookup templates that allow you to query information on an object without instantiating it or listening to changes in a Lookup. You could also lookup different implementations for a service based on it’s <span class="caps">MIME</span>&nbsp;type.</p>
+</div>
+<div class="section" id="one-more-thing">
+<h2>One More&nbsp;Thing</h2>
+<p>Now I have actually one more thing I want to share with you. This approach works for both previously introduced plugin mechanisms, but will be included in the Lookup <span class="caps">API</span> example&nbsp;only.</p>
+<p>It allows you to add or remove processing phases without having to rewrite all your processing code. This can simply be achieved by assigning the interface classes to an enumeration type. So let’s first implement the enumeration type that ties together the processing phase and the interface assigned to&nbsp;it.</p>
+<dl class="docutils">
+<dt>Phase.java</dt>
+<dd><pre class="code Java first last literal-block">
+<span class="kn">package</span> <span class="nn">org.coffeecrew.tutorials.simplepluginmechanism</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">enum</span> <span class="n">Phase</span> <span class="p">{</span>
+
+<span class="c1">//    PRE_PROCESS(PreProcessable.class),
+</span>    <span class="n">PROCESS</span><span class="p">(</span><span class="n">Processable</span><span class="p">.</span><span class="na">class</span><span class="p">),</span>
+    <span class="n">POST_PROCESS</span><span class="p">(</span><span class="n">PostProcessable</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Plugin</span><span class="o">&gt;</span> <span class="n">plugin</span><span class="p">;</span>
+
+    <span class="kd">private</span> <span class="nf">Phase</span><span class="p">(</span><span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Plugin</span><span class="o">&gt;</span> <span class="n">plugin</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="na">plugin</span> <span class="o">=</span> <span class="n">plugin</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Plugin</span><span class="o">&gt;</span> <span class="nf">getPhaseInterface</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">plugin</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+</dd>
+</dl>
+<p>As you can see the implementation is fairly trivial, yet effective. Now all we need is an adapted executor for this to work. An implementation that utilizes the new idea looks as&nbsp;follows:</p>
+<dl class="docutils">
+<dt>SimplePhaseExecutor.java</dt>
+<dd><pre class="code Java first last literal-block">
+<span class="kn">package</span> <span class="nn">org.coffeecrew.tutorials.simplepluginmechanism</span><span class="p">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Collection</span><span class="p">;</span>
+<span class="kn">import</span> <span class="nn">org.openide.util.Lookup</span><span class="p">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimplePhaseExecutor</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">String</span> <span class="n">processingToken</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kd">final</span> <span class="n">Phase</span> <span class="n">p</span> <span class="p">:</span> <span class="n">Phase</span><span class="p">.</span><span class="na">values</span><span class="p">())</span> <span class="p">{</span>
+            <span class="kd">final</span> <span class="n">Collection</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Plugin</span><span class="o">&gt;</span> <span class="n">processables</span> <span class="o">=</span> <span class="n">Lookup</span><span class="p">.</span><span class="na">getDefault</span><span class="p">().</span><span class="na">lookupAll</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="na">getPhaseInterface</span><span class="p">());</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">final</span> <span class="n">Plugin</span> <span class="n">plugin</span> <span class="p">:</span> <span class="n">processables</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">processingToken</span> <span class="o">=</span> <span class="n">plugin</span><span class="p">.</span><span class="na">process</span><span class="p">(</span><span class="n">processingToken</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">processingToken</span><span class="p">);</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre>
+</dd>
+</dl>
+<p>Execution of the above code will result in the following&nbsp;output:</p>
+<dl class="docutils">
+<dt>Lookup <span class="caps">API</span>&nbsp;Output</dt>
+<dd><div class="first last"><div class="highlight"><pre><span></span>[PRE_PROCESS] org.coffeecrew.tutorials.simplepluginmechanism.PreProcessPlugin
+[PROCESS] org.coffeecrew.tutorials.simplepluginmechanism.ProcessPlugin
+[PROCESS] org.coffeecrew.tutorials.simplepluginmechanism.MoreProcessPlugin
+[POST_PROCESS] org.coffeecrew.tutorials.simplepluginmechanism.PostProcessPlugin
+</pre></div>
+</div></dd>
+</dl>
+<p>Which is what we have expected it to do. The cool part however is - if you need to change the execution order of the phases, add a new phase, or delete a phase - you do not need to change the executor code but only the order or number of elements in the <code>Phase</code> enumeration.</p>
+<p>So should you decide to no longer include the <code>PRE_PROCESS</code> phase anymore you just need to remove the phase from the enumeration type, re-run the example&nbsp;aaaand:</p>
+<dl class="docutils">
+<dt>Output - PRE_PROCESS Phase&nbsp;Removed</dt>
+<dd><div class="first last"><div class="highlight"><pre><span></span>[PROCESS] org.coffeecrew.tutorials.simplepluginmechanism.ProcessPlugin
+[PROCESS] org.coffeecrew.tutorials.simplepluginmechanism.MoreProcessPlugin
+[POST_PROCESS] org.coffeecrew.tutorials.simplepluginmechanism.PostProcessPlugin
+</pre></div>
+</div></dd>
+</dl>
+<p>There you go, no more annoying <code>PRE_PROCESSING</code>, just as expected&nbsp;:)</p>
+<p>If you like you can clone the two projects from&nbsp;Github:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/authsec/examples/tree/master/java/SimplePluginMechanismServiceLoader">ServiceLoader&nbsp;Version</a></li>
+<li><a class="reference external" href="https://github.com/authsec/examples/tree/master/java/SimplePluginMechanismLookupAPI">LookupAPI&nbsp;Version</a></li>
+</ul>
+<p>Hope you enjoyed the post! Leave comments, like ’n&nbsp;share!</p>
+</div>
+
+
+
+             
+ 
+                <p id="post-share-links">
+    Like this post? Share on:
+    <a href="https://twitter.com/intent/tweet?text=Creating%20A%20Simple%20Plugin%20Mechanism%20In%C2%A0Java&url=https%3A//datapile.coffeecrew.org/creating-a-simple-plugin-mechanism-in-java&via=authsec&hashtags=java,lookup-api,service-loader" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+    ❄
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/creating-a-simple-plugin-mechanism-in-java" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
+    ❄
+    <a href="mailto:?subject=Creating%20A%20Simple%20Plugin%20Mechanism%20In%C2%A0Java&amp;body=https%3A//datapile.coffeecrew.org/creating-a-simple-plugin-mechanism-in-java" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
+    </p>
+
+                <hr />
+    <div class="author_blurb">
+        <a href="https://www.coffeecrew.org/" target="_blank" rel="nofollow noopener noreferrer">
+            <img src=https://avatars3.githubusercontent.com/u/7973409?s=400&u=071356b002dc73eed0cf5ff16474df64edd3943c&v=4 alt="Jens Frey Avatar" title="Jens Frey">
+            <span class="author_name">Jens Frey</span>
+        </a>
+        is the creator of the datapile blog.
+    </div>
+
+            
+
+
+
+
+
+
+            <hr/>
+<section>
+    <h2>Keep Reading</h2>
+<ul class="related-posts-list">
+<li><a href="https://datapile.coffeecrew.org/using-java-enumerations" title="Using Java Enumerations">Using Java Enumerations</a></li>
+<li><a href="https://datapile.coffeecrew.org/reading-the-conversation-id-from-another-parameter" title="Reading the Conversation ID From Another Parameter">Reading the Conversation ID From Another Parameter</a></li>
+<li><a href="https://datapile.coffeecrew.org/have-a-rest-endpoint-catch-all" title="Have a ReST Endpoint Catch All">Have a ReST Endpoint Catch All</a></li>
+<li><a href="https://datapile.coffeecrew.org/programmatically-start-a-jsf-flow" title="Programmatically Start A JSF Flow">Programmatically Start A JSF Flow</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/grenade-cover-version" title="Previous: Grenade - Cover Version">Grenade - Cover Version</a></li>
+                <li class="next-article"><a href="https://datapile.coffeecrew.org/pro-tools-playlists" title="Next: Pro Tools - Playlists">Pro Tools - Playlists</a> »</li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2013-06-02T16:36:18+01:00">Jun 2, 2013</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://datapile.coffeecrew.org/categories#programming-ref">Programming</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="https://datapile.coffeecrew.org/tags#java-ref">Java
+                    <span>5</span>
+</a></li>
+                <li><a href="https://datapile.coffeecrew.org/tags#lookup-api-ref">Lookup API
+                    <span>1</span>
+</a></li>
+                <li><a href="https://datapile.coffeecrew.org/tags#service-loader-ref">Service Loader
+                    <span>1</span>
+</a></li>
+            </ul>
+<h4>Stay in Touch</h4>
+<div id="sidebar-social-link">
+    <a href="https://github.com/authsec/" title="Authsec Github Repository" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+    <a href="https://twitter.com/authsec" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/in/jens-frey-409ab844/" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="LinkedIn" role="img" viewBox="0 0 512 512" fill="#fff"><rect width="512" height="512" rx="15%" fill="#0077b5"/><circle cx="142" cy="138" r="37"/><path stroke="#fff" stroke-width="66" d="M244 194v198M142 194v198"/><path d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
+    </a>
+    <a href="https://www.youtube.com/jensfrey" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="YouTube" role="img" viewBox="0 0 512 512" fill="#ed1d24"><rect width="512" height="512" rx="15%"/><path d="m427 169c-4-15-17-27-32-31-34-9-239-10-278 0-15 4-28 16-32 31-9 38-10 135 0 174 4 15 17 27 32 31 36 10 241 10 278 0 15-4 28-16 32-31 9-36 9-137 0-174" fill="#fff"/><path d="m220 203v106l93-53"/></svg>
+    </a>
+    <a href="http://localhost:8000/feeds/all.atom.xml" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="RSS" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#f80"/><circle cx="145" cy="367" r="35" fill="#fff"/><path fill="none" stroke="#fff" stroke-width="60" d="M109 241c89 0 162 73 162 162M109 127c152 0 276 124 276 276"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+    <div>
+        Content licensed under <a rel="license nofollow noopener noreferrer"
+    href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
+    Creative Commons Attribution 4.0 International License</a>.
+    </div>
+
+    <div>
+        <span class="site-name">Datapile</span> - Against Digital Amnesia
+    </div>
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+        Hosted on:
+        <a href=https://datapile.coffeecrew.org/ target="_blank" rel="nofollow noopener noreferrer">
+            Github
+        </a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

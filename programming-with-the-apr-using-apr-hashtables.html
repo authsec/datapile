@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Jens Frey" />
+
+        <meta name="description" content="This article will show you how to use the OpenID delegation feature which allows you to use your own domain as an identifier for OpenID.
+" />
+        <meta name="twitter:creator" content="@authsec">
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="APR, Apache, C, Programming, " />
+
+<meta property="og:title" content="Programming with the APR - Using APR HashTables "/>
+<meta property="og:url" content="https://datapile.coffeecrew.org/programming-with-the-apr-using-apr-hashtables" />
+<meta property="og:description" content="This article will show you how to use the OpenID delegation feature which allows you to use your own domain as an identifier for OpenID." />
+<meta property="og:site_name" content="Datapile" />
+<meta property="og:article:author" content="Jens Frey" />
+<meta property="og:article:published_time" content="2010-11-02T12:00:34+01:00" />
+<meta name="twitter:title" content="Programming with the APR - Using APR HashTables ">
+<meta name="twitter:description" content="This article will show you how to use the OpenID delegation feature which allows you to use your own domain as an identifier for OpenID.">
+<meta property="og:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" />
+<meta name="twitter:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" >
+
+        <title>Programming with the APR - Using APR HashTables  · Datapile
+</title>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://datapile.coffeecrew.org/theme/css/elegant.prod.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://datapile.coffeecrew.org/theme/css/custom.css" media="screen">
+
+        <link rel="shortcut icon" href="https://datapile.coffeecrew.org/theme/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-180x180.png" type="image/png" />
+        <link href="https://datapile.coffeecrew.org/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Datapile - Full Atom Feed" />
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-19717065-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://datapile.coffeecrew.org/"><span class=site-name>Datapile</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://datapile.coffeecrew.org
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://datapile.coffeecrew.org/categories">Categories</a></li>
+                                <li ><a href="https://datapile.coffeecrew.org/tags">Tags</a></li>
+                                <li ><a href="https://datapile.coffeecrew.org/archives">Archives</a></li>
+                                <li><form class="navbar-search" action="https://datapile.coffeecrew.org/search" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://datapile.coffeecrew.org/programming-with-the-apr-using-apr-hashtables">
+                Programming with the <span class="caps">APR</span> - Using <span class="caps">APR</span>&nbsp;HashTables
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>This short article will show how to use the Apache Portable Runtime
+(<span class="caps">APR</span>) with it&#8217;s built in&nbsp;hashtable.</p>
+<div class="section" id="introduction">
+<h2>Introduction</h2>
+<p>If you are in need to place data in a memory structure to access it
+quickly, you are probably best with a hash table data type. The Apache
+Portable Runtime (<span class="caps">APR</span>) luckily, along some others like
+e.g. <code>apr_table_t</code> or <code>apr_array_header_t</code> (both defined
+in <code>apr_tables.h</code>), provides such a data type to&nbsp;you.</p>
+<p>Hashtables do have the big advantage that you can supply them any data type you like. The next big thing with hashtables is that they are usually very efficient if the number of elements that they are holding&nbsp;grows.</p>
+<p>You can download the file <a class="reference external" href="https://raw.githubusercontent.com/authsec/examples/master/c/aprHashtable.c">here</a>.</p>
+</div>
+<div class="section" id="let-s-hash">
+<h2>Let&#8217;s&nbsp;hash</h2>
+<p>In order to demonstrate hashtables we are using a very simple data structure which holds a date, a username and a password. We then set some values onto this data structure and save the created structure into the&nbsp;hashtable.</p>
+<p>After storing that object into the hashtable we are reading the objects back from the hashtable and output it&#8217;s&nbsp;contents.</p>
+</div>
+<div class="section" id="the-c0de">
+<h2>The&nbsp;c0de</h2>
+<p>Now that you do have some overview of what we are actually doing here, it&#8217;s time to show you some code. I think it pretty much speaks for&nbsp;itself.</p>
+<p>You should however, if you are using strings as keys, use the special <code>APR_HASH_KEY_STRING</code> value to indicate a string valued key to <span class="caps">APR</span>. This will use <code>strlen(key)</code> to compute the length (<code>NUL</code> terminator is not included&nbsp;there).</p>
+<pre class="code c literal-block">
+<span class="cp">#include</span> <span class="cpf">&lt;apr.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;apr_hash.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;apr_time.h&gt;</span><span class="cp">
+#define APR_WANT_STDIO
+#include</span> <span class="cpf">&lt;apr_want.h&gt;</span><span class="cp">
+</span>
+<span class="k">struct</span> <span class="nc">userRecord</span>
+<span class="p">{</span>
+  <span class="n">apr_time_t</span> <span class="n">creationDate</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">username</span><span class="p">[</span><span class="mi">30</span><span class="p">];</span>
+  <span class="kt">char</span> <span class="n">password</span><span class="p">[</span><span class="mi">30</span><span class="p">];</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="k">struct</span> <span class="nc">userRecord</span> <span class="o">*</span><span class="n">user</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">apr_pool_t</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">timeReadable</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="n">apr_pool_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">p</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+  <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+  <span class="n">timeReadable</span> <span class="o">=</span> <span class="n">apr_palloc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">APR_RFC822_DATE_LEN</span><span class="p">);</span>
+  <span class="n">apr_rfc822_date</span><span class="p">(</span><span class="n">timeReadable</span><span class="p">,</span> <span class="n">user</span><span class="o">-&gt;</span><span class="n">creationDate</span><span class="p">);</span>
+
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Username:</span><span class="se">\t\t</span><span class="s"> %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">-&gt;</span><span class="n">username</span><span class="p">);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Password:</span><span class="se">\t\t</span><span class="s"> %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">-&gt;</span><span class="n">password</span><span class="p">);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;CreationDate:</span><span class="se">\t\t</span><span class="s"> %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">timeReadable</span><span class="p">);</span>
+
+  <span class="n">apr_pool_destroy</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+  <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* Compile with
+ * $&gt; export APR_LIBS=&quot;`apr-1-config --cflags --cppflags --includes --ldflags --link-ld --libs`&quot;
+ * $&gt; export APU_LIBS=&quot;`apu-1-config --includes --ldflags --link-ld --libs`&quot;
+ * $&gt; gcc $APR_LIBS $APU_LIBS aprHashtable.c -o aprHashtable
+ */</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="k">const</span><span class="o">*</span> <span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">apr_status_t</span> <span class="n">rv</span><span class="p">;</span>
+  <span class="n">apr_pool_t</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="k">struct</span> <span class="nc">userRecord</span> <span class="o">*</span><span class="n">cUser</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="k">struct</span> <span class="nc">userRecord</span> <span class="o">*</span><span class="n">readUser</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="n">countName</span><span class="p">[</span><span class="mi">12</span><span class="p">];</span>
+  <span class="n">apr_hash_index_t</span> <span class="o">*</span><span class="n">hidx</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+
+
+  <span class="n">apr_app_initialize</span><span class="p">(</span><span class="o">&amp;</span><span class="n">argc</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">argv</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+  <span class="n">atexit</span><span class="p">(</span><span class="n">apr_terminate</span><span class="p">);</span>
+
+  <span class="n">apr_pool_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">p</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+
+  <span class="n">apr_hash_t</span> <span class="o">*</span><span class="n">ht</span> <span class="o">=</span> <span class="n">apr_hash_make</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+
+  <span class="n">apr_cpystrn</span><span class="p">(</span><span class="n">countName</span><span class="p">,</span> <span class="s">&quot;Jens Frey  &quot;</span><span class="p">,</span> <span class="mi">12</span><span class="p">);</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">26</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">countName</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="p">)</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">65</span><span class="p">;</span>
+    <span class="n">cUser</span> <span class="o">=</span> <span class="n">apr_palloc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="nc">userRecord</span><span class="p">));</span>
+    <span class="n">apr_cpystrn</span><span class="p">(</span><span class="n">cUser</span><span class="o">-&gt;</span><span class="n">username</span><span class="p">,</span> <span class="n">countName</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">countName</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">apr_cpystrn</span><span class="p">(</span><span class="n">cUser</span><span class="o">-&gt;</span><span class="n">password</span><span class="p">,</span> <span class="s">&quot;secret&quot;</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="s">&quot;secret&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="n">cUser</span><span class="o">-&gt;</span><span class="n">creationDate</span> <span class="o">=</span> <span class="n">apr_time_now</span><span class="p">();</span>
+
+    <span class="n">apr_hash_set</span><span class="p">(</span><span class="n">ht</span><span class="p">,</span> <span class="n">cUser</span><span class="o">-&gt;</span><span class="n">username</span><span class="p">,</span> <span class="n">APR_HASH_KEY_STRING</span><span class="p">,</span> <span class="n">cUser</span><span class="p">);</span>
+
+    <span class="n">print</span><span class="p">(</span><span class="n">cUser</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="n">hidx</span> <span class="o">=</span> <span class="n">apr_hash_first</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">ht</span><span class="p">);</span> <span class="n">hidx</span><span class="p">;</span> <span class="n">hidx</span> <span class="o">=</span> <span class="n">apr_hash_next</span><span class="p">(</span><span class="n">hidx</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">apr_hash_this</span><span class="p">(</span><span class="n">hidx</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">readUser</span><span class="p">);</span>
+    <span class="n">print</span><span class="p">(</span><span class="n">readUser</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="n">readUser</span> <span class="o">=</span> <span class="n">apr_hash_get</span><span class="p">(</span><span class="n">ht</span><span class="p">,</span> <span class="s">&quot;Jens Frey G&quot;</span><span class="p">,</span> <span class="n">APR_HASH_KEY_STRING</span><span class="p">);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">);</span>
+  <span class="n">print</span><span class="p">(</span><span class="n">readUser</span><span class="p">);</span>
+
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hashtable size: %d bytes</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+     <span class="n">apr_hash_count</span><span class="p">(</span><span class="n">ht</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="nc">userRecord</span><span class="p">)</span>
+     <span class="o">+</span> <span class="n">apr_hash_count</span><span class="p">(</span><span class="n">ht</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">readUser</span><span class="o">-&gt;</span><span class="n">username</span><span class="p">));</span>
+
+  <span class="n">apr_terminate</span><span class="p">();</span>
+  <span class="k">return</span> <span class="n">rv</span><span class="p">;</span>
+<span class="p">}</span>
+</pre>
+</div>
+
+
+
+             
+ 
+                <p id="post-share-links">
+    Like this post? Share on:
+    <a href="https://twitter.com/intent/tweet?text=Programming%20with%20the%20APR%20-%20Using%20APR%C2%A0HashTables&url=https%3A//datapile.coffeecrew.org/programming-with-the-apr-using-apr-hashtables&via=authsec&hashtags=apr,apache,c" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+    ❄
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/programming-with-the-apr-using-apr-hashtables" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
+    ❄
+    <a href="mailto:?subject=Programming%20with%20the%20APR%20-%20Using%20APR%C2%A0HashTables&amp;body=https%3A//datapile.coffeecrew.org/programming-with-the-apr-using-apr-hashtables" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
+    </p>
+
+                <hr />
+    <div class="author_blurb">
+        <a href="https://www.coffeecrew.org/" target="_blank" rel="nofollow noopener noreferrer">
+            <img src=https://avatars3.githubusercontent.com/u/7973409?s=400&u=071356b002dc73eed0cf5ff16474df64edd3943c&v=4 alt="Jens Frey Avatar" title="Jens Frey">
+            <span class="author_name">Jens Frey</span>
+        </a>
+        is the creator of the datapile blog.
+    </div>
+
+            
+
+
+
+
+
+
+            <hr/>
+<section>
+    <h2>Keep Reading</h2>
+<ul class="related-posts-list">
+<li><a href="https://datapile.coffeecrew.org/programming-with-the-apr" title="Programming with the APR">Programming with the APR</a></li>
+<li><a href="https://datapile.coffeecrew.org/programming-with-the-apr-persisting-information" title="Programming with the APR - Persisting information">Programming with the APR - Persisting information</a></li>
+<li><a href="https://datapile.coffeecrew.org/programming-with-the-apr-using-apr_getopt" title="Programming with the APR - Using apr_getopt">Programming with the APR - Using apr_getopt</a></li>
+<li><a href="https://datapile.coffeecrew.org/programming-with-the-apr-using-md5" title="Programming with the APR - Using MD5">Programming with the APR - Using MD5</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/programming-with-the-apr-using-md5" title="Previous: Programming with the APR - Using MD5">Programming with the APR - Using MD5</a></li>
+                <li class="next-article"><a href="https://datapile.coffeecrew.org/using-java-enumerations" title="Next: Using Java Enumerations">Using Java Enumerations</a> »</li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2010-11-02T12:00:34+01:00">Nov 2, 2010</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://datapile.coffeecrew.org/categories#programming-ref">Programming</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="https://datapile.coffeecrew.org/tags#apache-ref">Apache
+                    <span>5</span>
+</a></li>
+                <li><a href="https://datapile.coffeecrew.org/tags#apr-ref">APR
+                    <span>5</span>
+</a></li>
+                <li><a href="https://datapile.coffeecrew.org/tags#c-ref">C
+                    <span>5</span>
+</a></li>
+            </ul>
+<h4>Stay in Touch</h4>
+<div id="sidebar-social-link">
+    <a href="https://github.com/authsec/" title="Authsec Github Repository" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+    <a href="https://twitter.com/authsec" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="Twitter" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1da1f3"/><path fill="#fff" d="M437 152a72 72 0 0 1-40 12 72 72 0 0 0 32-40 72 72 0 0 1-45 17 72 72 0 0 0-122 65 200 200 0 0 1-145-74 72 72 0 0 0 22 94 72 72 0 0 1-32-7 72 72 0 0 0 56 69 72 72 0 0 1-32 1 72 72 0 0 0 67 50 200 200 0 0 1-105 29 200 200 0 0 0 309-179 200 200 0 0 0 35-37"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/in/jens-frey-409ab844/" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="LinkedIn" role="img" viewBox="0 0 512 512" fill="#fff"><rect width="512" height="512" rx="15%" fill="#0077b5"/><circle cx="142" cy="138" r="37"/><path stroke="#fff" stroke-width="66" d="M244 194v198M142 194v198"/><path d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"/></svg>
+    </a>
+    <a href="https://www.youtube.com/jensfrey" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="YouTube" role="img" viewBox="0 0 512 512" fill="#ed1d24"><rect width="512" height="512" rx="15%"/><path d="m427 169c-4-15-17-27-32-31-34-9-239-10-278 0-15 4-28 16-32 31-9 38-10 135 0 174 4 15 17 27 32 31 36 10 241 10 278 0 15-4 28-16 32-31 9-36 9-137 0-174" fill="#fff"/><path d="m220 203v106l93-53"/></svg>
+    </a>
+    <a href="http://localhost:8000/feeds/all.atom.xml" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="RSS" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#f80"/><circle cx="145" cy="367" r="35" fill="#fff"/><path fill="none" stroke="#fff" stroke-width="60" d="M109 241c89 0 162 73 162 162M109 127c152 0 276 124 276 276"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+    <div>
+        Content licensed under <a rel="license nofollow noopener noreferrer"
+    href="http://creativecommons.org/licenses/by/4.0/" target="_blank">
+    Creative Commons Attribution 4.0 International License</a>.
+    </div>
+
+    <div>
+        <span class="site-name">Datapile</span> - Against Digital Amnesia
+    </div>
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+        Hosted on:
+        <a href=https://datapile.coffeecrew.org/ target="_blank" rel="nofollow noopener noreferrer">
+            Github
+        </a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>
