@@ -34,6 +34,7 @@ jobs:
       with:
         ref: 'source'
         path: 'source'
+        submodules: 'recursive'
 
     - name: Building site 
       run: |
