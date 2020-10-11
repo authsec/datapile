@@ -6,26 +6,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Jens Frey" />
 
-        <meta name="description" content="How to start a local consul server.
+        <meta name="description" content="This post shows you how you can remove write protection from a locked PDF.
 " />
         <meta name="twitter:creator" content="@authsec">
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="Consul, Database, Infrastructure, " />
+<meta name="keywords" content="PDF, Infrastructure, " />
 
-<meta property="og:title" content="How To Start A Consul Docker Image "/>
-<meta property="og:url" content="https://datapile.coffeecrew.org/how-to-start-a-consul-docker-image" />
-<meta property="og:description" content="How to start a local consul server." />
+<meta property="og:title" content="How To Remove PDF Write Protection "/>
+<meta property="og:url" content="https://datapile.coffeecrew.org/how-to-remove-pdf-write-protection" />
+<meta property="og:description" content="This post shows you how you can remove write protection from a locked PDF." />
 <meta property="og:site_name" content="Datapile" />
 <meta property="og:article:author" content="Jens Frey" />
-<meta property="og:article:published_time" content="2016-09-20T21:48:12+01:00" />
-<meta name="twitter:title" content="How To Start A Consul Docker Image ">
-<meta name="twitter:description" content="How to start a local consul server.">
+<meta property="og:article:published_time" content="2020-10-11T14:23:00+01:00" />
+<meta name="twitter:title" content="How To Remove PDF Write Protection ">
+<meta name="twitter:description" content="This post shows you how you can remove write protection from a locked PDF.">
 <meta property="og:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" />
 <meta name="twitter:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" >
 
-        <title>How To Start A Consul Docker Image  · Datapile
+        <title>How To Remove PDF Write Protection  · Datapile
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="https://datapile.coffeecrew.org/theme/css/elegant.prod.css" media="screen">
@@ -89,8 +89,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://datapile.coffeecrew.org/how-to-start-a-consul-docker-image">
-                How To Start A Consul Docker&nbsp;Image
+            <a href="https://datapile.coffeecrew.org/how-to-remove-pdf-write-protection">
+                How To Remove <span class="caps">PDF</span> Write&nbsp;Protection
             </a>
         </h1>
     </header>
@@ -99,11 +99,45 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>If you quickly have to start a <a class="reference external" href="https://www.consul.io/">Consul</a>  docker image you can use the following&nbsp;command:</p>
+            <p>Some PDFs you download are write protected. This is especially annoying if you do like to mark up the <span class="caps">PDF</span> in a utility like e.g. <a class="reference external" href="https://devontechnologies.com/apps/devonthink">DEVONthink</a>. It is not even possible to simply highlight something as long as the <span class="caps">PDF</span> is write&nbsp;protected.</p>
+<p>Luckily the problem can be solved with a little command line application called <code>qpdf</code>.</p>
+<div class="section" id="installation">
+<h2>Installation</h2>
+<p>There are multiple ways to install the software. You can either use the package manager of your operating system or you can use <a class="reference external" href="https://www.docker.com/">Docker</a>. This will allow you to quickly use the command and discard the whole execution environment if you no longer need&nbsp;it.</p>
+<div class="section" id="homebrew">
+<h3>Homebrew</h3>
+<p>I&#8217;m on a Mac and if you have <a class="reference external" href="https://brew.sh/">Homebrew</a> installed, you can execute <code>brew install qpdf</code> in your terminal application. This will download and install the <code>qpdf</code> command line tool that you can use to remove the <span class="caps">PDF</span> write&nbsp;protection.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>I&#8217;m running the following&nbsp;version:</p>
 <pre class="literal-block">
-docker run -p 8400:8400 -p 127.0.0.1:8500:8500 -p 8600:8600/udp -h node1 consul agent -dev -client 0.0.0.0
+#$&gt; qpdf --version
+qpdf version 10.0.1
+Run qpdf --copyright to see copyright and license information.
 </pre>
-<p>This is especially useful for development purposes and quick tests and should not be used in a productive&nbsp;environment.</p>
+<p class="last">Keep this in mind if a feature is not available or does not&nbsp;work.</p>
+</div>
+<p>If you&#8217;re not on a Mac you need to use the package manager of your operating system to install the&nbsp;application.</p>
+<p>You can use the utility like&nbsp;so:</p>
+<pre class="literal-block">
+#$&gt; cd folder-with-pdf
+#$&gt; qpdf --replace-input my.pdf
+</pre>
+</div>
+<div class="section" id="docker">
+<h3>Docker</h3>
+<p>If you are already using <a class="reference external" href="https://www.docker.com/">Docker</a> then why not employ a container to get the job done. The container I am using is pretty heavyweight if you just need to use the little <code>qpdf</code> utility and you may want to use a smaller container. However, if you&#8217;re additionally documenting stuff with  <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> or use <a class="reference external" href="https://blog.getpelican.com/">Pelican</a> to write your blog, the heavyweight container might be a good choice for you&nbsp;anyway.</p>
+<p>You can use the <a class="reference external" href="https://github.com/authsec/sphinx">custom Sphinx</a> container as&nbsp;follows:</p>
+<pre class="literal-block">
+#$&gt; cd folder-with-pdf
+#$&gt; docker run --rm -it -v $(pwd):/docs authsec/sphinx qpdf --replace-input my.pdf
+</pre>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you&#8217;re on Windows, the current working directory needs to be specified with <code>${PWD}</code>.</p>
+</div>
+</div>
+</div>
 
 
 
@@ -111,11 +145,11 @@ docker run -p 8400:8400 -p 127.0.0.1:8500:8500 -p 8600:8600/udp -h node1 consul 
  
                 <p id="post-share-links">
     Like this post? Share on:
-    <a href="https://twitter.com/intent/tweet?text=How%20To%20Start%20A%20Consul%20Docker%C2%A0Image&url=https%3A//datapile.coffeecrew.org/how-to-start-a-consul-docker-image&via=authsec&hashtags=consul,database" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+    <a href="https://twitter.com/intent/tweet?text=How%20To%20Remove%20PDF%20Write%C2%A0Protection&url=https%3A//datapile.coffeecrew.org/how-to-remove-pdf-write-protection&via=authsec&hashtags=pdf" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
     ❄
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/how-to-start-a-consul-docker-image" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/how-to-remove-pdf-write-protection" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
     ❄
-    <a href="mailto:?subject=How%20To%20Start%20A%20Consul%20Docker%C2%A0Image&amp;body=https%3A//datapile.coffeecrew.org/how-to-start-a-consul-docker-image" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
+    <a href="mailto:?subject=How%20To%20Remove%20PDF%20Write%C2%A0Protection&amp;body=https%3A//datapile.coffeecrew.org/how-to-remove-pdf-write-protection" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
     </p>
 
                 <hr />
@@ -135,34 +169,23 @@ docker run -p 8400:8400 -p 127.0.0.1:8500:8500 -p 8600:8600/udp -h node1 consul 
 
 
             <hr/>
-<section>
-    <h2>Keep Reading</h2>
-<ul class="related-posts-list">
-<li><a href="https://datapile.coffeecrew.org/switching-roller-from-derby-to-postgresql" title="Switching roller from Derby to PostgreSQL">Switching roller from Derby to PostgreSQL</a></li>
-</ul>
-<hr />
-</section>
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/upload-maven-artifacts-into-nexus-3" title="Previous: Upload Maven Artifacts Into Nexus 3">Upload Maven Artifacts Into Nexus 3</a></li>
-                <li class="next-article"><a href="https://datapile.coffeecrew.org/how-to-remove-pdf-write-protection" title="Next: How To Remove PDF Write Protection">How To Remove PDF Write Protection</a> »</li>
+                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/how-to-start-a-consul-docker-image" title="Previous: How To Start A Consul Docker Image">How To Start A Consul Docker Image</a></li>
             </ul>
             </nav>
             </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2016-09-20T21:48:12+01:00">Sep 20, 2016</time>
+            <time itemprop="dateCreated" datetime="2020-10-11T14:23:00+01:00">Oct 11, 2020</time>
             <h4>Category</h4>
             <a class="category-link" href="https://datapile.coffeecrew.org/categories#infrastructure-ref">Infrastructure</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://datapile.coffeecrew.org/tags#consul-ref">Consul
+                <li><a href="https://datapile.coffeecrew.org/tags#pdf-ref">PDF
                     <span>1</span>
-</a></li>
-                <li><a href="https://datapile.coffeecrew.org/tags#database-ref">Database
-                    <span>2</span>
 </a></li>
             </ul>
 <h4>Stay in Touch</h4>

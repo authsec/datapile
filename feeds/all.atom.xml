@@ -1,5 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Datapile</title><link href="https://datapile.coffeecrew.org/" rel="alternate"></link><link href="https://datapile.coffeecrew.org/feeds/all.atom.xml" rel="self"></link><id>https://datapile.coffeecrew.org/</id><updated>2016-09-20T21:48:12+01:00</updated><subtitle>Against Digital Amnesia</subtitle><entry><title>How To Start A Consul Docker Image</title><link href="https://datapile.coffeecrew.org/how-to-start-a-consul-docker-image" rel="alternate"></link><published>2016-09-20T21:48:12+01:00</published><updated>2016-09-20T21:48:12+01:00</updated><author><name>Jens Frey</name></author><id>tag:datapile.coffeecrew.org,2016-09-20:/how-to-start-a-consul-docker-image</id><summary type="html">&lt;p class="first last"&gt;How to start a local consul&amp;nbsp;server.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Datapile</title><link href="https://datapile.coffeecrew.org/" rel="alternate"></link><link href="https://datapile.coffeecrew.org/feeds/all.atom.xml" rel="self"></link><id>https://datapile.coffeecrew.org/</id><updated>2020-10-11T14:23:00+01:00</updated><subtitle>Against Digital Amnesia</subtitle><entry><title>How To Remove PDF Write Protection</title><link href="https://datapile.coffeecrew.org/how-to-remove-pdf-write-protection" rel="alternate"></link><published>2020-10-11T14:23:00+01:00</published><updated>2020-10-11T14:23:00+01:00</updated><author><name>Jens Frey</name></author><id>tag:datapile.coffeecrew.org,2020-10-11:/how-to-remove-pdf-write-protection</id><summary type="html">&lt;p class="first last"&gt;This post shows you how you can remove write protection from a locked &lt;span class="caps"&gt;PDF&lt;/span&gt;.&lt;/p&gt;
+</summary><content type="html">&lt;p&gt;Some PDFs you download are write protected. This is especially annoying if you do like to mark up the &lt;span class="caps"&gt;PDF&lt;/span&gt; in a utility like e.g. &lt;a class="reference external" href="https://devontechnologies.com/apps/devonthink"&gt;DEVONthink&lt;/a&gt;. It is not even possible to simply highlight something as long as the &lt;span class="caps"&gt;PDF&lt;/span&gt; is write&amp;nbsp;protected.&lt;/p&gt;
+&lt;p&gt;Luckily the problem can be solved with a little command line application called &lt;code&gt;qpdf&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="section" id="installation"&gt;
+&lt;h2&gt;Installation&lt;/h2&gt;
+&lt;p&gt;There are multiple ways to install the software. You can either use the package manager of your operating system or you can use &lt;a class="reference external" href="https://www.docker.com/"&gt;Docker&lt;/a&gt;. This will allow you to quickly use the command and discard the whole execution environment if you no longer need&amp;nbsp;it.&lt;/p&gt;
+&lt;div class="section" id="homebrew"&gt;
+&lt;h3&gt;Homebrew&lt;/h3&gt;
+&lt;p&gt;I&amp;#8217;m on a Mac and if you have &lt;a class="reference external" href="https://brew.sh/"&gt;Homebrew&lt;/a&gt; installed, you can execute &lt;code&gt;brew install qpdf&lt;/code&gt; in your terminal application. This will download and install the &lt;code&gt;qpdf&lt;/code&gt; command line tool that you can use to remove the &lt;span class="caps"&gt;PDF&lt;/span&gt; write&amp;nbsp;protection.&lt;/p&gt;
+&lt;div class="admonition note"&gt;
+&lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
+&lt;p&gt;I&amp;#8217;m running the following&amp;nbsp;version:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+#$&amp;gt; qpdf --version
+qpdf version 10.0.1
+Run qpdf --copyright to see copyright and license information.
+&lt;/pre&gt;
+&lt;p class="last"&gt;Keep this in mind if a feature is not available or does not&amp;nbsp;work.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;If you&amp;#8217;re not on a Mac you need to use the package manager of your operating system to install the&amp;nbsp;application.&lt;/p&gt;
+&lt;p&gt;You can use the utility like&amp;nbsp;so:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+#$&amp;gt; cd folder-with-pdf
+#$&amp;gt; qpdf --replace-input my.pdf
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="docker"&gt;
+&lt;h3&gt;Docker&lt;/h3&gt;
+&lt;p&gt;If you are already using &lt;a class="reference external" href="https://www.docker.com/"&gt;Docker&lt;/a&gt; then why not employ a container to get the job done. The container I am using is pretty heavyweight if you just need to use the little &lt;code&gt;qpdf&lt;/code&gt; utility and you may want to use a smaller container. However, if you&amp;#8217;re additionally documenting stuff with  &lt;a class="reference external" href="https://www.sphinx-doc.org/en/master/"&gt;Sphinx&lt;/a&gt; or use &lt;a class="reference external" href="https://blog.getpelican.com/"&gt;Pelican&lt;/a&gt; to write your blog, the heavyweight container might be a good choice for you&amp;nbsp;anyway.&lt;/p&gt;
+&lt;p&gt;You can use the &lt;a class="reference external" href="https://github.com/authsec/sphinx"&gt;custom Sphinx&lt;/a&gt; container as&amp;nbsp;follows:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+#$&amp;gt; cd folder-with-pdf
+#$&amp;gt; docker run --rm -it -v $(pwd):/docs authsec/sphinx qpdf --replace-input my.pdf
+&lt;/pre&gt;
+&lt;div class="admonition note"&gt;
+&lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
+&lt;p class="last"&gt;If you&amp;#8217;re on Windows, the current working directory needs to be specified with &lt;code&gt;${PWD}&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content><category term="Infrastructure"></category><category term="PDF"></category></entry><entry><title>How To Start A Consul Docker Image</title><link href="https://datapile.coffeecrew.org/how-to-start-a-consul-docker-image" rel="alternate"></link><published>2016-09-20T21:48:12+01:00</published><updated>2016-09-20T21:48:12+01:00</updated><author><name>Jens Frey</name></author><id>tag:datapile.coffeecrew.org,2016-09-20:/how-to-start-a-consul-docker-image</id><summary type="html">&lt;p class="first last"&gt;How to start a local consul&amp;nbsp;server.&lt;/p&gt;
 </summary><content type="html">&lt;p&gt;If you quickly have to start a &lt;a class="reference external" href="https://www.consul.io/"&gt;Consul&lt;/a&gt;  docker image you can use the following&amp;nbsp;command:&lt;/p&gt;
 &lt;pre class="literal-block"&gt;
 docker run -p 8400:8400 -p 127.0.0.1:8500:8500 -p 8600:8600/udp -h node1 consul agent -dev -client 0.0.0.0
