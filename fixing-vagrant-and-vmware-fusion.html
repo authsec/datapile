@@ -6,26 +6,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Jens Frey" />
 
-        <meta name="description" content="This post shows you how you can remove write protection from a locked PDF.
+        <meta name="description" content="This post shows you how you can fix the port forward conflict on host port 2222.
 " />
         <meta name="twitter:creator" content="@authsec">
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="PDF, Infrastructure, " />
+<meta name="keywords" content="Vagrant, VMware Fusion, Infrastructure, " />
 
-<meta property="og:title" content="How To Remove PDF Write Protection "/>
-<meta property="og:url" content="https://datapile.coffeecrew.org/how-to-remove-pdf-write-protection" />
-<meta property="og:description" content="This post shows you how you can remove write protection from a locked PDF." />
+<meta property="og:title" content="Fixing Vagrant and VMware Fusion "/>
+<meta property="og:url" content="https://datapile.coffeecrew.org/fixing-vagrant-and-vmware-fusion" />
+<meta property="og:description" content="This post shows you how you can fix the port forward conflict on host port 2222." />
 <meta property="og:site_name" content="Datapile" />
 <meta property="og:article:author" content="Jens Frey" />
-<meta property="og:article:published_time" content="2020-10-11T14:23:00+01:00" />
-<meta name="twitter:title" content="How To Remove PDF Write Protection ">
-<meta name="twitter:description" content="This post shows you how you can remove write protection from a locked PDF.">
+<meta property="og:article:published_time" content="2020-10-21T21:56:00+01:00" />
+<meta name="twitter:title" content="Fixing Vagrant and VMware Fusion ">
+<meta name="twitter:description" content="This post shows you how you can fix the port forward conflict on host port 2222.">
 <meta property="og:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" />
 <meta name="twitter:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" >
 
-        <title>How To Remove PDF Write Protection  · Datapile
+        <title>Fixing Vagrant and VMware Fusion  · Datapile
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="https://datapile.coffeecrew.org/theme/css/elegant.prod.css" media="screen">
@@ -89,8 +89,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://datapile.coffeecrew.org/how-to-remove-pdf-write-protection">
-                How To Remove <span class="caps">PDF</span> Write&nbsp;Protection
+            <a href="https://datapile.coffeecrew.org/fixing-vagrant-and-vmware-fusion">
+                Fixing Vagrant and VMware&nbsp;Fusion
             </a>
         </h1>
     </header>
@@ -99,45 +99,25 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>Some PDFs you download are write protected. This is especially annoying if you do like to mark up the <span class="caps">PDF</span> in a utility like e.g. <a class="reference external" href="https://devontechnologies.com/apps/devonthink">DEVONthink</a>. It is not even possible to simply highlight something as long as the <span class="caps">PDF</span> is write&nbsp;protected.</p>
-<p>Luckily the problem can be solved with a little command line application called <code>qpdf</code>.</p>
-<div class="section" id="installation">
-<h2>Installation</h2>
-<p>There are multiple ways to install the software. You can either use the package manager of your operating system or you can use <a class="reference external" href="https://www.docker.com/">Docker</a>. This will allow you to quickly use the command and discard the whole execution environment if you no longer need&nbsp;it.</p>
-<div class="section" id="homebrew">
-<h3>Homebrew</h3>
-<p>I&#8217;m on a Mac and if you have <a class="reference external" href="https://brew.sh/">Homebrew</a> installed, you can execute <code>brew install qpdf</code> in your terminal application. This will download and install the <code>qpdf</code> command line tool that you can use to remove the <span class="caps">PDF</span> write&nbsp;protection.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>I&#8217;m running the following&nbsp;version:</p>
+            <p>For some reason <a class="reference external" href="https://www.vagrantup.com/">Vagrant</a> is sometimes unable to start the virtual machine and aborts with an error message&nbsp;like:</p>
 <pre class="literal-block">
-#$&gt; qpdf --version
-qpdf version 10.0.1
-Run qpdf --copyright to see copyright and license information.
+Some of the defined forwarded ports would collide with existing
+forwarded ports on VMware network devices. This can be due to
+existing Vagrant-managed VMware machines, or due to manually
+configured port forwarding with VMware. Please fix the following
+port collisions and try again:
+
+2222
 </pre>
-<p class="last">Keep this in mind if a feature is not available or does not&nbsp;work.</p>
-</div>
-<p>If you&#8217;re not on a Mac you need to use the package manager of your operating system to install the&nbsp;application.</p>
-<p>You can use the utility like&nbsp;so:</p>
+<p>If you run into that problem there are a few things that might help you fix them. You can for example shut down your <code>vagrant</code> machine and remove it from the virtual machine &#8220;Virtual Machines&#8221; sidebar in the Fusion <span class="caps">UI</span>. If you&#8217;re lucky that will already solve your&nbsp;problem.</p>
+<p>Some other time the following series of commands seems to help solve the issue at&nbsp;hand:</p>
 <pre class="literal-block">
-#$&gt; cd folder-with-pdf
-#$&gt; qpdf --replace-input my.pdf
+$#&gt; vagrant halt &amp;&amp; \
+sudo rm -f /opt/vagrant-vmware-desktop/settings/nat.json &amp;&amp; \
+sudo killall vagrant-vmware-utility &amp;&amp; \
+vagrant up
 </pre>
-</div>
-<div class="section" id="docker">
-<h3>Docker</h3>
-<p>If you are already using <a class="reference external" href="https://www.docker.com/">Docker</a> then why not employ a container to get the job done. The container I am using is pretty heavyweight if you just need to use the little <code>qpdf</code> utility and you may want to use a smaller container. However, if you&#8217;re additionally documenting stuff with  <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> or use <a class="reference external" href="https://blog.getpelican.com/">Pelican</a> to write your blog, the heavyweight container might be a good choice for you&nbsp;anyway.</p>
-<p>You can use the <a class="reference external" href="https://github.com/authsec/sphinx">custom Sphinx</a> container as&nbsp;follows:</p>
-<pre class="literal-block">
-#$&gt; cd folder-with-pdf
-#$&gt; docker run --rm -it -v $(pwd):/docs authsec/sphinx qpdf --replace-input my.pdf
-</pre>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If you&#8217;re on Windows, the current working directory needs to be specified with <code>${PWD}</code>.</p>
-</div>
-</div>
-</div>
+<p>If that doesn&#8217;t solve you&#8217;re problem, you can try a combination of both approaches. If this doesn&#8217;t work you have to continue googling&nbsp;;)</p>
 
 
 
@@ -145,11 +125,11 @@ Run qpdf --copyright to see copyright and license information.
  
                 <p id="post-share-links">
     Like this post? Share on:
-    <a href="https://twitter.com/intent/tweet?text=How%20To%20Remove%20PDF%20Write%C2%A0Protection&url=https%3A//datapile.coffeecrew.org/how-to-remove-pdf-write-protection&via=authsec&hashtags=pdf" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+    <a href="https://twitter.com/intent/tweet?text=Fixing%20Vagrant%20and%20VMware%C2%A0Fusion&url=https%3A//datapile.coffeecrew.org/fixing-vagrant-and-vmware-fusion&via=authsec&hashtags=vagrant,vmware-fusion" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
     ❄
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/how-to-remove-pdf-write-protection" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/fixing-vagrant-and-vmware-fusion" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
     ❄
-    <a href="mailto:?subject=How%20To%20Remove%20PDF%20Write%C2%A0Protection&amp;body=https%3A//datapile.coffeecrew.org/how-to-remove-pdf-write-protection" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
+    <a href="mailto:?subject=Fixing%20Vagrant%20and%20VMware%C2%A0Fusion&amp;body=https%3A//datapile.coffeecrew.org/fixing-vagrant-and-vmware-fusion" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
     </p>
 
                 <hr />
@@ -172,20 +152,22 @@ Run qpdf --copyright to see copyright and license information.
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/how-to-start-a-consul-docker-image" title="Previous: How To Start A Consul Docker Image">How To Start A Consul Docker Image</a></li>
-                <li class="next-article"><a href="https://datapile.coffeecrew.org/fixing-vagrant-and-vmware-fusion" title="Next: Fixing Vagrant and VMware Fusion">Fixing Vagrant and VMware Fusion</a> »</li>
+                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/how-to-remove-pdf-write-protection" title="Previous: How To Remove PDF Write Protection">How To Remove PDF Write Protection</a></li>
             </ul>
             </nav>
             </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2020-10-11T14:23:00+01:00">Oct 11, 2020</time>
+            <time itemprop="dateCreated" datetime="2020-10-21T21:56:00+01:00">Oct 21, 2020</time>
             <h4>Category</h4>
             <a class="category-link" href="https://datapile.coffeecrew.org/categories#infrastructure-ref">Infrastructure</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://datapile.coffeecrew.org/tags#pdf-ref">PDF
+                <li><a href="https://datapile.coffeecrew.org/tags#vagrant-ref">Vagrant
+                    <span>1</span>
+</a></li>
+                <li><a href="https://datapile.coffeecrew.org/tags#vmware-fusion-ref">VMware Fusion
                     <span>1</span>
 </a></li>
             </ul>

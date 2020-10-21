@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Datapile</title><link href="https://datapile.coffeecrew.org/" rel="alternate"></link><link href="https://datapile.coffeecrew.org/feeds/all-en.atom.xml" rel="self"></link><id>https://datapile.coffeecrew.org/</id><updated>2020-10-11T14:23:00+01:00</updated><subtitle>Against Digital Amnesia</subtitle><entry><title>How To Remove PDF Write Protection</title><link href="https://datapile.coffeecrew.org/how-to-remove-pdf-write-protection" rel="alternate"></link><published>2020-10-11T14:23:00+01:00</published><updated>2020-10-11T14:23:00+01:00</updated><author><name>Jens Frey</name></author><id>tag:datapile.coffeecrew.org,2020-10-11:/how-to-remove-pdf-write-protection</id><summary type="html">&lt;p class="first last"&gt;This post shows you how you can remove write protection from a locked &lt;span class="caps"&gt;PDF&lt;/span&gt;.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Datapile</title><link href="https://datapile.coffeecrew.org/" rel="alternate"></link><link href="https://datapile.coffeecrew.org/feeds/all-en.atom.xml" rel="self"></link><id>https://datapile.coffeecrew.org/</id><updated>2020-10-21T21:56:00+01:00</updated><subtitle>Against Digital Amnesia</subtitle><entry><title>Fixing Vagrant and VMware Fusion</title><link href="https://datapile.coffeecrew.org/fixing-vagrant-and-vmware-fusion" rel="alternate"></link><published>2020-10-21T21:56:00+01:00</published><updated>2020-10-21T21:56:00+01:00</updated><author><name>Jens Frey</name></author><id>tag:datapile.coffeecrew.org,2020-10-21:/fixing-vagrant-and-vmware-fusion</id><summary type="html">&lt;p class="first last"&gt;This post shows you how you can fix the port forward conflict on host port&amp;nbsp;2222.&lt;/p&gt;
+</summary><content type="html">&lt;p&gt;For some reason &lt;a class="reference external" href="https://www.vagrantup.com/"&gt;Vagrant&lt;/a&gt; is sometimes unable to start the virtual machine and aborts with an error message&amp;nbsp;like:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+Some of the defined forwarded ports would collide with existing
+forwarded ports on VMware network devices. This can be due to
+existing Vagrant-managed VMware machines, or due to manually
+configured port forwarding with VMware. Please fix the following
+port collisions and try again:
+
+2222
+&lt;/pre&gt;
+&lt;p&gt;If you run into that problem there are a few things that might help you fix them. You can for example shut down your &lt;code&gt;vagrant&lt;/code&gt; machine and remove it from the virtual machine &amp;#8220;Virtual Machines&amp;#8221; sidebar in the Fusion &lt;span class="caps"&gt;UI&lt;/span&gt;. If you&amp;#8217;re lucky that will already solve your&amp;nbsp;problem.&lt;/p&gt;
+&lt;p&gt;Some other time the following series of commands seems to help solve the issue at&amp;nbsp;hand:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+$#&amp;gt; vagrant halt &amp;amp;&amp;amp; \
+sudo rm -f /opt/vagrant-vmware-desktop/settings/nat.json &amp;amp;&amp;amp; \
+sudo killall vagrant-vmware-utility &amp;amp;&amp;amp; \
+vagrant up
+&lt;/pre&gt;
+&lt;p&gt;If that doesn&amp;#8217;t solve you&amp;#8217;re problem, you can try a combination of both approaches. If this doesn&amp;#8217;t work you have to continue googling&amp;nbsp;;)&lt;/p&gt;
+</content><category term="Infrastructure"></category><category term="Vagrant"></category><category term="VMware Fusion"></category></entry><entry><title>How To Remove PDF Write Protection</title><link href="https://datapile.coffeecrew.org/how-to-remove-pdf-write-protection" rel="alternate"></link><published>2020-10-11T14:23:00+01:00</published><updated>2020-10-11T14:23:00+01:00</updated><author><name>Jens Frey</name></author><id>tag:datapile.coffeecrew.org,2020-10-11:/how-to-remove-pdf-write-protection</id><summary type="html">&lt;p class="first last"&gt;This post shows you how you can remove write protection from a locked &lt;span class="caps"&gt;PDF&lt;/span&gt;.&lt;/p&gt;
 </summary><content type="html">&lt;p&gt;Some PDFs you download are write protected. This is especially annoying if you do like to mark up the &lt;span class="caps"&gt;PDF&lt;/span&gt; in a utility like e.g. &lt;a class="reference external" href="https://devontechnologies.com/apps/devonthink"&gt;DEVONthink&lt;/a&gt;. It is not even possible to simply highlight something as long as the &lt;span class="caps"&gt;PDF&lt;/span&gt; is write&amp;nbsp;protected.&lt;/p&gt;
 &lt;p&gt;Luckily the problem can be solved with a little command line application called &lt;code&gt;qpdf&lt;/code&gt;.&lt;/p&gt;
 &lt;div class="section" id="installation"&gt;
