@@ -71,7 +71,7 @@ SOCIAL = (
     ("Twitter", "https://twitter.com/authsec"),
     ("Linkedin", "https://www.linkedin.com/in/jens-frey-409ab844/"),
     ("youtube", "https://www.youtube.com/jensfrey"),
-    ("RSS", SITEURL + "/feeds/all.atom.xml") 
+    ("RSS", "/feeds/all.atom.xml")  
 )
 
 # Elegant theme
