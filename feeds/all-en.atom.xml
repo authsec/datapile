@@ -1,58 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Datapile</title><link href="https://datapile.coffeecrew.org/" rel="alternate"></link><link href="https://datapile.coffeecrew.org/feeds/all-en.atom.xml" rel="self"></link><id>https://datapile.coffeecrew.org/</id><updated>2020-10-24T18:56:00+01:00</updated><subtitle>Against Digital Amnesia</subtitle><entry><title>Get ansible_host from host group</title><link href="https://datapile.coffeecrew.org/get-ansible_host-from-host-group" rel="alternate"></link><published>2020-10-24T18:56:00+01:00</published><updated>2020-10-24T18:56:00+01:00</updated><author><name>Jens Frey</name></author><id>tag:datapile.coffeecrew.org,2020-10-24:/get-ansible_host-from-host-group</id><summary type="html">&lt;p class="first last"&gt;How to get the &lt;span class="caps"&gt;IP&lt;/span&gt; address from host&amp;nbsp;group.&lt;/p&gt;
 </summary><content type="html">&lt;p&gt;Assume you are working with this inventory (&lt;code&gt;hosts&lt;/code&gt;)&amp;nbsp;file:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-[bootstrap]
-opihi.example.com ansible_host=192.168.30.254 ansible_user=you ansible_password='{{ vault_opihi_you_user_password }}' ansible_python_interpreter=/usr/bin/python3
-&lt;/pre&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;bootstrap&lt;span class="o"&gt;]&lt;/span&gt;
+opihi.example.com &lt;span class="nv"&gt;ansible_host&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;192&lt;/span&gt;.168.30.254 &lt;span class="nv"&gt;ansible_user&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;you &lt;span class="nv"&gt;ansible_password&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;{{ vault_opihi_you_user_password }}&amp;#39;&lt;/span&gt; &lt;span class="nv"&gt;ansible_python_interpreter&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/usr/bin/python3
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;then you can get the &lt;span class="caps"&gt;IP&lt;/span&gt; address with the expression &lt;code&gt;{{ hostvars[groups['bootstrap'][0]].ansible_host }}&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Here is an example&amp;nbsp;playbook:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
----
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;---
 - hosts: localhost
 
   tasks:
-      - debug: msg={{ hostvars[groups['bootstrap'][0]].ansible_host }}
-&lt;/pre&gt;
+      - debug: &lt;span class="nv"&gt;msg&lt;/span&gt;&lt;span class="o"&gt;={{&lt;/span&gt; hostvars&lt;span class="o"&gt;[&lt;/span&gt;groups&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;bootstrap&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;][&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="o"&gt;]]&lt;/span&gt;.ansible_host &lt;span class="o"&gt;}}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Which will&amp;nbsp;output:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-$#&amp;gt; ansible-playbook -i inventories/prod/ debug.yml
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nv"&gt;$#&lt;/span&gt;&amp;gt; ansible-playbook -i inventories/prod/ debug.yml
 
-    PLAY [localhost] ********************************************************************************************************************************
+    PLAY &lt;span class="o"&gt;[&lt;/span&gt;localhost&lt;span class="o"&gt;]&lt;/span&gt; ********************************************************************************************************************************
 
-    TASK [Gathering Facts] **************************************************************************************************************************
-    ok: [localhost]
+    TASK &lt;span class="o"&gt;[&lt;/span&gt;Gathering Facts&lt;span class="o"&gt;]&lt;/span&gt; **************************************************************************************************************************
+    ok: &lt;span class="o"&gt;[&lt;/span&gt;localhost&lt;span class="o"&gt;]&lt;/span&gt;
 
-    TASK [debug] ************************************************************************************************************************************
-    ok: [localhost] =&amp;gt; {}
+    TASK &lt;span class="o"&gt;[&lt;/span&gt;debug&lt;span class="o"&gt;]&lt;/span&gt; ************************************************************************************************************************************
+    ok: &lt;span class="o"&gt;[&lt;/span&gt;localhost&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&amp;gt; &lt;span class="o"&gt;{}&lt;/span&gt;
 
     MSG:
 
-    192.168.30.254
+    &lt;span class="m"&gt;192&lt;/span&gt;.168.30.254
 
     PLAY RECAP **************************************************************************************************************************************
-    localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-&lt;/pre&gt;
+    localhost                  : &lt;span class="nv"&gt;ok&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;    &lt;span class="nv"&gt;changed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;    &lt;span class="nv"&gt;unreachable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;    &lt;span class="nv"&gt;failed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;    &lt;span class="nv"&gt;skipped&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;    &lt;span class="nv"&gt;rescued&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;    &lt;span class="nv"&gt;ignored&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Enjoy.&lt;/p&gt;
 </content><category term="Infrastructure"></category><category term="Ansible"></category></entry><entry><title>Fixing Vagrant and VMware Fusion</title><link href="https://datapile.coffeecrew.org/fixing-vagrant-and-vmware-fusion" rel="alternate"></link><published>2020-10-21T21:56:00+01:00</published><updated>2020-10-21T21:56:00+01:00</updated><author><name>Jens Frey</name></author><id>tag:datapile.coffeecrew.org,2020-10-21:/fixing-vagrant-and-vmware-fusion</id><summary type="html">&lt;p class="first last"&gt;This post shows you how you can fix the port forward conflict on host port&amp;nbsp;2222.&lt;/p&gt;
 </summary><content type="html">&lt;p&gt;For some reason &lt;a class="reference external" href="https://www.vagrantup.com/"&gt;Vagrant&lt;/a&gt; is sometimes unable to start the virtual machine and aborts with an error message&amp;nbsp;like:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-Some of the defined forwarded ports would collide with existing
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Some of the defined forwarded ports would collide with existing
 forwarded ports on VMware network devices. This can be due to
 existing Vagrant-managed VMware machines, or due to manually
 configured port forwarding with VMware. Please fix the following
 port collisions and try again:
 
-2222
-&lt;/pre&gt;
+&lt;span class="m"&gt;2222&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;If you run into that problem there are a few things that might help you fix them. You can for example shut down your &lt;code&gt;vagrant&lt;/code&gt; machine and remove it from the virtual machine &amp;#8220;Virtual Machines&amp;#8221; sidebar in the Fusion &lt;span class="caps"&gt;UI&lt;/span&gt;. If you&amp;#8217;re lucky that will already solve your&amp;nbsp;problem.&lt;/p&gt;
 &lt;p&gt;Some other time the following series of commands seems to help solve the issue at&amp;nbsp;hand:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-$#&amp;gt; vagrant halt &amp;amp;&amp;amp; \
-sudo rm -f /opt/vagrant-vmware-desktop/settings/nat.json &amp;amp;&amp;amp; \
-sudo killall vagrant-vmware-utility &amp;amp;&amp;amp; \
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nv"&gt;$#&lt;/span&gt;&amp;gt; vagrant halt &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
+sudo rm -f /opt/vagrant-vmware-desktop/settings/nat.json &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
+sudo killall vagrant-vmware-utility &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
 vagrant up
-&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;If that doesn&amp;#8217;t solve you&amp;#8217;re problem, you can try a combination of both approaches. If this doesn&amp;#8217;t work you have to continue googling&amp;nbsp;;)&lt;/p&gt;
 </content><category term="Infrastructure"></category><category term="Vagrant"></category><category term="VMware Fusion"></category></entry><entry><title>How To Remove PDF Write Protection</title><link href="https://datapile.coffeecrew.org/how-to-remove-pdf-write-protection" rel="alternate"></link><published>2020-10-11T14:23:00+01:00</published><updated>2020-10-11T14:23:00+01:00</updated><author><name>Jens Frey</name></author><id>tag:datapile.coffeecrew.org,2020-10-11:/how-to-remove-pdf-write-protection</id><summary type="html">&lt;p class="first last"&gt;This post shows you how you can remove write protection from a locked &lt;span class="caps"&gt;PDF&lt;/span&gt;.&lt;/p&gt;
 </summary><content type="html">&lt;p&gt;Some PDFs you download are write protected. This is especially annoying if you do like to mark up the &lt;span class="caps"&gt;PDF&lt;/span&gt; in a utility like e.g. &lt;a class="reference external" href="https://devontechnologies.com/apps/devonthink"&gt;DEVONthink&lt;/a&gt;. It is not even possible to simply highlight something as long as the &lt;span class="caps"&gt;PDF&lt;/span&gt; is write&amp;nbsp;protected.&lt;/p&gt;
@@ -75,19 +70,17 @@ Run qpdf --copyright to see copyright and license information.
 &lt;/div&gt;
 &lt;p&gt;If you&amp;#8217;re not on a Mac you need to use the package manager of your operating system to install the&amp;nbsp;application.&lt;/p&gt;
 &lt;p&gt;You can use the utility like&amp;nbsp;so:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-#$&amp;gt; cd folder-with-pdf
-#$&amp;gt; qpdf --replace-input my.pdf
-&lt;/pre&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#$&amp;gt; cd folder-with-pdf&lt;/span&gt;
+&lt;span class="c1"&gt;#$&amp;gt; qpdf --replace-input my.pdf&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="docker"&gt;
 &lt;h3&gt;Docker&lt;/h3&gt;
 &lt;p&gt;If you are already using &lt;a class="reference external" href="https://www.docker.com/"&gt;Docker&lt;/a&gt; then why not employ a container to get the job done. The container I am using is pretty heavyweight if you just need to use the little &lt;code&gt;qpdf&lt;/code&gt; utility and you may want to use a smaller container. However, if you&amp;#8217;re additionally documenting stuff with  &lt;a class="reference external" href="https://www.sphinx-doc.org/en/master/"&gt;Sphinx&lt;/a&gt; or use &lt;a class="reference external" href="https://blog.getpelican.com/"&gt;Pelican&lt;/a&gt; to write your blog, the heavyweight container might be a good choice for you&amp;nbsp;anyway.&lt;/p&gt;
 &lt;p&gt;You can use the &lt;a class="reference external" href="https://github.com/authsec/sphinx"&gt;custom Sphinx&lt;/a&gt; container as&amp;nbsp;follows:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-#$&amp;gt; cd folder-with-pdf
-#$&amp;gt; docker run --rm -it -v $(pwd):/docs authsec/sphinx qpdf --replace-input my.pdf
-&lt;/pre&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;#$&amp;gt; cd folder-with-pdf&lt;/span&gt;
+&lt;span class="c1"&gt;#$&amp;gt; docker run --rm -it -v $(pwd):/docs authsec/sphinx qpdf --replace-input my.pdf&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;div class="admonition note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;If you&amp;#8217;re on Windows, the current working directory needs to be specified with &lt;code&gt;${PWD}&lt;/code&gt;.&lt;/p&gt;
@@ -96,9 +89,8 @@ Run qpdf --copyright to see copyright and license information.
 &lt;/div&gt;
 </content><category term="Infrastructure"></category><category term="PDF"></category></entry><entry><title>How To Start A Consul Docker Image</title><link href="https://datapile.coffeecrew.org/how-to-start-a-consul-docker-image" rel="alternate"></link><published>2016-09-20T21:48:12+01:00</published><updated>2016-09-20T21:48:12+01:00</updated><author><name>Jens Frey</name></author><id>tag:datapile.coffeecrew.org,2016-09-20:/how-to-start-a-consul-docker-image</id><summary type="html">&lt;p class="first last"&gt;How to start a local consul&amp;nbsp;server.&lt;/p&gt;
 </summary><content type="html">&lt;p&gt;If you quickly have to start a &lt;a class="reference external" href="https://www.consul.io/"&gt;Consul&lt;/a&gt;  docker image you can use the following&amp;nbsp;command:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-docker run -p 8400:8400 -p 127.0.0.1:8500:8500 -p 8600:8600/udp -h node1 consul agent -dev -client 0.0.0.0
-&lt;/pre&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;docker run -p &lt;span class="m"&gt;8400&lt;/span&gt;:8400 -p &lt;span class="m"&gt;127&lt;/span&gt;.0.0.1:8500:8500 -p &lt;span class="m"&gt;8600&lt;/span&gt;:8600/udp -h node1 consul agent -dev -client &lt;span class="m"&gt;0&lt;/span&gt;.0.0.0
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This is especially useful for development purposes and quick tests and should not be used in a productive&amp;nbsp;environment.&lt;/p&gt;
 </content><category term="Infrastructure"></category><category term="Consul"></category><category term="Database"></category></entry><entry><title>Upload Maven Artifacts Into Nexus 3</title><link href="https://datapile.coffeecrew.org/upload-maven-artifacts-into-nexus-3" rel="alternate"></link><published>2016-08-02T21:23:31+01:00</published><updated>2016-08-02T21:23:31+01:00</updated><author><name>Jens Frey</name></author><id>tag:datapile.coffeecrew.org,2016-08-02:/upload-maven-artifacts-into-nexus-3</id><summary type="html">&lt;p class="first last"&gt;How to upload artifacts into Nexus 3 from the command&amp;nbsp;line.&lt;/p&gt;
 </summary><content type="html">&lt;p&gt;Sometimes you need to upload an artifact into Nexus. With Nexus 2 this was very easy if you had filesystem access or access to the Web &lt;span class="caps"&gt;UI&lt;/span&gt;. In Nexus 3 you are no longer able to access the filesystem and do not have a &lt;span class="caps"&gt;UI&lt;/span&gt; to upload your artifacts. This is why you have to do it using the &lt;code&gt;mvn&lt;/code&gt; &lt;span class="caps"&gt;CLI&lt;/span&gt;.&lt;/p&gt;
@@ -2158,9 +2150,8 @@ Apache Portable Runtime (&lt;span class="caps"&gt;APR&lt;/span&gt;). It illustra
 &lt;li&gt;libaprutil1-dev&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;You can get those packages by issuing the following command on the command line (this may of course vary if you are not using a Debian based distribution or if you install from&amp;nbsp;source):&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-$ sudo apt-get install libapr1 libapr1-dbg libapr1-dev libaprutil1 libaprutil1-dbg libaprutil1-dev
-&lt;/pre&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo apt-get install libapr1 libapr1-dbg libapr1-dev libaprutil1 libaprutil1-dbg libaprutil1-dev
+&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="program-code"&gt;
 &lt;h3&gt;Program&amp;nbsp;code&lt;/h3&gt;
@@ -2169,18 +2160,16 @@ $ sudo apt-get install libapr1 libapr1-dbg libapr1-dev libaprutil1 libaprutil1-d
 &lt;div class="section" id="compile-the-program"&gt;
 &lt;h3&gt;Compile the&amp;nbsp;program&lt;/h3&gt;
 &lt;p&gt;Now there comes the next crucial step in getting your program to fly. To do so you probably best export a variable as suggested by the &lt;code&gt;apr-1-config&lt;/code&gt; tool. Then you can go on an compile your program the &amp;#8220;normal&amp;#8221; way you&amp;#8217;d do that. If you do not want debug symbols compiled into your code, you of course would remove the &lt;code&gt;-g&lt;/code&gt; option in front of the &lt;code&gt;APR_LIBS&lt;/code&gt; variable:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-$&amp;gt; export APR_LIBS=&amp;quot;`apr-1-config --cflags --cppflags --includes --ldflags --link-ld --libs`&amp;quot;
-$&amp;gt; gcc -g simple_apr.c -o simple_apr $APR_LIBS
-&lt;/pre&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$&amp;gt; &lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;APR_LIBS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;`apr-1-config --cflags --cppflags --includes --ldflags --link-ld --libs`&amp;quot;&lt;/span&gt;
+$&amp;gt; gcc -g simple_apr.c -o simple_apr &lt;span class="nv"&gt;$APR_LIBS&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;By executing the program your output should now look something like&amp;nbsp;that:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-$ ./simple_apr
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ ./simple_apr
 Username: Jens Frey
 Password: secret
-Time: 1231102877630911
-Time readable: Sun, 04 Jan 2009 21:01:17 GMT
-&lt;/pre&gt;
+Time: &lt;span class="m"&gt;1231102877630911&lt;/span&gt;
+Time readable: Sun, &lt;span class="m"&gt;04&lt;/span&gt; Jan &lt;span class="m"&gt;2009&lt;/span&gt; &lt;span class="m"&gt;21&lt;/span&gt;:01:17 GMT
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;I hope you achieved similar&amp;nbsp;results.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;

@@ -28,8 +28,6 @@
 <meta property="og:article:published_time" content="2020-10-21T21:56:00+01:00" />
 <meta name="twitter:title" content="Fixing Vagrant and VMware Fusion ">
 <meta name="twitter:description" content="This post shows you how you can fix the port forward conflict on host port 2222.">
-<meta property="og:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" />
-<meta name="twitter:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" >
 
         <title>Fixing Vagrant and VMware Fusion  · Datapile
 </title>
@@ -102,23 +100,21 @@
         <div class="span8 offset2 article-content">
             
             <p>For some reason <a class="reference external" href="https://www.vagrantup.com/">Vagrant</a> is sometimes unable to start the virtual machine and aborts with an error message&nbsp;like:</p>
-<pre class="literal-block">
-Some of the defined forwarded ports would collide with existing
+<div class="highlight"><pre><span></span>Some of the defined forwarded ports would collide with existing
 forwarded ports on VMware network devices. This can be due to
 existing Vagrant-managed VMware machines, or due to manually
 configured port forwarding with VMware. Please fix the following
 port collisions and try again:
 
-2222
-</pre>
+<span class="m">2222</span>
+</pre></div>
 <p>If you run into that problem there are a few things that might help you fix them. You can for example shut down your <code>vagrant</code> machine and remove it from the virtual machine &#8220;Virtual Machines&#8221; sidebar in the Fusion <span class="caps">UI</span>. If you&#8217;re lucky that will already solve your&nbsp;problem.</p>
 <p>Some other time the following series of commands seems to help solve the issue at&nbsp;hand:</p>
-<pre class="literal-block">
-$#&gt; vagrant halt &amp;&amp; \
-sudo rm -f /opt/vagrant-vmware-desktop/settings/nat.json &amp;&amp; \
-sudo killall vagrant-vmware-utility &amp;&amp; \
+<div class="highlight"><pre><span></span><span class="nv">$#</span>&gt; vagrant halt <span class="o">&amp;&amp;</span> <span class="se">\</span>
+sudo rm -f /opt/vagrant-vmware-desktop/settings/nat.json <span class="o">&amp;&amp;</span> <span class="se">\</span>
+sudo killall vagrant-vmware-utility <span class="o">&amp;&amp;</span> <span class="se">\</span>
 vagrant up
-</pre>
+</pre></div>
 <p>If that doesn&#8217;t solve you&#8217;re problem, you can try a combination of both approaches. If this doesn&#8217;t work you have to continue googling&nbsp;;)</p>
 
 

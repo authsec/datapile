@@ -1444,9 +1444,8 @@ Apache Portable Runtime (&lt;span class="caps"&gt;APR&lt;/span&gt;). It illustra
 &lt;li&gt;libaprutil1-dev&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;You can get those packages by issuing the following command on the command line (this may of course vary if you are not using a Debian based distribution or if you install from&amp;nbsp;source):&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-$ sudo apt-get install libapr1 libapr1-dbg libapr1-dev libaprutil1 libaprutil1-dbg libaprutil1-dev
-&lt;/pre&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo apt-get install libapr1 libapr1-dbg libapr1-dev libaprutil1 libaprutil1-dbg libaprutil1-dev
+&lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="program-code"&gt;
 &lt;h3&gt;Program&amp;nbsp;code&lt;/h3&gt;
@@ -1455,18 +1454,16 @@ $ sudo apt-get install libapr1 libapr1-dbg libapr1-dev libaprutil1 libaprutil1-d
 &lt;div class="section" id="compile-the-program"&gt;
 &lt;h3&gt;Compile the&amp;nbsp;program&lt;/h3&gt;
 &lt;p&gt;Now there comes the next crucial step in getting your program to fly. To do so you probably best export a variable as suggested by the &lt;code&gt;apr-1-config&lt;/code&gt; tool. Then you can go on an compile your program the &amp;#8220;normal&amp;#8221; way you&amp;#8217;d do that. If you do not want debug symbols compiled into your code, you of course would remove the &lt;code&gt;-g&lt;/code&gt; option in front of the &lt;code&gt;APR_LIBS&lt;/code&gt; variable:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-$&amp;gt; export APR_LIBS=&amp;quot;`apr-1-config --cflags --cppflags --includes --ldflags --link-ld --libs`&amp;quot;
-$&amp;gt; gcc -g simple_apr.c -o simple_apr $APR_LIBS
-&lt;/pre&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$&amp;gt; &lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;APR_LIBS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;`apr-1-config --cflags --cppflags --includes --ldflags --link-ld --libs`&amp;quot;&lt;/span&gt;
+$&amp;gt; gcc -g simple_apr.c -o simple_apr &lt;span class="nv"&gt;$APR_LIBS&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;By executing the program your output should now look something like&amp;nbsp;that:&lt;/p&gt;
-&lt;pre class="literal-block"&gt;
-$ ./simple_apr
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ ./simple_apr
 Username: Jens Frey
 Password: secret
-Time: 1231102877630911
-Time readable: Sun, 04 Jan 2009 21:01:17 GMT
-&lt;/pre&gt;
+Time: &lt;span class="m"&gt;1231102877630911&lt;/span&gt;
+Time readable: Sun, &lt;span class="m"&gt;04&lt;/span&gt; Jan &lt;span class="m"&gt;2009&lt;/span&gt; &lt;span class="m"&gt;21&lt;/span&gt;:01:17 GMT
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;I hope you achieved similar&amp;nbsp;results.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;

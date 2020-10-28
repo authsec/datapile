@@ -28,8 +28,6 @@
 <meta property="og:article:published_time" content="2010-11-01T10:00:34+01:00" />
 <meta name="twitter:title" content="Programming with the APR ">
 <meta name="twitter:description" content="This article will give you an introduction of how to program with the Apache Portable Runtime (APR).">
-<meta property="og:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" />
-<meta name="twitter:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" >
 
         <title>Programming with the APR  · Datapile
 </title>
@@ -127,9 +125,8 @@ Apache Portable Runtime (<span class="caps">APR</span>). It illustrates a simple
 <li>libaprutil1-dev</li>
 </ul>
 <p>You can get those packages by issuing the following command on the command line (this may of course vary if you are not using a Debian based distribution or if you install from&nbsp;source):</p>
-<pre class="literal-block">
-$ sudo apt-get install libapr1 libapr1-dbg libapr1-dev libaprutil1 libaprutil1-dbg libaprutil1-dev
-</pre>
+<div class="highlight"><pre><span></span>$ sudo apt-get install libapr1 libapr1-dbg libapr1-dev libaprutil1 libaprutil1-dbg libaprutil1-dev
+</pre></div>
 </div>
 <div class="section" id="program-code">
 <h3>Program&nbsp;code</h3>
@@ -138,18 +135,16 @@ $ sudo apt-get install libapr1 libapr1-dbg libapr1-dev libaprutil1 libaprutil1-d
 <div class="section" id="compile-the-program">
 <h3>Compile the&nbsp;program</h3>
 <p>Now there comes the next crucial step in getting your program to fly. To do so you probably best export a variable as suggested by the <code>apr-1-config</code> tool. Then you can go on an compile your program the &#8220;normal&#8221; way you&#8217;d do that. If you do not want debug symbols compiled into your code, you of course would remove the <code>-g</code> option in front of the <code>APR_LIBS</code> variable:</p>
-<pre class="literal-block">
-$&gt; export APR_LIBS=&quot;`apr-1-config --cflags --cppflags --includes --ldflags --link-ld --libs`&quot;
-$&gt; gcc -g simple_apr.c -o simple_apr $APR_LIBS
-</pre>
+<div class="highlight"><pre><span></span>$&gt; <span class="nb">export</span> <span class="nv">APR_LIBS</span><span class="o">=</span><span class="s2">&quot;`apr-1-config --cflags --cppflags --includes --ldflags --link-ld --libs`&quot;</span>
+$&gt; gcc -g simple_apr.c -o simple_apr <span class="nv">$APR_LIBS</span>
+</pre></div>
 <p>By executing the program your output should now look something like&nbsp;that:</p>
-<pre class="literal-block">
-$ ./simple_apr
+<div class="highlight"><pre><span></span>$ ./simple_apr
 Username: Jens Frey
 Password: secret
-Time: 1231102877630911
-Time readable: Sun, 04 Jan 2009 21:01:17 GMT
-</pre>
+Time: <span class="m">1231102877630911</span>
+Time readable: Sun, <span class="m">04</span> Jan <span class="m">2009</span> <span class="m">21</span>:01:17 GMT
+</pre></div>
 <p>I hope you achieved similar&nbsp;results.</p>
 </div>
 </div>

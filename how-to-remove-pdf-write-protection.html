@@ -28,8 +28,6 @@
 <meta property="og:article:published_time" content="2020-10-11T14:23:00+01:00" />
 <meta name="twitter:title" content="How To Remove PDF Write Protection ">
 <meta name="twitter:description" content="This post shows you how you can remove write protection from a locked PDF.">
-<meta property="og:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" />
-<meta name="twitter:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" >
 
         <title>How To Remove PDF Write Protection  · Datapile
 </title>
@@ -121,19 +119,17 @@ Run qpdf --copyright to see copyright and license information.
 </div>
 <p>If you&#8217;re not on a Mac you need to use the package manager of your operating system to install the&nbsp;application.</p>
 <p>You can use the utility like&nbsp;so:</p>
-<pre class="literal-block">
-#$&gt; cd folder-with-pdf
-#$&gt; qpdf --replace-input my.pdf
-</pre>
+<div class="highlight"><pre><span></span><span class="c1">#$&gt; cd folder-with-pdf</span>
+<span class="c1">#$&gt; qpdf --replace-input my.pdf</span>
+</pre></div>
 </div>
 <div class="section" id="docker">
 <h3>Docker</h3>
 <p>If you are already using <a class="reference external" href="https://www.docker.com/">Docker</a> then why not employ a container to get the job done. The container I am using is pretty heavyweight if you just need to use the little <code>qpdf</code> utility and you may want to use a smaller container. However, if you&#8217;re additionally documenting stuff with  <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> or use <a class="reference external" href="https://blog.getpelican.com/">Pelican</a> to write your blog, the heavyweight container might be a good choice for you&nbsp;anyway.</p>
 <p>You can use the <a class="reference external" href="https://github.com/authsec/sphinx">custom Sphinx</a> container as&nbsp;follows:</p>
-<pre class="literal-block">
-#$&gt; cd folder-with-pdf
-#$&gt; docker run --rm -it -v $(pwd):/docs authsec/sphinx qpdf --replace-input my.pdf
-</pre>
+<div class="highlight"><pre><span></span><span class="c1">#$&gt; cd folder-with-pdf</span>
+<span class="c1">#$&gt; docker run --rm -it -v $(pwd):/docs authsec/sphinx qpdf --replace-input my.pdf</span>
+</pre></div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If you&#8217;re on Windows, the current working directory needs to be specified with <code>${PWD}</code>.</p>

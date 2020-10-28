@@ -28,8 +28,6 @@
 <meta property="og:article:published_time" content="2020-10-24T18:56:00+01:00" />
 <meta name="twitter:title" content="Get ansible_host from host group ">
 <meta name="twitter:description" content="How to get the IP address from host group.">
-<meta property="og:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" />
-<meta name="twitter:image" content="http://localhost:8000/theme/images/apple-touch-icon-152x152.png" >
 
         <title>Get ansible_host from host group  · Datapile
 </title>
@@ -102,38 +100,35 @@
         <div class="span8 offset2 article-content">
             
             <p>Assume you are working with this inventory (<code>hosts</code>)&nbsp;file:</p>
-<pre class="literal-block">
-[bootstrap]
-opihi.example.com ansible_host=192.168.30.254 ansible_user=you ansible_password='{{ vault_opihi_you_user_password }}' ansible_python_interpreter=/usr/bin/python3
-</pre>
+<div class="highlight"><pre><span></span><span class="o">[</span>bootstrap<span class="o">]</span>
+opihi.example.com <span class="nv">ansible_host</span><span class="o">=</span><span class="m">192</span>.168.30.254 <span class="nv">ansible_user</span><span class="o">=</span>you <span class="nv">ansible_password</span><span class="o">=</span><span class="s1">&#39;{{ vault_opihi_you_user_password }}&#39;</span> <span class="nv">ansible_python_interpreter</span><span class="o">=</span>/usr/bin/python3
+</pre></div>
 <p>then you can get the <span class="caps">IP</span> address with the expression <code>{{ hostvars[groups['bootstrap'][0]].ansible_host }}</code>.</p>
 <p>Here is an example&nbsp;playbook:</p>
-<pre class="literal-block">
----
+<div class="highlight"><pre><span></span>---
 - hosts: localhost
 
   tasks:
-      - debug: msg={{ hostvars[groups['bootstrap'][0]].ansible_host }}
-</pre>
+      - debug: <span class="nv">msg</span><span class="o">={{</span> hostvars<span class="o">[</span>groups<span class="o">[</span><span class="s1">&#39;bootstrap&#39;</span><span class="o">][</span><span class="m">0</span><span class="o">]]</span>.ansible_host <span class="o">}}</span>
+</pre></div>
 <p>Which will&nbsp;output:</p>
-<pre class="literal-block">
-$#&gt; ansible-playbook -i inventories/prod/ debug.yml
+<div class="highlight"><pre><span></span><span class="nv">$#</span>&gt; ansible-playbook -i inventories/prod/ debug.yml
 
-    PLAY [localhost] ********************************************************************************************************************************
+    PLAY <span class="o">[</span>localhost<span class="o">]</span> ********************************************************************************************************************************
 
-    TASK [Gathering Facts] **************************************************************************************************************************
-    ok: [localhost]
+    TASK <span class="o">[</span>Gathering Facts<span class="o">]</span> **************************************************************************************************************************
+    ok: <span class="o">[</span>localhost<span class="o">]</span>
 
-    TASK [debug] ************************************************************************************************************************************
-    ok: [localhost] =&gt; {}
+    TASK <span class="o">[</span>debug<span class="o">]</span> ************************************************************************************************************************************
+    ok: <span class="o">[</span>localhost<span class="o">]</span> <span class="o">=</span>&gt; <span class="o">{}</span>
 
     MSG:
 
-    192.168.30.254
+    <span class="m">192</span>.168.30.254
 
     PLAY RECAP **************************************************************************************************************************************
-    localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
-</pre>
+    localhost                  : <span class="nv">ok</span><span class="o">=</span><span class="m">2</span>    <span class="nv">changed</span><span class="o">=</span><span class="m">0</span>    <span class="nv">unreachable</span><span class="o">=</span><span class="m">0</span>    <span class="nv">failed</span><span class="o">=</span><span class="m">0</span>    <span class="nv">skipped</span><span class="o">=</span><span class="m">0</span>    <span class="nv">rescued</span><span class="o">=</span><span class="m">0</span>    <span class="nv">ignored</span><span class="o">=</span><span class="m">0</span>
+</pre></div>
 <p>Enjoy.</p>
 
 
