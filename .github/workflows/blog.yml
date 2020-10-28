@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: 'Pelican-Elegant/elegant'
-        ref: 'master'
+        ref: 'V5.3.0'
         path: 'pelican-themes/elegant'
         submodules: 'recursive'
 
