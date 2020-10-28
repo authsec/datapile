@@ -37,7 +37,9 @@ Make sure you have the APR development files installed. Since i am mostly workin
 *   libaprutil1-dbg
 *   libaprutil1-dev
 
-You can get those packages by issuing the following command on the command line (this may of course vary if you are not using a Debian based distribution or if you install from source)::
+You can get those packages by issuing the following command on the command line (this may of course vary if you are not using a Debian based distribution or if you install from source):
+
+.. code-block:: bash
 
    $ sudo apt-get install libapr1 libapr1-dbg libapr1-dev libaprutil1 libaprutil1-dbg libaprutil1-dev
 
@@ -50,12 +52,16 @@ The program itself is obviously a pretty easy one, it basically allocates resour
 Compile the program
 ===================
 
-Now there comes the next crucial step in getting your program to fly. To do so you probably best export a variable as suggested by the :code:`apr-1-config` tool. Then you can go on an compile your program the "normal" way you'd do that. If you do not want debug symbols compiled into your code, you of course would remove the :code:`-g` option in front of the :code:`APR_LIBS` variable::
+Now there comes the next crucial step in getting your program to fly. To do so you probably best export a variable as suggested by the :code:`apr-1-config` tool. Then you can go on an compile your program the "normal" way you'd do that. If you do not want debug symbols compiled into your code, you of course would remove the :code:`-g` option in front of the :code:`APR_LIBS` variable:
+
+.. code-block:: bash
 
    $> export APR_LIBS="`apr-1-config --cflags --cppflags --includes --ldflags --link-ld --libs`"
    $> gcc -g simple_apr.c -o simple_apr $APR_LIBS
 
-By executing the program your output should now look something like that::
+By executing the program your output should now look something like that:
+
+.. code-block:: bash
 
    $ ./simple_apr
    Username: Jens Frey

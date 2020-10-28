@@ -32,7 +32,9 @@ I'm on a Mac and if you have `Homebrew <https://brew.sh/>`_ installed, you can e
 
 If you're not on a Mac you need to use the package manager of your operating system to install the application.
 
-You can use the utility like so::
+You can use the utility like so:
+
+.. code-block:: bash
 
    #$> cd folder-with-pdf
    #$> qpdf --replace-input my.pdf
@@ -42,7 +44,9 @@ Docker
 
 If you are already using Docker_ then why not employ a container to get the job done. The container I am using is pretty heavyweight if you just need to use the little :code:`qpdf` utility and you may want to use a smaller container. However, if you're additionally documenting stuff with  `Sphinx <https://www.sphinx-doc.org/en/master/>`_ or use `Pelican <https://blog.getpelican.com/>`_ to write your blog, the heavyweight container might be a good choice for you anyway.
 
-You can use the `custom Sphinx <https://github.com/authsec/sphinx>`_ container as follows::
+You can use the `custom Sphinx <https://github.com/authsec/sphinx>`_ container as follows:
+
+.. code-block:: bash
 
    #$> cd folder-with-pdf
    #$> docker run --rm -it -v $(pwd):/docs authsec/sphinx qpdf --replace-input my.pdf

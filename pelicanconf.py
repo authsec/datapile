@@ -76,7 +76,7 @@ SOCIAL = (
 
 # Elegant theme
 IGNORE_FILES = ['*examples*']
-STATIC_PATHS = ["theme/images", "downloads", "examples"]
+STATIC_PATHS = ["downloads", "examples", "theme"]
 EXTRA_PATH_METADATA = {"extra/_redirects": {"path": "_redirects"},
 }
 STATIC_EXCLUDES = ["examples"]
@@ -112,7 +112,7 @@ SUBSCRIBE_BUTTON_TITLE = "Notify me"
 
 # SMO
 TWITTER_USERNAME = "authsec"
-FEATURED_IMAGE = SITEURL + "/theme/images/apple-touch-icon-152x152.png"
+#FEATURED_IMAGE = SITEURL + "/theme/images/apple-touch-icon-152x152.png"
 
 # Legal
 SITE_LICENSE = """Content licensed under <a rel="license nofollow noopener noreferrer"
