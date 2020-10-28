@@ -16,9 +16,9 @@ jobs:
     - name: Cloning Pelican Themes branch
       uses: actions/checkout@v2
       with:
-        repository: 'getpelican/pelican-themes'
+        repository: 'Pelican-Elegant/elegant'
         ref: 'master'
-        path: 'pelican-themes'
+        path: 'pelican-themes/elegant'
         submodules: 'recursive'
 
     - name: Cloning Pelican Plugins branch
