@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Datapile</title><link href="https://datapile.coffeecrew.org/" rel="alternate"></link><link href="https://datapile.coffeecrew.org/feeds/all.atom.xml" rel="self"></link><id>https://datapile.coffeecrew.org/</id><updated>2020-10-21T21:56:00+01:00</updated><subtitle>Against Digital Amnesia</subtitle><entry><title>Fixing Vagrant and VMware Fusion</title><link href="https://datapile.coffeecrew.org/fixing-vagrant-and-vmware-fusion" rel="alternate"></link><published>2020-10-21T21:56:00+01:00</published><updated>2020-10-21T21:56:00+01:00</updated><author><name>Jens Frey</name></author><id>tag:datapile.coffeecrew.org,2020-10-21:/fixing-vagrant-and-vmware-fusion</id><summary type="html">&lt;p class="first last"&gt;This post shows you how you can fix the port forward conflict on host port&amp;nbsp;2222.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Datapile</title><link href="https://datapile.coffeecrew.org/" rel="alternate"></link><link href="https://datapile.coffeecrew.org/feeds/all.atom.xml" rel="self"></link><id>https://datapile.coffeecrew.org/</id><updated>2020-10-24T18:56:00+01:00</updated><subtitle>Against Digital Amnesia</subtitle><entry><title>Get ansible_host from host group</title><link href="https://datapile.coffeecrew.org/get-ansible_host-from-host-group" rel="alternate"></link><published>2020-10-24T18:56:00+01:00</published><updated>2020-10-24T18:56:00+01:00</updated><author><name>Jens Frey</name></author><id>tag:datapile.coffeecrew.org,2020-10-24:/get-ansible_host-from-host-group</id><summary type="html">&lt;p class="first last"&gt;How to get the &lt;span class="caps"&gt;IP&lt;/span&gt; address from host&amp;nbsp;group.&lt;/p&gt;
+</summary><content type="html">&lt;p&gt;Assume you are working with this inventory (&lt;code&gt;hosts&lt;/code&gt;)&amp;nbsp;file:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+[bootstrap]
+opihi.example.com ansible_host=192.168.30.254 ansible_user=you ansible_password='{{ vault_opihi_you_user_password }}' ansible_python_interpreter=/usr/bin/python3
+&lt;/pre&gt;
+&lt;p&gt;then you can get the &lt;span class="caps"&gt;IP&lt;/span&gt; address with the expression &lt;code&gt;{{ hostvars[groups['bootstrap'][0]].ansible_host }}&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Here is an example&amp;nbsp;playbook:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+---
+- hosts: localhost
+
+  tasks:
+      - debug: msg={{ hostvars[groups['bootstrap'][0]].ansible_host }}
+&lt;/pre&gt;
+&lt;p&gt;Which will&amp;nbsp;output:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+$#&amp;gt; ansible-playbook -i inventories/prod/ debug.yml
+
+    PLAY [localhost] ********************************************************************************************************************************
+
+    TASK [Gathering Facts] **************************************************************************************************************************
+    ok: [localhost]
+
+    TASK [debug] ************************************************************************************************************************************
+    ok: [localhost] =&amp;gt; {}
+
+    MSG:
+
+    192.168.30.254
+
+    PLAY RECAP **************************************************************************************************************************************
+    localhost                  : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+&lt;/pre&gt;
+&lt;p&gt;Enjoy.&lt;/p&gt;
+</content><category term="Infrastructure"></category><category term="Ansible"></category></entry><entry><title>Fixing Vagrant and VMware Fusion</title><link href="https://datapile.coffeecrew.org/fixing-vagrant-and-vmware-fusion" rel="alternate"></link><published>2020-10-21T21:56:00+01:00</published><updated>2020-10-21T21:56:00+01:00</updated><author><name>Jens Frey</name></author><id>tag:datapile.coffeecrew.org,2020-10-21:/fixing-vagrant-and-vmware-fusion</id><summary type="html">&lt;p class="first last"&gt;This post shows you how you can fix the port forward conflict on host port&amp;nbsp;2222.&lt;/p&gt;
 </summary><content type="html">&lt;p&gt;For some reason &lt;a class="reference external" href="https://www.vagrantup.com/"&gt;Vagrant&lt;/a&gt; is sometimes unable to start the virtual machine and aborts with an error message&amp;nbsp;like:&lt;/p&gt;
 &lt;pre class="literal-block"&gt;
 Some of the defined forwarded ports would collide with existing
