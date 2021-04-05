@@ -2,6 +2,7 @@ How To Remove PDF Write Protection
 ##################################
 
 :date: 2020-10-11T14:23:00+01:00
+:modified: 2021-04-05T16:35:00+01:00
 :tags: PDF
 :category: Infrastructure
 :author: Jens Frey
@@ -37,7 +38,7 @@ You can use the utility like so:
 .. code-block:: bash
 
    #$> cd folder-with-pdf
-   #$> qpdf --replace-input my.pdf
+   #$> qpdf --decrypt --replace-input my.pdf
 
 Docker
 ------
@@ -49,8 +50,25 @@ You can use the `custom Sphinx <https://github.com/authsec/sphinx>`_ container a
 .. code-block:: bash
 
    #$> cd folder-with-pdf
-   #$> docker run --rm -it -v $(pwd):/docs authsec/sphinx qpdf --replace-input my.pdf
+   #$> docker run --rm -it -v $(pwd):/docs authsec/sphinx qpdf --decrypt --replace-input my.pdf
 
 .. note:: If you're on Windows, the current working directory needs to be specified with :code:`${PWD}`.
 
 .. _Docker: https://www.docker.com/
+
+Bulk Update
+-----------
+
+If you do have a folder full of PDFs you want to convert, open up a terminal and navigate to the folder that contains the PDFs. Next execute the following command to bulk remove the PDF write protection:
+
+.. code-block:: bash
+
+   #$> cd folder-with-pdf
+   #$> find . -name \*.pdf -exec sh -c 'qpdf --decrypt --replace-input "{}"' \;
+
+You can also add another command that moves the converted file into another folder like so (note that doing it as shown below will flatten your directory structure):
+
+.. code-block:: bash
+
+   #$> cd folder-with-pdf
+   #$> find . -name \*.pdf -exec sh -c 'qpdf --decrypt --replace-input "{}"; mv "{}" ../writeProtectionRemoved' \;
