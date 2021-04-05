@@ -26,6 +26,7 @@
 <meta property="og:site_name" content="Datapile" />
 <meta property="og:article:author" content="Jens Frey" />
 <meta property="og:article:published_time" content="2020-10-11T14:23:00+01:00" />
+<meta property="og:article:modified_time" content="2021-04-05T16:35:00+01:00" />
 <meta name="twitter:title" content="How To Remove PDF Write Protection ">
 <meta name="twitter:description" content="This post shows you how you can remove write protection from a locked PDF.">
 
@@ -120,7 +121,7 @@ Run qpdf --copyright to see copyright and license information.
 <p>If you&#8217;re not on a Mac you need to use the package manager of your operating system to install the&nbsp;application.</p>
 <p>You can use the utility like&nbsp;so:</p>
 <div class="highlight"><pre><span></span><span class="c1">#$&gt; cd folder-with-pdf</span>
-<span class="c1">#$&gt; qpdf --replace-input my.pdf</span>
+<span class="c1">#$&gt; qpdf --decrypt --replace-input my.pdf</span>
 </pre></div>
 </div>
 <div class="section" id="docker">
@@ -128,12 +129,23 @@ Run qpdf --copyright to see copyright and license information.
 <p>If you are already using <a class="reference external" href="https://www.docker.com/">Docker</a> then why not employ a container to get the job done. The container I am using is pretty heavyweight if you just need to use the little <code>qpdf</code> utility and you may want to use a smaller container. However, if you&#8217;re additionally documenting stuff with  <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> or use <a class="reference external" href="https://blog.getpelican.com/">Pelican</a> to write your blog, the heavyweight container might be a good choice for you&nbsp;anyway.</p>
 <p>You can use the <a class="reference external" href="https://github.com/authsec/sphinx">custom Sphinx</a> container as&nbsp;follows:</p>
 <div class="highlight"><pre><span></span><span class="c1">#$&gt; cd folder-with-pdf</span>
-<span class="c1">#$&gt; docker run --rm -it -v $(pwd):/docs authsec/sphinx qpdf --replace-input my.pdf</span>
+<span class="c1">#$&gt; docker run --rm -it -v $(pwd):/docs authsec/sphinx qpdf --decrypt --replace-input my.pdf</span>
 </pre></div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If you&#8217;re on Windows, the current working directory needs to be specified with <code>${PWD}</code>.</p>
 </div>
+</div>
+<div class="section" id="bulk-update">
+<h3>Bulk&nbsp;Update</h3>
+<p>If you do have a folder full of PDFs you want to convert, open up a terminal and navigate to the folder that contains the PDFs. Next execute the following command to bulk remove the <span class="caps">PDF</span> write&nbsp;protection:</p>
+<div class="highlight"><pre><span></span><span class="c1">#$&gt; cd folder-with-pdf</span>
+<span class="c1">#$&gt; find . -name \*.pdf -exec sh -c &#39;qpdf --decrypt --replace-input &quot;{}&quot;&#39; \;</span>
+</pre></div>
+<p>You can also add another command that moves the converted file into another folder like so (note that doing it as shown below will flatten your directory&nbsp;structure):</p>
+<div class="highlight"><pre><span></span><span class="c1">#$&gt; cd folder-with-pdf</span>
+<span class="c1">#$&gt; find . -name \*.pdf -exec sh -c &#39;qpdf --decrypt --replace-input &quot;{}&quot;; mv &quot;{}&quot; ../writeProtectionRemoved&#39; \;</span>
+</pre></div>
 </div>
 </div>
 
@@ -177,6 +189,9 @@ Run qpdf --copyright to see copyright and license information.
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
             <time itemprop="dateCreated" datetime="2020-10-11T14:23:00+01:00">Oct 11, 2020</time>
+<h4>Last Updated</h4>
+<time datetime="2021-04-05T16:35:00+01:00">Apr 5, 2021</time>
+
             <h4>Category</h4>
             <a class="category-link" href="https://datapile.coffeecrew.org/categories#infrastructure-ref">Infrastructure</a>
             <h4>Tags</h4>

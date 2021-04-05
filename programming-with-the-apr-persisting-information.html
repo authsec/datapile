@@ -159,14 +159,14 @@
  * $&gt; gcc $APR_LIBS $APU_LIBS aprWithSdbm.c -o aprWithSdbm
  */</span>
 
-<span class="k">struct</span> <span class="nc">userRecord</span>
+<span class="k">struct</span> <span class="n">userRecord</span>
 <span class="p">{</span>
   <span class="n">apr_time_t</span> <span class="n">creationDate</span><span class="p">;</span>
   <span class="kt">char</span> <span class="o">*</span><span class="n">username</span><span class="p">;</span>
   <span class="kt">char</span> <span class="o">*</span><span class="n">password</span><span class="p">;</span>
 <span class="p">};</span>
 
-<span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="k">struct</span> <span class="nc">userRecord</span> <span class="o">*</span><span class="n">user</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="k">struct</span> <span class="n">userRecord</span> <span class="o">*</span><span class="n">user</span><span class="p">);</span>
 <span class="cm">/* since apr_datum_t* results in a nested structure
  * this allocates the memory on the nested
  * char* onto the given pool.
@@ -182,10 +182,10 @@
 
 <span class="n">apr_status_t</span> <span class="nf">persistUserRecord</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span>
                                <span class="n">apr_dbm_t</span> <span class="o">*</span><span class="n">database</span><span class="p">,</span>
-                               <span class="k">struct</span> <span class="nc">userRecord</span> <span class="o">*</span><span class="n">user</span><span class="p">);</span>
+                               <span class="k">struct</span> <span class="n">userRecord</span> <span class="o">*</span><span class="n">user</span><span class="p">);</span>
 
 <span class="kt">void</span> <span class="nf">persistUserRecords</span><span class="p">(</span><span class="n">apr_table_t</span> <span class="o">*</span><span class="n">userRecords</span><span class="p">);</span>
-<span class="k">struct</span> <span class="nc">userRecord</span> <span class="o">*</span><span class="n">readUserRecord</span><span class="p">(</span><span class="n">apr_pool_t</span> <span class="o">*</span><span class="n">resultPool</span><span class="p">,</span>
+<span class="k">struct</span> <span class="n">userRecord</span> <span class="o">*</span><span class="nf">readUserRecord</span><span class="p">(</span><span class="n">apr_pool_t</span> <span class="o">*</span><span class="n">resultPool</span><span class="p">,</span>
                                   <span class="n">apr_dbm_t</span> <span class="o">*</span><span class="n">db</span><span class="p">,</span>
                                   <span class="n">apr_datum_t</span> <span class="o">*</span><span class="n">lastReadKey</span><span class="p">);</span>
 <span class="n">apr_table_t</span> <span class="o">*</span><span class="nf">readUserRecords</span><span class="p">(</span><span class="n">apr_pool_t</span> <span class="o">*</span><span class="n">resultPool</span><span class="p">);</span>
@@ -195,8 +195,8 @@
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">)</span>
 <span class="p">{</span>
 
-  <span class="k">struct</span> <span class="nc">userRecord</span> <span class="o">*</span><span class="n">user</span><span class="p">,</span> <span class="o">*</span><span class="n">user2</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-  <span class="k">struct</span> <span class="nc">userRecord</span> <span class="o">*</span><span class="n">userReadBack</span><span class="p">,</span> <span class="o">*</span><span class="n">userReadBack2</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="k">struct</span> <span class="n">userRecord</span> <span class="o">*</span><span class="n">user</span><span class="p">,</span> <span class="o">*</span><span class="n">user2</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="k">struct</span> <span class="n">userRecord</span> <span class="o">*</span><span class="n">userReadBack</span><span class="p">,</span> <span class="o">*</span><span class="n">userReadBack2</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
   <span class="n">apr_pool_t</span> <span class="o">*</span><span class="n">mainPool</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
   <span class="n">apr_dbm_t</span> <span class="o">*</span><span class="n">db</span><span class="p">;</span>
   <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -216,13 +216,13 @@
   <span class="n">apr_pool_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mainPool</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
 
   <span class="cm">/* Allocate memory for a user on the main pool */</span>
-  <span class="n">user</span> <span class="o">=</span> <span class="n">apr_palloc</span><span class="p">(</span><span class="n">mainPool</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="nc">userRecord</span><span class="p">));</span>
+  <span class="n">user</span> <span class="o">=</span> <span class="n">apr_palloc</span><span class="p">(</span><span class="n">mainPool</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">userRecord</span><span class="p">));</span>
 
   <span class="n">user</span><span class="o">-&gt;</span><span class="n">username</span> <span class="o">=</span> <span class="n">apr_pstrdup</span><span class="p">(</span><span class="n">mainPool</span><span class="p">,</span> <span class="s">&quot;Jens Frey&quot;</span><span class="p">);</span>
   <span class="n">user</span><span class="o">-&gt;</span><span class="n">password</span> <span class="o">=</span> <span class="n">apr_pstrdup</span><span class="p">(</span><span class="n">mainPool</span><span class="p">,</span> <span class="s">&quot;secret&quot;</span><span class="p">);</span>
   <span class="n">user</span><span class="o">-&gt;</span><span class="n">creationDate</span> <span class="o">=</span> <span class="n">apr_time_now</span><span class="p">();</span>
 
-  <span class="n">user2</span> <span class="o">=</span> <span class="n">apr_palloc</span><span class="p">(</span><span class="n">mainPool</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="nc">userRecord</span><span class="p">));</span>
+  <span class="n">user2</span> <span class="o">=</span> <span class="n">apr_palloc</span><span class="p">(</span><span class="n">mainPool</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">userRecord</span><span class="p">));</span>
 
   <span class="n">user2</span><span class="o">-&gt;</span><span class="n">username</span> <span class="o">=</span> <span class="n">apr_pstrdup</span><span class="p">(</span><span class="n">mainPool</span><span class="p">,</span> <span class="s">&quot;Master Frey&quot;</span><span class="p">);</span>
   <span class="n">user2</span><span class="o">-&gt;</span><span class="n">password</span> <span class="o">=</span> <span class="n">apr_pstrdup</span><span class="p">(</span><span class="n">mainPool</span><span class="p">,</span> <span class="s">&quot;more secret password&quot;</span><span class="p">);</span>
@@ -259,12 +259,12 @@
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">struct</span> <span class="nc">userRecord</span> <span class="o">*</span><span class="n">readUserRecord</span><span class="p">(</span><span class="n">apr_pool_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="n">apr_dbm_t</span> <span class="o">*</span><span class="n">db</span><span class="p">,</span> <span class="n">apr_datum_t</span> <span class="o">*</span><span class="n">lastReadKey</span><span class="p">)</span>
+<span class="k">struct</span> <span class="n">userRecord</span> <span class="o">*</span><span class="nf">readUserRecord</span><span class="p">(</span><span class="n">apr_pool_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="n">apr_dbm_t</span> <span class="o">*</span><span class="n">db</span><span class="p">,</span> <span class="n">apr_datum_t</span> <span class="o">*</span><span class="n">lastReadKey</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">apr_datum_t</span> <span class="n">tmp</span><span class="p">;</span>
   <span class="n">apr_status_t</span> <span class="n">rv</span><span class="p">;</span>
 
-  <span class="k">struct</span> <span class="nc">userRecord</span> <span class="o">*</span><span class="n">user</span> <span class="o">=</span> <span class="n">apr_palloc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="nc">userRecord</span><span class="p">));</span>
+  <span class="k">struct</span> <span class="n">userRecord</span> <span class="o">*</span><span class="n">user</span> <span class="o">=</span> <span class="n">apr_palloc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">userRecord</span><span class="p">));</span>
 
   <span class="n">PDEBUG_NA</span><span class="p">(</span><span class="s">&quot;enter readUserRecord()&quot;</span><span class="p">);</span>
 
@@ -302,7 +302,7 @@
 <span class="cm">/* Converts an apr_time_t into a
  * persistable apr_datum_t
  */</span>
-<span class="n">apr_datum_t</span><span class="o">*</span> <span class="n">time2datum</span><span class="p">(</span><span class="n">apr_pool_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="n">apr_time_t</span> <span class="o">*</span><span class="n">toDatum</span><span class="p">)</span>
+<span class="n">apr_datum_t</span><span class="o">*</span> <span class="nf">time2datum</span><span class="p">(</span><span class="n">apr_pool_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="n">apr_time_t</span> <span class="o">*</span><span class="n">toDatum</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">apr_size_t</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="n">apr_datum_t</span> <span class="o">*</span><span class="n">dt</span> <span class="o">=</span> <span class="n">apr_palloc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">apr_datum_t</span><span class="p">));</span>
@@ -320,7 +320,7 @@
  * to be held is saved in the given memory pool.
  *
  */</span>
-<span class="n">apr_datum_t</span><span class="o">*</span> <span class="n">string2datum</span><span class="p">(</span><span class="n">apr_pool_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">toDatum</span><span class="p">)</span>
+<span class="n">apr_datum_t</span><span class="o">*</span> <span class="nf">string2datum</span><span class="p">(</span><span class="n">apr_pool_t</span> <span class="o">*</span><span class="n">p</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">toDatum</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">apr_datum_t</span> <span class="o">*</span><span class="n">dt</span> <span class="o">=</span> <span class="n">apr_palloc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">apr_datum_t</span><span class="p">));</span>
 
@@ -343,7 +343,7 @@
  * There should however be no problem if you are just adding transient
  * parameters that should not be persisted at all.
  */</span>
-<span class="n">apr_status_t</span> <span class="n">persistUserRecord</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">apr_dbm_t</span> <span class="o">*</span><span class="n">database</span><span class="p">,</span> <span class="k">struct</span> <span class="nc">userRecord</span> <span class="o">*</span><span class="n">user</span><span class="p">)</span>
+<span class="n">apr_status_t</span> <span class="nf">persistUserRecord</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">apr_dbm_t</span> <span class="o">*</span><span class="n">database</span><span class="p">,</span> <span class="k">struct</span> <span class="n">userRecord</span> <span class="o">*</span><span class="n">user</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">apr_status_t</span> <span class="n">rv</span><span class="p">;</span>
   <span class="n">apr_datum_t</span> <span class="o">*</span><span class="n">dumpKey</span><span class="p">;</span>
@@ -371,7 +371,7 @@
 <span class="cm">/*
   Assumes an open database.
  */</span>
-<span class="n">apr_status_t</span> <span class="n">persistDatum</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">apr_dbm_t</span> <span class="o">*</span><span class="n">database</span><span class="p">,</span> <span class="n">apr_datum_t</span> <span class="o">*</span><span class="n">toDump</span><span class="p">)</span>
+<span class="n">apr_status_t</span> <span class="nf">persistDatum</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">*</span><span class="n">key</span><span class="p">,</span> <span class="n">apr_dbm_t</span> <span class="o">*</span><span class="n">database</span><span class="p">,</span> <span class="n">apr_datum_t</span> <span class="o">*</span><span class="n">toDump</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">apr_status_t</span> <span class="n">rv</span><span class="p">;</span>
   <span class="n">apr_datum_t</span> <span class="n">datumKey</span><span class="p">;</span>
@@ -393,7 +393,7 @@
   <span class="k">return</span> <span class="n">rv</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="n">print</span><span class="p">(</span><span class="k">struct</span> <span class="nc">userRecord</span> <span class="o">*</span><span class="n">user</span><span class="p">)</span>
+<span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="k">struct</span> <span class="n">userRecord</span> <span class="o">*</span><span class="n">user</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">apr_pool_t</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
   <span class="kt">char</span> <span class="o">*</span><span class="n">timeReadable</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
