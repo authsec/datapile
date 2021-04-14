@@ -99,22 +99,22 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>You downloaded a <span class="file">.tex</span> document from somewhere, made a few modifications and want to compile it into a <span class="caps">PDF</span> file now. Of course you don&#8217;t want to permanently install a plethora of software for that on your device too, as you just need to compile that single&nbsp;document.</p>
+            <p>You downloaded a <code>.tex</code> document from somewhere, made a few modifications and want to compile it into a <span class="caps">PDF</span> file now. Of course you don&#8217;t want to permanently install a plethora of software for that on your device too, as you just need to compile that single&nbsp;document.</p>
 <p>If you have <a class="reference external" href="https://www.docker.com/products/docker-desktop">Docker</a> installed, I&#8217;ve got you&nbsp;covered.</p>
-<p>We use the following <span class="file">article.tex</span> file to check if compilation into a <span class="caps">PDF</span> file&nbsp;works:</p>
+<p>We use the following <code>article.tex</code> file to check if compilation into a <span class="caps">PDF</span> file&nbsp;works:</p>
 <div class="highlight"><pre><span></span><span class="k">\documentclass</span><span class="nb">{</span>article<span class="nb">}</span>
 <span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span>
 Hello World!
 <span class="k">\end</span><span class="nb">{</span>document<span class="nb">}</span>
 </pre></div>
-<p>Simply navigate to the folder where you&#8217;ve put your <span class="file">article.tex</span> file and execute the following command in your&nbsp;terminal:</p>
+<p>Simply navigate to the folder where you&#8217;ve put your <code>article.tex</code> file and execute the following command in your&nbsp;terminal:</p>
 <div class="highlight"><pre><span></span><span class="c1">#&gt; docker run --rm -v $(pwd):/docs authsec/sphinx pdflatex article.tex</span>
 </pre></div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If you&#8217;re running Windows the command is basically the same, but you need to replace <code>$(pwd)</code> with <code>${PWD}</code> for the above command to&nbsp;work.</p>
 </div>
-<p>This command generates an <span class="file">article.pdf</span> file with the content &#8220;Hello&nbsp;World!&#8221;</p>
+<p>This command generates an <code>article.pdf</code> file with the content &#8220;Hello&nbsp;World!&#8221;</p>
 <p>For advanced use cases you can of course add additional <code>pdflatex</code> command line flags like <code>-interaction=batchmode</code>. Just append after the <code>pdflatex</code> command as if you&#8217;d use the regular&nbsp;command.</p>
 <div class="highlight"><pre><span></span><span class="c1">#&gt; docker run --rm -v $(pwd):/docs authsec/sphinx pdflatex -interaction=batchmode article.tex</span>
 </pre></div>
@@ -168,6 +168,7 @@ Hello World!
             <nav>
             <ul class="articles-timeline">
                 <li class="previous-article">« <a href="https://datapile.coffeecrew.org/windows-10-pro-activation-error-0x8004fe33" title="Previous: Windows 10 Pro activation error 0x8004FE33">Windows 10 Pro activation error 0x8004FE33</a></li>
+                <li class="next-article"><a href="https://datapile.coffeecrew.org/get-windows-wifi-password" title="Next: Get Windows WiFi Password">Get Windows WiFi Password</a> »</li>
             </ul>
             </nav>
             </aside>
