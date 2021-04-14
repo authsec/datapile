@@ -6,11 +6,11 @@ No Fuzz LaTeX Document Compilation
 :category: Infrastructure
 :summary: How to easily compile a LaTeX document with docker
 
-You downloaded a :file:`.tex` document from somewhere, made a few modifications and want to compile it into a PDF file now. Of course you don't want to permanently install a plethora of software for that on your device too, as you just need to compile that single document.
+You downloaded a :code:`.tex` document from somewhere, made a few modifications and want to compile it into a PDF file now. Of course you don't want to permanently install a plethora of software for that on your device too, as you just need to compile that single document.
 
 If you have `Docker <https://www.docker.com/products/docker-desktop>`_ installed, I've got you covered. 
 
-We use the following :file:`article.tex` file to check if compilation into a PDF file works:
+We use the following :code:`article.tex` file to check if compilation into a PDF file works:
 
 .. code-block:: latex
 
@@ -19,7 +19,7 @@ We use the following :file:`article.tex` file to check if compilation into a PDF
    Hello World!
    \end{document}
 
-Simply navigate to the folder where you've put your :file:`article.tex` file and execute the following command in your terminal:
+Simply navigate to the folder where you've put your :code:`article.tex` file and execute the following command in your terminal:
 
 .. code-block:: bash
 
@@ -27,7 +27,7 @@ Simply navigate to the folder where you've put your :file:`article.tex` file and
 
 .. note:: If you're running Windows the command is basically the same, but you need to replace :code:`$(pwd)` with :code:`${PWD}` for the above command to work.
 
-This command generates an :file:`article.pdf` file with the content "Hello World!"
+This command generates an :code:`article.pdf` file with the content "Hello World!"
 
 For advanced use cases you can of course add additional :code:`pdflatex` command line flags like :code:`-interaction=batchmode`. Just append after the :code:`pdflatex` command as if you'd use the regular command.
 
