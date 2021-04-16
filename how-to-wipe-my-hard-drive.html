@@ -12,25 +12,24 @@
 
         <meta name="author" content="Jens Frey" />
 
-        <meta name="description" content="This article will show you how to use the OpenID delegation feature which allows you to use your own domain as an identifier for OpenID.
+        <meta name="description" content="How to wipe all data from my hard drive.
 " />
         <meta name="twitter:creator" content="@authsec">
         <meta property="og:type" content="article" />
         <meta name="twitter:card" content="summary">
 
-<meta name="keywords" content="OpenID, Security, Security, " />
+<meta name="keywords" content="Linux, Windows, Fundamentals, " />
 
-<meta property="og:title" content="Use your own website as OpenID login "/>
-<meta property="og:url" content="https://datapile.coffeecrew.org/use-your-own-website-as-openid-login" />
-<meta property="og:description" content="This article will show you how to use the OpenID delegation feature which allows you to use your own domain as an identifier for OpenID." />
+<meta property="og:title" content="How to wipe my hard drive "/>
+<meta property="og:url" content="https://datapile.coffeecrew.org/how-to-wipe-my-hard-drive" />
+<meta property="og:description" content="How to wipe all data from my hard drive." />
 <meta property="og:site_name" content="Datapile" />
 <meta property="og:article:author" content="Jens Frey" />
-<meta property="og:article:published_time" content="2010-11-12T14:00:34+01:00" />
-<meta property="og:article:modified_time" content="2010-12-04T18:40:00+01:00" />
-<meta name="twitter:title" content="Use your own website as OpenID login ">
-<meta name="twitter:description" content="This article will show you how to use the OpenID delegation feature which allows you to use your own domain as an identifier for OpenID.">
+<meta property="og:article:published_time" content="2021-04-16T13:03:43+01:00" />
+<meta name="twitter:title" content="How to wipe my hard drive ">
+<meta name="twitter:description" content="How to wipe all data from my hard drive.">
 
-        <title>Use your own website as OpenID login  · Datapile
+        <title>How to wipe my hard drive  · Datapile
 </title>
         <link rel="shortcut icon" href="https://datapile.coffeecrew.org/theme/images/favicon.ico" type="image/x-icon" />
         <link rel="icon" href="https://datapile.coffeecrew.org/theme/images/apple-touch-icon-152x152.png" type="image/png" />
@@ -90,8 +89,8 @@
 <div class="row-fluid">
     <header class="page-header span10 offset2">
         <h1>
-            <a href="https://datapile.coffeecrew.org/use-your-own-website-as-openid-login">
-                Use your own website as OpenID&nbsp;login
+            <a href="https://datapile.coffeecrew.org/how-to-wipe-my-hard-drive">
+                How to wipe my hard&nbsp;drive
             </a>
         </h1>
     </header>
@@ -100,74 +99,18 @@
 <div class="row-fluid">
         <div class="span8 offset2 article-content">
             
-            <p>If you want to use OpenID as an authentication mechanism, but are
-afraid of the fact that your OpenID provider may die in the future, or
-you simply might want to use another provider in the future, you can
-use a delegation model with&nbsp;OpenID.</p>
-<p>A reason to change the OpenID provider might be, that your current
-OpenID provider does not support an authentication mechanism you like
-to, as for example the YubiKey or something like&nbsp;that.</p>
-<p>Let&#8217;s say you want to use <a class="reference external" href="http://xyz.example.com">http://xyz.example.com</a> as your OpenID and
-you want to use <a class="reference external" href="http://clavid.com">http://clavid.com</a> as your Identity Provider, you have to
-execute the following&nbsp;steps.</p>
-<div class="section" id="create-a-sub-domain-for-example-com-called-xyz">
-<h2>Create a (sub-)domain for example.com called&nbsp;xyz.</h2>
-<p>This can for example be done by adding another virtual host to your
-apache configuration. The configuration might look like the following&nbsp;one:</p>
-<div class="highlight"><pre><span></span><span class="nt">&lt;VirtualHost</span> <span class="s">xx.xx.xx.xx:80</span><span class="nt">&gt;</span>
-        <span class="nb">ServerAdmin</span> webmaster@example.com
-        <span class="nb">ServerName</span> xyz.example.com
-
-        <span class="nb">DocumentRoot</span> <span class="sx">/var/www/xyz/</span>
-
-        <span class="nt">&lt;Directory</span> <span class="s">/var/www/xyz/</span><span class="nt">&gt;</span>
-                <span class="c"># Options Indexes MultiViews</span>
-                <span class="nb">AllowOverride</span> <span class="k">None</span>
-                <span class="nb">Order</span> allow,deny
-                <span class="nb">allow</span> from <span class="k">all</span>
-        <span class="nt">&lt;/Directory&gt;</span>
-
-        <span class="nb">ErrorLog</span> <span class="sx">/var/log/apache2/error_xyz.log</span>
-
-        <span class="c"># Possible values include: debug, info, notice, warn, error, crit,</span>
-        <span class="c"># alert, emerg.</span>
-
-        <span class="nb">LogLevel</span> <span class="k">warn</span>
-        <span class="nb">CustomLog</span> <span class="sx">/var/log/apache2/access_xyz.log</span> combined
-<span class="nt">&lt;/VirtualHost&gt;</span>
+            <div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">If you are using these commands your files will be irrevocably deleted! So make sure you understand what you are&nbsp;doing!</p>
+</div>
+<p>To securely delete all your data from your hard drive, you can boot your computer with a Linux distribution either from a <span class="caps">CD</span> or <span class="caps">DVD</span> drive or a simple <span class="caps">USB</span> stick. You can find a how to on creating such a <span class="caps">USB</span> stick <a class="reference external" href="https://datapile.coffeecrew.org/boot-linux-from-usb-stick">here</a>.</p>
+<p>Once you&#8217;ve booted up your computer with the thumb drive, you need to open a terminal and enter the following&nbsp;command:</p>
+<div class="highlight"><pre><span></span><span class="c1">#&gt; shred -v /dev/sdX</span>
 </pre></div>
-</div>
-<div class="section" id="create-a-index-html-file-inside-your-document-root">
-<h2>Create a index.html file inside your document&nbsp;root</h2>
-<p>As a next step you have to create a index.html file in your document
-root (in this case <span class="file">/var/www/xyz</span>) with the following content in order
-for OpenID services being able to find your current identity&nbsp;provider:</p>
-<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Jens&#39; OpenID delegation page<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;openid.server&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;http://www.clavid.com/provider/openid&quot;</span> <span class="p">/&gt;</span>
-        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;openid2.provider&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;http://www.clavid.com/provider/openid&quot;</span> <span class="p">/&gt;</span>
-        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;openid.delegate&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;http://jens.clavid.com&quot;</span> <span class="p">/&gt;</span>
-        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;openid2.local_id&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;http://jens.clavid.com&quot;</span> <span class="p">/&gt;</span>
-<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>This page is used for OpenID delegation.<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
-        For more information on OpenID either visit
-        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;http://openid.net&quot;</span><span class="p">&gt;</span>http://openid.net<span class="p">&lt;</span><span class="nt">a</span><span class="p">&gt;</span> or
-        <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;http://clavid.com&quot;</span><span class="p">&gt;</span>http://clavid.com<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+<p>Where <code>X</code> is the drive identifier. Your first hard drive is likely to be <code>/dev/sda</code>, but your mileage may vary. If you are unsure that this is the correct drive, you can&nbsp;execute</p>
+<div class="highlight"><pre><span></span><span class="c1">#&gt; cfdisk /dev/sda</span>
 </pre></div>
-</div>
-<div class="section" id="ready">
-<h2>Ready</h2>
-<p>From now on you can use <a class="reference external" href="http://xyz.example.com">http://xyz.example.com</a> as your OpenID, which will, as currently configured, be redirecting to <a class="reference external" href="http://clavid.com">http://clavid.com</a> where authentication will take&nbsp;place.</p>
-</div>
-<div class="section" id="references">
-<h2>References</h2>
-<p>You can read all about OpenID in the specification, but the part used for this example is available&nbsp;at:</p>
-<p><a class="reference external" href="http://openid.net/specs/openid-authentication-1_1.html#delegating_authentication">http://openid.net/specs/openid-authentication-1_1.html#delegating_authentication</a></p>
-</div>
+<p>and see from the size of the drive and partitions if this is the expected&nbsp;drive.</p>
 
 
 
@@ -175,9 +118,9 @@ for OpenID services being able to find your current identity&nbsp;provider:</p>
  
                 <p id="post-share-links">
     Like this post? Share on:
-      <a href="https://twitter.com/intent/tweet?text=Use%20your%20own%20website%20as%20OpenID%C2%A0login&url=https%3A//datapile.coffeecrew.org/use-your-own-website-as-openid-login&via=authsec&hashtags=openid,security" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
- ❄       <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/use-your-own-website-as-openid-login" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
- ❄       <a href="mailto:?subject=Use%20your%20own%20website%20as%20OpenID%C2%A0login&amp;body=https%3A//datapile.coffeecrew.org/use-your-own-website-as-openid-login" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
+      <a href="https://twitter.com/intent/tweet?text=How%20to%20wipe%20my%20hard%C2%A0drive&url=https%3A//datapile.coffeecrew.org/how-to-wipe-my-hard-drive&via=authsec&hashtags=linux,windows" target="_blank" rel="nofollow noopener noreferrer" title="Share on Twitter">Twitter</a>
+ ❄       <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//datapile.coffeecrew.org/how-to-wipe-my-hard-drive" target="_blank" rel="nofollow noopener noreferrer" title="Share on Facebook">Facebook</a>
+ ❄       <a href="mailto:?subject=How%20to%20wipe%20my%20hard%C2%A0drive&amp;body=https%3A//datapile.coffeecrew.org/how-to-wipe-my-hard-drive" target="_blank" rel="nofollow noopener noreferrer" title="Share via Email">Email</a>
 
                 <hr />
     <div class="author-blurb">
@@ -201,32 +144,29 @@ for OpenID services being able to find your current identity&nbsp;provider:</p>
     <h2>Keep Reading</h2>
 <ul class="related-posts-list">
 <li><a href="https://datapile.coffeecrew.org/get-windows-wi-fi-password" title="Get Windows Wi-Fi Password">Get Windows Wi-Fi Password</a></li>
+<li><a href="https://datapile.coffeecrew.org/boot-linux-from-usb-stick" title="Boot Linux from USB Stick">Boot Linux from USB Stick</a></li>
 </ul>
 <hr />
 </section>
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/customizing-emacs" title="Previous: Customizing Emacs">Customizing Emacs</a></li>
-                <li class="next-article"><a href="https://datapile.coffeecrew.org/goodbye" title="Next: Goodbye">Goodbye</a> »</li>
+                <li class="previous-article">« <a href="https://datapile.coffeecrew.org/boot-linux-from-usb-stick" title="Previous: Boot Linux from USB Stick">Boot Linux from USB Stick</a></li>
             </ul>
             </nav>
             </aside>
         </div>
         <section id="article-sidebar" class="span2">
             <h4>Published</h4>
-            <time itemprop="dateCreated" datetime="2010-11-12T14:00:34+01:00">Nov 12, 2010</time>
-<h4>Last Updated</h4>
-<time datetime="2010-12-04T18:40:00+01:00">Dec 4, 2010</time>
-
+            <time itemprop="dateCreated" datetime="2021-04-16T13:03:43+01:00">Apr 16, 2021</time>
             <h4>Category</h4>
-            <a class="category-link" href="https://datapile.coffeecrew.org/categories#security-ref">Security</a>
+            <a class="category-link" href="https://datapile.coffeecrew.org/categories#fundamentals-ref">Fundamentals</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="https://datapile.coffeecrew.org/tags#openid-ref">OpenID
-                    <span class="superscript">1</span>
+                <li><a href="https://datapile.coffeecrew.org/tags#linux-ref">Linux
+                    <span class="superscript">2</span>
 </a></li>
-                <li><a href="https://datapile.coffeecrew.org/tags#security-ref">Security
+                <li><a href="https://datapile.coffeecrew.org/tags#windows-ref">Windows
                     <span class="superscript">2</span>
 </a></li>
             </ul>
