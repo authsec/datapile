@@ -2,8 +2,8 @@ Boot Linux from USB Stick
 #########################
 
 :date: 2021-04-15T13:03:43+01:00
-:tags: Linux, Fundamentals
-:category: Infrastructure
+:tags: Linux
+:category: Operating System
 :summary: How to create a USB stick with Linux.
 
 Sometimes you quickly need to boot up a PC with Linux. DVD drives may still be available in some PCs, but there is computer hardware without a CD/DVD drive out there.
