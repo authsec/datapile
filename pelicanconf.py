@@ -76,7 +76,7 @@ SOCIAL = (
 
 # Elegant theme
 IGNORE_FILES = ['*examples*']
-STATIC_PATHS = ["downloads", "examples", "theme"]
+STATIC_PATHS = ["downloads", "examples", "theme", "img"]
 EXTRA_PATH_METADATA = {"extra/_redirects": {"path": "_redirects"},
 }
 STATIC_EXCLUDES = ["examples"]

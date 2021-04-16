@@ -1,7 +1,8 @@
-Get Windows WiFi Password
-#########################
+Get Windows Wi-Fi Password
+##########################
 
 :date: 2021-04-13T13:03:43+01:00
+:modified: 2021-04-16T18:19:00+01:00
 :tags: Windows, Security
 :category: Infrastructure
 :summary: How to show your Windows Wi-Fi password.
