@@ -127,14 +127,14 @@ in <code>apr_tables.h</code>), provides such a data type to&nbsp;you.</p>
 #define APR_WANT_STDIO
 #include</span> <span class="cpf">&lt;apr_want.h&gt;</span><span class="cp">
 </span>
-<span class="k">struct</span> <span class="n">userRecord</span>
+<span class="k">struct</span> <span class="nc">userRecord</span>
 <span class="p">{</span>
   <span class="n">apr_time_t</span> <span class="n">creationDate</span><span class="p">;</span>
   <span class="kt">char</span> <span class="n">username</span><span class="p">[</span><span class="mi">30</span><span class="p">];</span>
   <span class="kt">char</span> <span class="n">password</span><span class="p">[</span><span class="mi">30</span><span class="p">];</span>
 <span class="p">};</span>
 
-<span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="k">struct</span> <span class="n">userRecord</span> <span class="o">*</span><span class="n">user</span><span class="p">)</span>
+<span class="kt">void</span> <span class="nf">print</span><span class="p">(</span><span class="k">struct</span> <span class="nc">userRecord</span> <span class="o">*</span><span class="n">user</span><span class="p">)</span>
 <span class="p">{</span>
   <span class="n">apr_pool_t</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
   <span class="kt">char</span> <span class="o">*</span><span class="n">timeReadable</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
@@ -161,8 +161,8 @@ in <code>apr_tables.h</code>), provides such a data type to&nbsp;you.</p>
 <span class="p">{</span>
   <span class="n">apr_status_t</span> <span class="n">rv</span><span class="p">;</span>
   <span class="n">apr_pool_t</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-  <span class="k">struct</span> <span class="n">userRecord</span> <span class="o">*</span><span class="n">cUser</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
-  <span class="k">struct</span> <span class="n">userRecord</span> <span class="o">*</span><span class="n">readUser</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="k">struct</span> <span class="nc">userRecord</span> <span class="o">*</span><span class="n">cUser</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+  <span class="k">struct</span> <span class="nc">userRecord</span> <span class="o">*</span><span class="n">readUser</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
   <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="kt">char</span> <span class="n">countName</span><span class="p">[</span><span class="mi">12</span><span class="p">];</span>
   <span class="n">apr_hash_index_t</span> <span class="o">*</span><span class="n">hidx</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
@@ -179,7 +179,7 @@ in <code>apr_tables.h</code>), provides such a data type to&nbsp;you.</p>
 
   <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">26</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">countName</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="p">)</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">65</span><span class="p">;</span>
-    <span class="n">cUser</span> <span class="o">=</span> <span class="n">apr_palloc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">userRecord</span><span class="p">));</span>
+    <span class="n">cUser</span> <span class="o">=</span> <span class="n">apr_palloc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="nc">userRecord</span><span class="p">));</span>
     <span class="n">apr_cpystrn</span><span class="p">(</span><span class="n">cUser</span><span class="o">-&gt;</span><span class="n">username</span><span class="p">,</span> <span class="n">countName</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="n">countName</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
     <span class="n">apr_cpystrn</span><span class="p">(</span><span class="n">cUser</span><span class="o">-&gt;</span><span class="n">password</span><span class="p">,</span> <span class="s">&quot;secret&quot;</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="s">&quot;secret&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
     <span class="n">cUser</span><span class="o">-&gt;</span><span class="n">creationDate</span> <span class="o">=</span> <span class="n">apr_time_now</span><span class="p">();</span>
@@ -199,7 +199,7 @@ in <code>apr_tables.h</code>), provides such a data type to&nbsp;you.</p>
   <span class="n">print</span><span class="p">(</span><span class="n">readUser</span><span class="p">);</span>
 
   <span class="n">printf</span><span class="p">(</span><span class="s">&quot;Hashtable size: %d bytes</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
-     <span class="n">apr_hash_count</span><span class="p">(</span><span class="n">ht</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">userRecord</span><span class="p">)</span>
+     <span class="n">apr_hash_count</span><span class="p">(</span><span class="n">ht</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="nc">userRecord</span><span class="p">)</span>
      <span class="o">+</span> <span class="n">apr_hash_count</span><span class="p">(</span><span class="n">ht</span><span class="p">)</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">readUser</span><span class="o">-&gt;</span><span class="n">username</span><span class="p">));</span>
 
   <span class="n">apr_terminate</span><span class="p">();</span>
