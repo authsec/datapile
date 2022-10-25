@@ -2,7 +2,7 @@ How To Remove PDF Write Protection
 ##################################
 
 :date: 2020-10-11T14:23:00+01:00
-:modified: 2021-04-05T16:35:00+01:00
+:modified: 2022-10-25T22:44:00+01:00
 :tags: PDF
 :category: Infrastructure
 :author: Jens Frey
@@ -72,3 +72,10 @@ You can also add another command that moves the converted file into another fold
 
    #$> cd folder-with-pdf
    #$> find . -name \*.pdf -exec sh -c 'qpdf --decrypt --replace-input "{}"; mv "{}" ../writeProtectionRemoved' \;
+
+If you want to combine removing write protection with Docker and reorganizing the processed file into another folder, you can combine the commands like so:
+
+.. code-block:: bash
+
+   #$> cd folder-with-pdf
+   #$> find . -name \*.pdf -exec sh -c 'docker run --rm -it -v $(pwd):/docs authsec/sphinx qpdf --decrypt --replace-input "{}"; mv "{}" ../writeProtectionRemoved' \;
